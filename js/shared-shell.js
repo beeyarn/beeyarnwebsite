@@ -7,7 +7,6 @@
     const pageLinks = [
         { label: 'Home', href: `${rootPrefix}index.html` },
         { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
-        { label: 'Creator Levels', href: `${rootPrefix}beeyarn-creator-level-system.html` },
         { label: 'Careers', href: `${rootPrefix}career/index.html` },
         { label: 'FAQ', href: `${rootPrefix}faqs` },
     ];
