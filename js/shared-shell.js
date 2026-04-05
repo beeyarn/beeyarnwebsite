@@ -23,8 +23,7 @@
     const socialLinks = [
         { href: 'https://www.facebook.com/profile.php?id=61570488695195', title: 'Facebook', icon: 'fab fa-facebook-f' },
         { href: 'https://www.linkedin.com/company/beeyarn/?viewAsMember=true', title: 'LinkedIn', icon: 'fab fa-linkedin-in' },
-        { href: 'https://x.com/beeyarner', title: 'Twitter', icon: 'fab fa-twitter' },
-        { href: 'https://www.instagram.com/beeyarn/', title: 'Instagram', icon: 'fab fa-instagram' },
+        { href: 'https://x.com/beeyarnapp', title: 'Twitter', icon: 'fab fa-twitter' },
     ];
 
     function buildHeader() {
