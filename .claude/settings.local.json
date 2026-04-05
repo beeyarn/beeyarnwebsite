@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.\\(html|css|js\\)$\")",
+      "Bash(grep -rl data-ruleset-id C:/xampp/htdocs/beeyarnwebsite/ --include=*.html)",
+      "Bash(grep -rl data-ruleset-id C:/xampp/htdocs/beeyarnwebsite/ --exclude=*.js --exclude=*.css)",
+      "Bash(grep -v \"\\\\.html$\")",
+      "Bash(cd:*)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(echo \"=== $f ===\")",
+      "Read(//c/xampp/htdocs/beeyarnwebsite/**)",
+      "Bash(done)",
+      "Bash(grep -v \"^webmail$\\\\|^vendor$\\\\|^node_modules$\")",
+      "Bash(ls /c/xampp/htdocs/beeyarnwebsite/*.html)"
+    ]
+  }
+}

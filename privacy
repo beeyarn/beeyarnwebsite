@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw"
+        async></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17631423975"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-17631423975');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="BeeYarn Privacy Policy - How we collect, use, and protect your personal data." />
+    <meta name="author" content="BeeYarn" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="BeeYarn Privacy Policy" />
+    <meta property="og:description" content="How BeeYarn collects, uses, and protects your personal data in compliance with NDPR and applicable law." />
+    <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <meta property="og:url" content="https://beeyarn.com/privacy" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BeeYarn Privacy Policy" />
+    <meta name="twitter:description" content="How BeeYarn collects, uses, and protects your personal data in compliance with NDPR and applicable law." />
+    <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <title>BeeYarn - Privacy Policy</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            color: #1C5B31;
+        }
+
+        .navbar-light .navbar-brand {
+            color: #1C5B31;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #1C5B31;
+        }
+
+        .btn-primary {
+            background-color: #1C5B31;
+            border-color: #1C5B31;
+        }
+
+        .btn-primary:hover {
+            background-color: #145022;
+            border-color: #145022;
+        }
+
+        .icon-feature {
+            color: #1C5B31;
+        }
+
+        .form-control,
+        .form-floating label {
+            color: #1C5B31;
+            border-color: #1C5B31;
+        }
+
+        .form-control:focus {
+            border-color: #1C5B31;
+            box-shadow: 0 0 0 0.2rem rgba(28, 91, 49, 0.25);
+        }
+
+        .form-floating .form-control:focus~label {
+            color: #1C5B31;
+        }
+
+        .overlay {
+            position: fixed;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            inline-size: 100%;
+            block-size: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            z-index: 1000;
+        }
+
+        /* Flexbox layout */
+        #features .row {
+            display: flex;
+            align-items: center;
+        }
+
+        #privacy-policy {
+            flex: 1;
+            margin-right: 30px;
+            /* Space between video and privacy content */
+        }
+
+        .features-device-mockup {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            #features .row {
+                flex-direction: column;
+            }
+
+            #privacy-policy {
+                margin-right: 0;
+                margin-top: 20px;
+            }
+        }
+
+        /* Privacy Section Styling */
+        #privacy-policy h2 {
+            font-size: 2rem;
+            color: #1C5B31;
+        }
+
+        #privacy-policy h3 {
+            font-size: 1.5rem;
+            color: #1C5B31;
+            margin-top: 1.5rem;
+        }
+
+        #privacy-policy p,
+        #privacy-policy li {
+            font-size: 1.2rem;
+            color: #4A4A4A;
+            line-height: 1.6;
+        }
+
+        #privacy-policy a {
+            font-weight: bold;
+            color: #1C5B31;
+        }
+
+        #privacy-policy ul {
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="shared-header"></div>
+
+    <section id="features">
+        <div class="container px-5">
+            <div class="row gx-5">
+                <!-- Privacy Policy Section (Full Width) -->
+                <div id="privacy-policy" style="margin-right: 0; width: 100%;">
+                    <h2>BeeYarn’s Privacy Policy</h2>
+                    <p><strong>Last Updated:</strong> 14th of December, 2025</p>
+
+                    <p>
+                        Welcome to BeeYarn’s Privacy Policy. This Privacy Policy explains how we collect,
+                        use, store, protect, and share your personal information.
+                    </p>
+
+                    <p>
+                        By using BeeYarn, you consent to the collection and processing of your personal
+                        data for specific, legitimate, and lawful purposes that we clearly explain to
+                        you. We encourage you to read this Privacy Policy together with our Terms of Use
+                        so you understand your rights and our obligations regarding your personal data.
+                    </p>
+
+                    <h3>Collection of Information</h3>
+                    <p>
+                        When you download BeeYarn and create an account, certain information will be
+                        collected so your profile can be created and your account can be secured. This
+                        may include:
+                    </p>
+                    <ul>
+                        <li>Name</li>
+                        <li>Username</li>
+                        <li>Email address</li>
+                        <li>Date of birth</li>
+                        <li>Gender</li>
+                        <li>Photographs</li>
+                    </ul>
+
+                    <p>
+                        You will also be required to create a password to complete your account
+                        registration. After creating your account, you can review and update most of
+                        this information in the app settings, except for your location, which may be
+                        updated automatically when you grant BeeYarn access to your device’s location
+                        services.
+                    </p>
+
+                    <p>
+                        It is your responsibility to ensure that the information in your account remains
+                        accurate and up to date. The information collected helps verify that you are a
+                        real person, improve the safety of the BeeYarn community, and enhance your app
+                        experience.
+                    </p>
+
+                    <h3>Use of Your Personal Data</h3>
+                    <p>
+                        BeeYarn uses your personal data only for lawful and legitimate purposes in line
+                        with the NDPR and other applicable data protection laws.
+                    </p>
+
+                    <h3>Sharing of Data</h3>
+                    <p>
+                        BeeYarn does not sell, rent, or trade your personal data. Data is shared only as
+                        necessary to operate the service and comply with legal obligations.
+                    </p>
+
+                    <h3>Your Rights</h3>
+                    <p>
+                        You may exercise your data protection rights by contacting
+                        <a href="mailto:privacy@beeyarn.com">privacy@beeyarn.com</a>.
+                    </p>
+
+                    <h3>Retention of Your Personal Data</h3>
+                    <p>
+                        Personal data is retained only as long as necessary and anonymized where
+                        possible.
+                    </p>
+
+                    <h3>Security of Your Personal Data</h3>
+                    <p>
+                        BeeYarn implements reasonable technical and organisational measures to protect
+                        your data, though no system is completely secure.
+                    </p>
+
+                    <h3>Children’s Privacy</h3>
+                    <p>
+                        BeeYarn is intended for users aged 14 years and above. We do not knowingly collect
+                        data from children under 14.
+                    </p>
+
+                    <h3>Changes to This Privacy Policy</h3>
+                    <p>
+                        We may update this policy from time to time. Continued use of BeeYarn means you
+                        accept the updated policy.
+                    </p>
+
+                    <h3>Contact Us</h3>
+                    <p>
+                        📧 <a href="mailto:privacy@beeyarn.com">privacy@beeyarn.com</a>
+                    </p>
+
+                    <p>
+                        BeeYarn is a social platform that connects people through real-time messaging,
+                        live discussions, and discussion forums—fostering creativity, conversations,
+                        and community.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <div id="shared-footer"></div>
+    <script src="js/shared-shell.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/beeyarnc/public_html/
+    - /bin/cp -r . $DEPLOYPATH

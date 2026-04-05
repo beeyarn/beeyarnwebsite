@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw"
+        async></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17631423975"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'AW-17631423975');
+    </script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="BeeYarn Refund Policy - Learn about refunds for advertisements and subscriptions." />
+    <meta name="author" content="BeeYarn" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="BeeYarn Refund Policy" />
+    <meta property="og:description" content="Learn about BeeYarn's refund policy for advertisements and subscription plans." />
+    <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <meta property="og:url" content="https://beeyarn.com/refundpolicy" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BeeYarn Refund Policy" />
+    <meta name="twitter:description" content="Learn about BeeYarn's refund policy for advertisements and subscription plans." />
+    <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <title>BeeYarn - Refund Policy</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            color: #1C5B31;
+        }
+
+        .navbar-light .navbar-brand {
+            color: #1C5B31;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #1C5B31;
+        }
+
+        .btn-primary {
+            background-color: #1C5B31;
+            border-color: #1C5B31;
+        }
+
+        .btn-primary:hover {
+            background-color: #145022;
+            border-color: #145022;
+        }
+
+        #refund-policy h2 {
+            font-size: 2rem;
+            color: #1C5B31;
+        }
+
+        #refund-policy h3 {
+            font-size: 1.4rem;
+            color: #1C5B31;
+            margin-top: 1.8rem;
+        }
+
+        #refund-policy h4 {
+            font-size: 1.15rem;
+            color: #1C5B31;
+            margin-top: 1.2rem;
+        }
+
+        #refund-policy p,
+        #refund-policy li {
+            font-size: 1.1rem;
+            color: #4A4A4A;
+            line-height: 1.7;
+        }
+
+        #refund-policy a {
+            font-weight: bold;
+            color: #1C5B31;
+        }
+
+        #refund-policy ul {
+            padding-left: 1.5rem;
+        }
+
+        #refund-policy .formula-block {
+            background-color: #f5f9f6;
+            border-left: 4px solid #1C5B31;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 1rem;
+            color: #333;
+            border-radius: 4px;
+        }
+
+        #refund-policy .example-block {
+            background-color: #f0f7f2;
+            border: 1px solid #c3dfc9;
+            padding: 1rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #4A4A4A;
+        }
+
+        #refund-policy hr {
+            border-color: #c3dfc9;
+            margin: 2.5rem 0;
+        }
+
+        #refund-policy .section-number {
+            color: #1C5B31;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <div id="shared-header"></div>
+
+    <section id="features" style="padding-top: 5rem;">
+        <div class="container px-5">
+            <div class="row gx-5">
+                <div id="refund-policy" style="width: 100%;">
+                    <h2>Beeyarn Refund Policy</h2>
+                    <p><strong>Effective Date:</strong> April 5, 2025 &nbsp;&middot;&nbsp; <strong>Last
+                            Updated:</strong> April 5, 2025</p>
+                    <p>This Refund Policy applies to all paid services on the Beeyarn platform, including Advertisements
+                        and Subscription plans. Please read it carefully before making a purchase.</p>
+
+                    <hr>
+
+                    <h3>1. Advertisements</h3>
+
+                    <h4>1.1 How Ad Payments Work</h4>
+                    <p>When you create an advertisement on Beeyarn, you pay upfront for a fixed campaign duration (e.g.
+                        7 days, 14 days, 30 days). Your ad runs from your chosen start date until the end date. Payment
+                        is processed securely via Paystack.</p>
+
+                    <h4>1.2 When You Can Cancel and Get a Refund</h4>
+                    <p>You may cancel an ad at any time while it is in any of the following states:</p>
+                    <ul>
+                        <li><strong>Pending Review</strong> &mdash; submitted and awaiting approval</li>
+                        <li><strong>Approved</strong> &mdash; approved but not yet active</li>
+                        <li><strong>Active</strong> &mdash; currently running</li>
+                    </ul>
+                    <p>Ads that have already <strong>ended</strong>, been <strong>deleted</strong>, or are in
+                        <strong>draft</strong> status cannot be cancelled via this process and are not eligible for a
+                        refund.
+                    </p>
+
+                    <h4>1.3 How the Refund Amount Is Calculated</h4>
+                    <p>Refunds are calculated on a <strong>pro-rata (time-remaining) basis</strong>:</p>
+                    <div class="formula-block">
+                        Gross Refund = (Remaining Campaign Time ÷ Total Campaign Duration) × Amount Paid<br>
+                        Net Refund = Gross Refund − Admin Processing Fee (default 5%)
+                    </div>
+                    <div class="example-block">
+                        <strong>Example:</strong><br>
+                        You paid ₦10,000 for a 10-day campaign.<br>
+                        You cancel after 3 days (7 days remaining).<br>
+                        Gross refund = (7 ÷ 10) × ₦10,000 = ₦7,000<br>
+                        Admin fee (5%) = ₦350<br>
+                        <strong>Net refund = ₦6,650</strong>
+                    </div>
+
+                    <h4>1.4 Minimum Refund Threshold</h4>
+                    <p>A refund is only processed if the calculated net refund amount is <strong>₦500 or more</strong>.
+                        If the net refund is below ₦500, no refund will be issued and the ad will simply be cancelled
+                        without payment.</p>
+
+                    <h4>1.5 Ads That Have Not Yet Started</h4>
+                    <p>If you cancel an ad before its start date, the remaining duration is calculated from the current
+                        time to the end date — meaning you will receive a refund for nearly the full campaign duration
+                        (minus the admin fee), subject to the ₦500 minimum threshold.</p>
+
+                    <h4>1.6 Ads That Have Already Ended</h4>
+                    <p>No refund is available for campaigns that have already completed their full run.</p>
+
+                    <h4>1.7 Admin Processing Fee</h4>
+                    <p>A non-refundable admin processing fee is deducted from all ad refunds. The default fee is
+                        <strong>5%</strong> of the gross refund amount. This fee covers payment processing costs and
+                        platform administration. The exact fee percentage in effect at the time of your cancellation
+                        applies.
+                    </p>
+
+                    <h4>1.8 Refund Method</h4>
+                    <p>All ad refunds are returned to the <strong>original payment method</strong> used at checkout (the
+                        card or bank account charged via Paystack). Refunds are not issued as Beeyarn credits or Yarn
+                        Points.</p>
+
+                    <h4>1.9 Refund Timeline</h4>
+                    <p>Once a refund is approved and processed by our system, it is submitted to Paystack immediately.
+                        Depending on your bank or card provider, the funds will typically appear in your account within
+                        <strong>5–10 business days</strong>.
+                    </p>
+
+                    <h4>1.10 No Refunds For</h4>
+                    <ul>
+                        <li>Ads cancelled due to violations of Beeyarn's Advertising Guidelines or Terms of Use</li>
+                        <li>Ads rejected by the moderation team after review</li>
+                        <li>Ads that were paused or modified at your own request</li>
+                        <li>Performance dissatisfaction (e.g., low clicks, views, or impressions) — ad performance is
+                            not guaranteed</li>
+                    </ul>
+
+                    <hr>
+
+                    <h3>2. Subscriptions</h3>
+
+                    <h4>2.1 How Subscriptions Work</h4>
+                    <p>Beeyarn subscriptions (Verification / Premium) are billed on a <strong>monthly recurring
+                            basis</strong>. Each billing cycle covers one calendar month of access starting from your
+                        subscription date.</p>
+
+                    <h4>2.2 Cancellation Policy</h4>
+                    <p>You may cancel your subscription at any time. When you cancel:</p>
+                    <ul>
+                        <li>Your subscription remains <strong>active until the end of your current billing
+                                period</strong> — you do not lose access immediately</li>
+                        <li>Auto-renewal is disabled so you will not be charged again</li>
+                        <li>No partial refund is issued for the remaining days in the current billing period</li>
+                    </ul>
+
+                    <h4>2.3 No Mid-Cycle Refunds</h4>
+                    <p>Subscriptions are <strong>non-refundable for the current billing cycle</strong>. If you cancel on
+                        day 5 of a 30-day cycle, you retain access for the remaining 25 days but will not receive a
+                        refund for that period.</p>
+
+                    <h4>2.4 Auto-Renewal Failures</h4>
+                    <p>If your auto-renewal payment fails (e.g., expired card, insufficient funds):</p>
+                    <ul>
+                        <li>You will be notified immediately via the app and email</li>
+                        <li>Your subscription will be marked as expired</li>
+                        <li>Auto-renewal will be disabled</li>
+                        <li>You will not be charged again until you manually resubscribe with a valid payment method
+                        </li>
+                    </ul>
+
+                    <h4>2.5 Free / Admin-Granted Subscriptions</h4>
+                    <p>Subscriptions granted for free by the Beeyarn team (e.g., for promotions, contests, or goodwill)
+                        carry no monetary value and are not eligible for any form of refund or cash equivalent.</p>
+
+                    <h4>2.6 Exceptions</h4>
+                    <p>Refunds for subscriptions may be considered at Beeyarn's sole discretion in the following
+                        exceptional circumstances:</p>
+                    <ul>
+                        <li>Duplicate charges caused by a technical error on our platform</li>
+                        <li>You were charged after clearly and successfully cancelling your subscription</li>
+                    </ul>
+                    <p>To request an exception, contact support within <strong>7 days</strong> of the charge in
+                        question.</p>
+
+                    <hr>
+
+                    <h3>3. General Terms</h3>
+
+                    <h4>3.1 How to Request a Refund</h4>
+                    <p>For <strong>ad refunds</strong>: Cancel your ad directly from within the Beeyarn app. Eligible
+                        refunds are processed automatically — no manual request is needed.</p>
+                    <p>For <strong>subscription exceptions or disputes</strong>: Contact our support team at <a
+                            href="mailto:support@beeyarn.com">support@beeyarn.com</a> with your account email, the date
+                        of the charge, and a brief description of the issue.</p>
+
+                    <h4>3.2 Chargebacks</h4>
+                    <p>We ask that you contact us before initiating a chargeback with your bank. Unauthorized
+                        chargebacks may result in suspension of your Beeyarn account. If a chargeback is found to be
+                        fraudulent, we reserve the right to recover the disputed amount and take further action.</p>
+
+                    <h4>3.3 Changes to This Policy</h4>
+                    <p>Beeyarn reserves the right to update this Refund Policy at any time. Significant changes will be
+                        communicated via in-app notification or email. Continued use of the platform after changes are
+                        published constitutes your acceptance of the updated policy.</p>
+
+                    <h4>3.4 Governing Law</h4>
+                    <p>This policy is governed by the laws of the Federal Republic of Nigeria. Any disputes shall be
+                        resolved in accordance with Nigerian consumer protection law.</p>
+
+                    <hr>
+
+                    <h3>Contact</h3>
+                    <p>For refund inquiries or billing disputes:</p>
+                    <p>
+                        <strong>Email:</strong> <a href="mailto:support@beeyarn.com">support@beeyarn.com</a><br>
+                        <strong>In-app:</strong> Settings &rarr; Help &amp; Support &rarr; Contact Us
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="shared-footer"></div>
+    <script src="js/shared-shell.js"></script>
+</body>
+
+</html>

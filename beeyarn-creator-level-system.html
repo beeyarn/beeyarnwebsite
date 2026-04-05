@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+  <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw" async></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="BeeYarn Creator Level System — Be Seen. Be Heard. Your journey from New Comer to African Superstar." />
+  <meta name="author" content="BeeYarn" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="BeeYarn Creator Level System" />
+  <meta property="og:description" content="Earn YarnPoints and rise through 20 creator levels — from New Comer to African Superstar. Be Seen. Be Heard." />
+  <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+  <meta property="og:url" content="https://beeyarn.com/beeyarn-creator-level-system.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="BeeYarn Creator Level System" />
+  <meta name="twitter:description" content="Earn YarnPoints and rise through 20 creator levels — from New Comer to African Superstar. Be Seen. Be Heard." />
+  <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+  <title>Creator Level System — BeeYarn</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link href="css/styles.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --green:     #1C5B31;
+      --green-dk:  #145022;
+      --green-lt:  #e8f5ee;
+      --gold:      #D97706;
+      --gold-lt:   #FEF3C7;
+      --gold-dk:   #92400E;
+      --gray:      #333;
+      --gray-lt:   #f9fafb;
+      --gray-mid:  #6B7280;
+      --border:    #e5e7eb;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Mulish', sans-serif;
+      color: var(--gray);
+      background: #fff;
+      padding-top: 70px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Main content wrapper to push footer down */
+    .main-wrapper {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAVIGATION ── */
+    .navbar {
+      background: white !important;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-light .navbar-brand {
+      color: var(--green);
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+    
+    .navbar-light .navbar-nav .nav-link {
+      color: var(--gray);
+      font-weight: 600;
+      padding: 8px 16px !important;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-light .navbar-nav .nav-link:hover {
+      color: var(--green);
+      background: var(--green-lt);
+      border-radius: 30px;
+    }
+    
+    .navbar-light .navbar-nav .nav-link.active {
+      color: var(--green);
+      background: var(--green-lt);
+      border-radius: 30px;
+    }
+    
+    .download-btn {
+      background: var(--green);
+      color: white !important;
+      border-radius: 30px !important;
+      padding: 8px 20px !important;
+    }
+    
+    .download-btn:hover {
+      background: var(--green-dk);
+      color: white !important;
+    }
+
+    .btn-primary {
+      background-color: var(--green);
+      border-color: var(--green);
+    }
+    .btn-primary:hover {
+      background-color: var(--green-dk);
+      border-color: var(--green-dk);
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background-color: var(--green);
+      color: white;
+      width: 100%;
+      flex-shrink: 0;
+      margin-top: auto;
+      padding: 3rem 0 !important;
+    }
+
+    footer a {
+      color: white !important;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    footer a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    footer .text-white-50 {
+      color: rgba(255, 255, 255, 0.7) !important;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--green) 0%, #2d8653 100%);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      margin-top: 0;
+      width: 100%;
+    }
+    .hero-banner .bee { font-size: 3.5rem; margin-bottom: 0.5rem; }
+    .hero-banner h1 {
+      font-family: 'Newsreader', serif;
+      font-size: 2.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    .hero-banner .slogan {
+      font-family: 'Kanit', sans-serif;
+      font-size: 1.1rem;
+      color: var(--gold-lt);
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .hero-banner .subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── PAGE NAVIGATION ── */
+    .page-nav {
+      background: white;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 70px;
+      z-index: 99;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      width: 100%;
+    }
+    
+    .page-nav .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    
+    .page-nav .nav-link {
+      color: var(--gray);
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .page-nav .nav-link:hover {
+      background: var(--green-lt);
+      color: var(--green);
+    }
+    
+    .page-nav .nav-link.active {
+      background: var(--green);
+      color: white;
+    }
+
+    /* ── MAIN CONTENT ── */
+    #content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 24px 60px;
+      width: 100%;
+    }
+
+    .content-section {
+      scroll-margin-top: 140px;
+    }
+
+    #content h2 {
+      font-family: 'Newsreader', serif;
+      color: var(--green);
+      font-size: 2.2rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--green-lt);
+    }
+
+    #content h3 {
+      font-family: 'Newsreader', serif;
+      color: var(--green);
+      font-size: 1.5rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+    }
+
+    #content p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 1.2rem;
+    }
+
+    #content ul {
+      padding-left: 25px;
+      margin-bottom: 1.5rem;
+    }
+
+    #content ul li {
+      font-size: 1.1rem;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── CALLOUT BOXES ── */
+    .box-green {
+      background: var(--green-lt);
+      border-left: 5px solid var(--green);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 1.8rem 0;
+      font-size: 1.1rem;
+      color: var(--green-dk);
+      line-height: 1.8;
+    }
+
+    .box-gold {
+      background: var(--gold-lt);
+      border-left: 5px solid var(--gold);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin: 1.8rem 0;
+    }
+    .box-gold .box-title {
+      font-weight: 700;
+      color: var(--gold-dk);
+      margin-bottom: 8px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .box-gold p {
+      color: var(--gray);
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    /* ── EXAMPLE PROGRESS CARD ── */
+    .progress-card {
+      background: var(--green-lt);
+      border: 2px solid var(--green);
+      border-radius: 16px;
+      padding: 32px 40px;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .progress-card .level-title {
+      font-family: 'Newsreader', serif;
+      font-size: 2rem;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+    .progress-card .level-pts {
+      font-size: 1.1rem;
+      color: var(--gray-mid);
+      margin-bottom: 6px;
+    }
+    .progress-card .level-range {
+      font-size: 1rem;
+      color: var(--gray-mid);
+      margin-bottom: 20px;
+    }
+    .progress-bar-wrap {
+      background: #c8e6d4;
+      border-radius: 999px;
+      height: 14px;
+      max-width: 400px;
+      margin: 0 auto 12px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      background: var(--green);
+      height: 100%;
+      border-radius: 999px;
+      width: 65%;
+      transition: width 1s ease;
+    }
+    .progress-card .pct {
+      font-size: 1rem;
+      color: var(--gray-mid);
+      font-style: italic;
+    }
+
+    /* ── LEVEL TABLE ── */
+    .level-table-wrap {
+      overflow-x: auto;
+      margin: 2rem 0;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    table.level-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    table.level-table thead tr {
+      background: var(--green);
+      color: white;
+    }
+
+    table.level-table thead th {
+      padding: 15px 18px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    table.level-table thead th:first-child { text-align: center; }
+
+    table.level-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    table.level-table tbody tr:last-child { border-bottom: none; }
+
+    table.level-table tbody tr:nth-child(odd)  { background: #fff; }
+    table.level-table tbody tr:nth-child(even) { background: var(--gray-lt); }
+
+    /* Gold highlight for top 6 levels */
+    table.level-table tbody tr.elite {
+      background: var(--gold-lt) !important;
+    }
+    table.level-table tbody tr.elite td { color: var(--gold-dk); }
+    table.level-table tbody tr.elite td.level-num { background: var(--gold); }
+    table.level-table tbody tr.elite td.level-title-cell { color: var(--gold-dk); font-weight: 700; }
+
+    table.level-table tbody tr:hover { background: var(--green-lt) !important; }
+
+    table.level-table td {
+      padding: 12px 18px;
+      vertical-align: middle;
+    }
+
+    td.level-num {
+      background: var(--green);
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      text-align: center;
+      width: 60px;
+      min-width: 60px;
+    }
+
+    td.level-title-cell {
+      color: var(--green);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    td.level-emoji { font-size: 1.3rem; width: 45px; text-align: center; }
+
+    td.level-range {
+      color: var(--gray-mid);
+      font-size: 0.95rem;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    td.level-desc {
+      color: var(--gray);
+      font-style: italic;
+      font-size: 0.96rem;
+    }
+
+    .table-note {
+      font-size: 0.9rem;
+      color: var(--gold-dk);
+      text-align: center;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--green) 0%, #2d8653 100%);
+      border-radius: 16px;
+      padding: 50px 40px;
+      text-align: center;
+      margin: 3rem 0 2rem;
+      color: white;
+    }
+    .cta-banner h2 {
+      font-family: 'Newsreader', serif;
+      font-size: 2.2rem;
+      color: white !important;
+      border: none !important;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .cta-banner p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .cta-banner .cta-highlight {
+      color: var(--gold-lt);
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+      display: block;
+    }
+    .cta-banner .contact {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+    }
+    .cta-banner .contact a {
+      color: var(--gold-lt);
+      font-weight: 600;
+    }
+
+    /* ── APP PREVIEW ── */
+    .masthead {
+      margin: 3rem 0;
+    }
+
+    .app-badge {
+      height: 50px;
+      width: auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      body { padding-top: 60px; }
+      .hero-banner h1 { font-size: 2rem; }
+      .hero-banner { padding: 40px 0; }
+      .page-nav { top: 60px; }
+      .page-nav .nav-links { gap: 8px; }
+      .page-nav .nav-link { padding: 6px 12px; font-size: 0.85rem; }
+      #content { padding: 30px 16px 40px; }
+      #content h2 { font-size: 1.8rem; }
+      .cta-banner { padding: 30px 20px; }
+      .cta-banner h2 { font-size: 1.8rem; }
+      td.level-desc { display: none; }
+      .progress-card { padding: 20px; }
+      footer { padding: 2rem 0 !important; }
+    }
+  </style>
+</head>
+
+<body id="page-top">
+  <!-- Main wrapper to push footer down -->
+  <div class="main-wrapper">
+    <div id="shared-header"></div>
+
+    <!-- Hero -->
+    <div class="hero-banner">
+      <div class="container">
+        <h1>BeeYarn Creator Level System</h1>
+        <div class="slogan">BeeYarn. Be Seen. Be Heard.</div>
+      </div>
+    </div>
+
+    <!-- Page Navigation (Quick Links) -->
+    <div class="page-nav">
+      <div class="container">
+        <div class="nav-links">
+          <a href="#about" class="nav-link">📋 About</a>
+          <a href="#how-it-works" class="nav-link">⚙️ How It Works</a>
+          <a href="#levels" class="nav-link">🏆 All Levels</a>
+          <a href="#why-matters" class="nav-link">💡 Why Matters</a>
+          <a href="#download" class="nav-link">📱 Download App</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <section id="content">
+      <div id="about" class="content-section">
+        <h2>What Are Creator Levels?</h2>
+        <p>BeeYarn was built on one powerful belief: everyone who contributes to a community deserves to be recognised. The Creator Level System is how we honour your journey — from the moment you share your very first yarn to the day you become an African Superstar known around the world.</p>
+        <p>Every time you create, engage, and show up for the BeeYarn community, you earn <strong>Yarn Points</strong>. Those points fuel your creator level — a public badge of honour displayed right on your profile for everyone to see.</p>
+
+        <div class="box-green">
+          <i class="fas fa-bullhorn me-2"></i> No algorithm burying your progress. No paying to boost your status. Your level is earned by your contribution — nothing else. <strong>Be Seen. Be Heard.</strong>
+        </div>
+      </div>
+
+      <div id="how-it-works" class="content-section">
+        <h2>How It Works</h2>
+        <p>Your creator level is determined by your <strong>total Yarn Points earned</strong> over your lifetime on BeeYarn. Unlike other platforms that reward only the top fraction of creators, BeeYarn rewards everyone who contributes — creators and community members alike.</p>
+
+        <div class="box-gold">
+          <div class="box-title"><i class="fas fa-star me-2"></i> Important to Know</div>
+          <p>Your level is based on total points <strong>earned</strong> — not your current balance. Withdrawing your earnings never reduces your level. Every point you earn counts permanently towards your creator journey.</p>
+        </div>
+
+        <h3>What Earns You Yarn Points?</h3>
+        <ul>
+          <li><i class="fas fa-pen-fancy me-2" style="color: var(--green);"></i> Creating and sharing content — posts, discussions, and yarns</li>
+          <li><i class="fas fa-video me-2" style="color: var(--green);"></i> Going live and engaging in real-time with your audience</li>
+          <li><i class="fas fa-heart me-2" style="color: var(--green);"></i> Receiving likes, comments, and engagement on your content</li>
+          <li><i class="fas fa-book-open me-2" style="color: var(--green);"></i> Reading, watching, and engaging with other creators' content</li>
+          <li><i class="fas fa-comments me-2" style="color: var(--green);"></i> Participating in discussions and community activities</li>
+          <li><i class="fas fa-user-plus me-2" style="color: var(--green);"></i> Referring friends and growing the BeeYarn community</li>
+          <li><i class="fas fa-calendar-check me-2" style="color: var(--green);"></i> Showing up daily — consistent creators are rewarded</li>
+        </ul>
+
+        <!-- Example Progress Card -->
+        <div class="progress-card">
+          <div class="level-title">Area Voice</div>
+          <div class="level-pts">2,450 Yarn Points</div>
+          <div class="level-range">Level 2 • 500 – 3,000 points</div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" style="width: 78%;"></div>
+          </div>
+          <div class="pct">78% to Level 3 • 550 more points needed</div>
+        </div>
+      </div>
+
+      <div id="levels" class="content-section">
+        <h2>The 20 Creator Levels</h2>
+        <p>Every level carries a title inspired by African creator culture, celebrating your journey from a new voice to a global icon. Levels 15–20 are highlighted in gold — reserved for BeeYarn's most elite creators.</p>
+
+        <div class="level-table-wrap">
+          <table class="level-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Title</th>
+                <th>Points Range</th>
+                <th class="d-none d-md-table-cell">What It Means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="level-num">1</td><td class="level-emoji">🌱</td><td class="level-title-cell">New Comer</td><td class="level-range">0 – 500</td><td class="level-desc d-none d-md-table-cell">Every journey starts here. Welcome to the BeeYarn community!</td></tr>
+              <tr><td class="level-num">2</td><td class="level-emoji">📣</td><td class="level-title-cell">Area Voice</td><td class="level-range">500 – 3,000</td><td class="level-desc d-none d-md-table-cell">You're starting to make noise in your area.</td></tr>
+              <tr><td class="level-num">3</td><td class="level-emoji">🎵</td><td class="level-title-cell">Street Vibez</td><td class="level-range">3,000 – 6,000</td><td class="level-desc d-none d-md-table-cell">The streets are feeling your energy.</td></tr>
+              <tr><td class="level-num">4</td><td class="level-emoji">🔥</td><td class="level-title-cell">Trend Starter</td><td class="level-range">6,000 – 10,000</td><td class="level-desc d-none d-md-table-cell">You're setting trends before they blow up.</td></tr>
+              <tr><td class="level-num">5</td><td class="level-emoji">💫</td><td class="level-title-cell">Area Influencer</td><td class="level-range">10,000 – 15,000</td><td class="level-desc d-none d-md-table-cell">Your influence is growing beyond your block.</td></tr>
+              <tr><td class="level-num">6</td><td class="level-emoji">🏙️</td><td class="level-title-cell">City Buzz</td><td class="level-range">15,000 – 22,000</td><td class="level-desc d-none d-md-table-cell">The whole city knows your name.</td></tr>
+              <tr><td class="level-num">7</td><td class="level-emoji">⭐</td><td class="level-title-cell">Naija Star</td><td class="level-range">22,000 – 32,000</td><td class="level-desc d-none d-md-table-cell">You've gone from local to national. Nigeria sees you.</td></tr>
+              <tr><td class="level-num">8</td><td class="level-emoji">🌊</td><td class="level-title-cell">Continental Wave</td><td class="level-range">32,000 – 45,000</td><td class="level-desc d-none d-md-table-cell">Your content is crossing borders across Africa.</td></tr>
+              <tr><td class="level-num">9</td><td class="level-emoji">🦁</td><td class="level-title-cell">African Giant</td><td class="level-range">45,000 – 65,000</td><td class="level-desc d-none d-md-table-cell">You stand tall as a true voice of the continent.</td></tr>
+              <tr><td class="level-num">10</td><td class="level-emoji">🌍</td><td class="level-title-cell">Global Icon</td><td class="level-range">65,000 – 90,000</td><td class="level-desc d-none d-md-table-cell">The world knows who you are.</td></tr>
+              <tr><td class="level-num">11</td><td class="level-emoji">🎯</td><td class="level-title-cell">Culture Driver</td><td class="level-range">90,000 – 120,000</td><td class="level-desc d-none d-md-table-cell">You don't just follow culture — you drive it.</td></tr>
+              <tr><td class="level-num">12</td><td class="level-emoji">🏗️</td><td class="level-title-cell">Vibe Architect</td><td class="level-range">120,000 – 160,000</td><td class="level-desc d-none d-md-table-cell">You build the vibes others ride on.</td></tr>
+              <tr><td class="level-num">13</td><td class="level-emoji">⚡</td><td class="level-title-cell">Trend Machine</td><td class="level-range">160,000 – 210,000</td><td class="level-desc d-none d-md-table-cell">Trends don't happen without you.</td></tr>
+              <tr><td class="level-num">14</td><td class="level-emoji">💪</td><td class="level-title-cell">Social Powerhouse</td><td class="level-range">210,000 – 270,000</td><td class="level-desc d-none d-md-table-cell">A force of nature in the social space.</td></tr>
+              <tr class="elite"><td class="level-num">15</td><td class="level-emoji">🗿</td><td class="level-title-cell">Creator Titan</td><td class="level-range">270,000 – 340,000</td><td class="level-desc d-none d-md-table-cell">Few reach this level. You're a titan.</td></tr>
+              <tr class="elite"><td class="level-num">16</td><td class="level-emoji">👑</td><td class="level-title-cell">Influence Empire</td><td class="level-range">340,000 – 420,000</td><td class="level-desc d-none d-md-table-cell">You've built an empire of influence.</td></tr>
+              <tr class="elite"><td class="level-num">17</td><td class="level-emoji">🌐</td><td class="level-title-cell">Global Wave</td><td class="level-range">420,000 – 510,000</td><td class="level-desc d-none d-md-table-cell">Your wave is felt on every continent.</td></tr>
+              <tr class="elite"><td class="level-num">18</td><td class="level-emoji">🏆</td><td class="level-title-cell">Cultural Legend</td><td class="level-range">510,000 – 620,000</td><td class="level-desc d-none d-md-table-cell">Legends are remembered. You are one.</td></tr>
+              <tr class="elite"><td class="level-num">19</td><td class="level-emoji">💎</td><td class="level-title-cell">Internet Royalty</td><td class="level-range">620,000 – 750,000</td><td class="level-desc d-none d-md-table-cell">Royalty in the digital world.</td></tr>
+              <tr class="elite"><td class="level-num">20</td><td class="level-emoji">🌟</td><td class="level-title-cell">African Superstar</td><td class="level-range">750,000+</td><td class="level-desc d-none d-md-table-cell">The pinnacle. You are BeeYarn's finest.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">✦ Levels 15–20 are elite tier — highlighted in gold.</p>
+      </div>
+
+      <div id="why-matters" class="content-section">
+        <h2>Why Creator Levels Matter</h2>
+        <p>For too long, social media platforms have rewarded only the top fraction of creators while everyone else provides free labour. BeeYarn was built to flip that model completely.</p>
+        <p>Your creator level is more than a number — it is a public statement of your contribution to the BeeYarn community. It shows:</p>
+        <ul>
+          <li><i class="fas fa-check-circle me-2" style="color: var(--green);"></i> How consistently you show up and create</li>
+          <li><i class="fas fa-check-circle me-2" style="color: var(--green);"></i> Your influence and impact within the community</li>
+          <li><i class="fas fa-check-circle me-2" style="color: var(--green);"></i> Your standing as a creator on Africa's platform for the world</li>
+        </ul>
+        <p>Whether you are in Lagos or London, Nairobi or New York — if you show up on BeeYarn, your journey is recognised. Every post, every yarn, every interaction moves you forward. No exceptions.</p>
+      </div>
+
+      <!-- Download Section -->
+      <div id="download" class="content-section">
+        <div class="cta-banner">
+          <h2>Start Your Journey Today... Download BeeYarn!</h2>
+          <div class="d-flex flex-column flex-md-row justify-content-center gap-3 mt-4">
+            <a class="btn btn-light btn-lg px-4" href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn">
+              <i class="fab fa-google-play me-2"></i>Google Play
+            </a>
+            <!-- TODO: Replace href with real Apple App Store URL when available -->
+            <a class="btn btn-outline-light btn-lg px-4" href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn">
+              <i class="fab fa-apple me-2"></i>App Store
+            </a>
+          </div>
+          <div class="contact">
+            Questions? <a href="mailto:support@beeyarn.com">support@beeyarn.com</a>
+          </div>
+        </div>
+
+   
+      </div>
+    </section>
+  </div> <!-- End main-wrapper -->
+
+  <div id="shared-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/shared-shell.js"></script>
+  <!-- Smooth scrolling for anchor links -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Update active nav link on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.content-section');
+      const navLinks = document.querySelectorAll('.page-nav .nav-link');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
