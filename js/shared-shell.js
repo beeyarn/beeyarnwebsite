@@ -13,6 +13,7 @@
 
     const footerLinks = [
         { label: 'Privacy', href: `${rootPrefix}privacy` },
+        { label: 'Content Policy', href: `${rootPrefix}contentpolicy` },
         { label: 'Terms of Use', href: `${rootPrefix}termsofuse` },
         { label: 'Refund Policy', href: `${rootPrefix}refundpolicy` },
         { label: 'FAQ', href: `${rootPrefix}faqs` },
