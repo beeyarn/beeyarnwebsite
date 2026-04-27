@@ -110,6 +110,23 @@
         }
 
         activateCurrentLink();
+        injectAnimations();
+    }
+
+    function injectAnimations() {
+        if (!document.querySelector('link[data-beeyarn="animations"]')) {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = rootPrefix + 'css/animations.css';
+            link.setAttribute('data-beeyarn', 'animations');
+            document.head.appendChild(link);
+        }
+        if (!document.querySelector('script[data-beeyarn="animations"]')) {
+            const script = document.createElement('script');
+            script.src = rootPrefix + 'js/animations.js';
+            script.setAttribute('data-beeyarn', 'animations');
+            document.body.appendChild(script);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', insertSharedShell);
