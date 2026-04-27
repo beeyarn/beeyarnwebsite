@@ -219,7 +219,7 @@
                                 </button>
                             </h2>
                             <div id="faqB6" class="accordion-collapse collapse" aria-labelledby="faqH6" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">If you come across content that violates BeeYarn's community guidelines, click the "Report" button on the post or content. Our moderation team will review the report and take necessary action.</div>
+                                <div class="accordion-body">If you come across content that violates BeeYarn's community guidelines, click the "Report" button on the post or content. Our moderation team will review the report and take necessary action. See our <a href="contentpolicy">Content Policy</a> for a full list of what is prohibited.</div>
                             </div>
                         </div>
 
@@ -230,7 +230,7 @@
                                 </button>
                             </h2>
                             <div id="faqB7" class="accordion-collapse collapse" aria-labelledby="faqH7" data-bs-parent="#faqAccordion">
-                                <div class="accordion-body">Yes, we take your privacy seriously. We use encryption and other security measures to protect your personal information. Please review our <a href="privacy">Privacy Policy</a> for full details on how we handle your data.</div>
+                                <div class="accordion-body">Yes, we take your privacy seriously. We use encryption and other security measures to protect your personal information. Please review our <a href="privacy">Privacy Policy</a> for full details on how we handle your data. Our <a href="contentpolicy">Content Policy</a> also outlines the standards we hold all users and content to.</div>
                             </div>
                         </div>
 
