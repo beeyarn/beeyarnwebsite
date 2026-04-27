@@ -16,7 +16,9 @@
     <meta name="description" content="Contact BeeYarn - Get in touch with our team for support, partnerships, press, or careers." />
     <meta name="author" content="BeeYarn" />
     <title>Contact Us | BeeYarn</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
+    <link rel="apple-touch-icon" href="assets/favicon.jpg" />
+    <meta name="theme-color" content="#1C5B31" />
     <!-- Open Graph -->
     <meta property="og:title" content="Contact BeeYarn" />
     <meta property="og:description" content="Get in touch with the BeeYarn team for support, partnerships, press enquiries, or careers." />

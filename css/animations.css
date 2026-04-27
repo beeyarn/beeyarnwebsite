@@ -79,6 +79,52 @@ footer a:hover i {
     to   { opacity: 1; }
 }
 
+/* --- Active nav link ----------------------------- */
+#mainNav .nav-link.active {
+    font-weight: 700;
+    position: relative;
+}
+#mainNav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 2px;
+    background: #1C5B31;
+    border-radius: 2px;
+}
+
+/* --- App Store "Coming Soon" badge --------------- */
+.app-store-soon {
+    position: relative;
+    display: inline-block;
+    cursor: not-allowed;
+}
+.app-store-soon .app-badge {
+    opacity: 0.45;
+    pointer-events: none;
+}
+.app-store-soon .app-badge:hover {
+    transform: none !important;
+    filter: none !important;
+}
+.app-store-soon-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1C5B31;
+    color: white;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+}
+
 /* --- Respect reduced-motion preference ----------- */
 @media (prefers-reduced-motion: reduce) {
     [data-animate] {
