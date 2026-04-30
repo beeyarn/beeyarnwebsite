@@ -70,7 +70,49 @@
       border-radius: 20px;
       padding: 6px 14px;
       color: var(--sub); font-size: 13px;
+      transition: border-color 0.15s;
     }
+
+    .nav-search:focus-within {
+      border-color: var(--green);
+      background: var(--white);
+    }
+
+    .nav-search input {
+      border: none; background: none; outline: none;
+      font-family: inherit; font-size: 13px;
+      color: var(--text); width: 100%;
+    }
+
+    .nav-search input::placeholder { color: #9ca3af; }
+
+    .search-bar-info {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 12px; margin-bottom: 10px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      font-size: 13px; color: var(--sub);
+    }
+
+    .search-bar-info span { font-weight: 700; color: var(--text); }
+
+    .search-bar-info button {
+      margin-left: auto; background: none; border: none;
+      cursor: pointer; color: var(--sub); font-size: 14px;
+      padding: 2px 4px; border-radius: 4px;
+      transition: background 0.1s;
+    }
+
+    .search-bar-info button:hover { background: var(--bg); color: var(--text); }
+
+    .no-results {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--card-radius); padding: 40px 20px;
+      text-align: center; color: var(--sub);
+    }
+
+    .no-results i { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .no-results p { font-size: 14px; }
 
     .nav-right {
       margin-left: auto;
@@ -553,7 +595,7 @@
 
     <div class="nav-search">
       <i class="bi bi-search"></i>
-      <span style="color:#9ca3af">Search BeeYarn</span>
+      <input id="search-input" type="text" placeholder="Search posts, people…" autocomplete="off" />
     </div>
 
     <div class="nav-right">
@@ -577,9 +619,14 @@
       <!-- FEED VIEW -->
       <div id="view-feed">
         <div class="sort-bar">
-          <span class="active"><i class="bi bi-house-fill"></i> Home</span>
-          <span><i class="bi bi-fire"></i> Hot</span>
-          <span><i class="bi bi-clock"></i> New</span>
+          <span id="tab-home" class="active" onclick="App.setTab('home')"><i class="bi bi-house-fill"></i> Home</span>
+          <span id="tab-hot"  onclick="App.setTab('hot')"><i class="bi bi-fire"></i> Hot</span>
+          <span id="tab-new"  onclick="App.setTab('new')"><i class="bi bi-clock"></i> New</span>
+        </div>
+
+        <div id="search-results-bar" style="display:none" class="search-bar-info">
+          Showing results for "<span id="search-query-label"></span>"
+          <button onclick="App.clearSearch()"><i class="bi bi-x"></i></button>
         </div>
 
         <div id="feed-loading" class="state-box">

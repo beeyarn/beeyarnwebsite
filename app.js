@@ -22,10 +22,20 @@ const App = (() => {
   const btnBack     = document.getElementById('btn-back');
 
   // State
-  let page    = 1;
-  let busy    = false;
-  let hasMore = true;
-  const cache = {};
+  let page      = 1;
+  let busy      = false;
+  let hasMore   = true;
+  let allPosts  = [];   // master list of every fetched post
+  let activeTab = 'home';
+  let searchQ   = '';
+  const cache   = {};
+
+  const searchInput   = document.getElementById('search-input');
+  const searchBar     = document.getElementById('search-results-bar');
+  const searchLabel   = document.getElementById('search-query-label');
+  const tabHome       = document.getElementById('tab-home');
+  const tabHot        = document.getElementById('tab-hot');
+  const tabNew        = document.getElementById('tab-new');
 
   // Hide/show using display property — flex for visible, none for hidden
   function show(el, flex) { el.style.display = flex ? 'flex' : 'block'; }
@@ -56,11 +66,85 @@ const App = (() => {
     else navigate('/');
   });
 
+  // ── Search ─────────────────────────────────────
+  var searchTimer;
+  searchInput.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function() {
+      searchQ = searchInput.value.trim().toLowerCase();
+      if (searchQ) {
+        searchLabel.textContent = searchInput.value.trim();
+        show(searchBar);
+        renderFiltered();
+      } else {
+        clearSearch();
+      }
+    }, 250);
+  });
+
+  function clearSearch() {
+    searchQ = '';
+    searchInput.value = '';
+    hide(searchBar);
+    renderFiltered();
+  }
+
+  // ── Tabs ────────────────────────────────────────
+  function setTab(tab) {
+    activeTab = tab;
+    tabHome.className = tab === 'home' ? 'active' : '';
+    tabHot.className  = tab === 'hot'  ? 'active' : '';
+    tabNew.className  = tab === 'new'  ? 'active' : '';
+    renderFiltered();
+  }
+
+  // ── Render filtered/sorted list ─────────────────
+  function renderFiltered() {
+    var posts = allPosts.slice();
+
+    // Filter by search
+    if (searchQ) {
+      posts = posts.filter(function(p) {
+        var title = (p.title || '').toLowerCase();
+        var body  = (p.body  || '').toLowerCase();
+        var name  = ((p.user && p.user.name)     || '').toLowerCase();
+        var uname = ((p.user && p.user.username)  || '').toLowerCase();
+        return title.indexOf(searchQ) !== -1
+            || body.indexOf(searchQ)  !== -1
+            || name.indexOf(searchQ)  !== -1
+            || uname.indexOf(searchQ) !== -1;
+      });
+    }
+
+    // Sort by tab
+    if (activeTab === 'hot') {
+      posts.sort(function(a, b) {
+        var scoreB = (b.likes_count || 0) + (b.number_of_views || 0) * 0.5;
+        var scoreA = (a.likes_count || 0) + (a.number_of_views || 0) * 0.5;
+        return scoreB - scoreA;
+      });
+    } else if (activeTab === 'new') {
+      posts.sort(function(a, b) {
+        return new Date(b.created_at.replace(' ','T')) - new Date(a.created_at.replace(' ','T'));
+      });
+    }
+
+    feedList.innerHTML = '';
+
+    if (posts.length === 0) {
+      feedList.innerHTML = '<div class="no-results"><i class="bi bi-search"></i><p>No posts found'
+        + (searchQ ? ' for "' + xh(searchInput.value.trim()) + '"' : '') + '</p></div>';
+      return;
+    }
+
+    posts.forEach(function(p) { feedList.appendChild(buildCard(p)); });
+  }
+
   // ── Feed ───────────────────────────────────────
   async function loadFeed(reset) {
     if (busy) return;
     if (reset) {
-      page = 1; hasMore = true;
+      page = 1; hasMore = true; allPosts = [];
       feedList.innerHTML = '';
       hide(feedMore);
     }
@@ -78,10 +162,11 @@ const App = (() => {
       const posts = Array.isArray(json.data) ? json.data : [];
       const meta  = json.meta || {};
 
-      posts.forEach(p => {
+      posts.forEach(function(p) {
         cache[p.slug] = p;
-        feedList.appendChild(buildCard(p));
+        allPosts.push(p);
       });
+      renderFiltered();
 
       page++;
       hasMore = (meta.current_page || 1) < (meta.last_page || 1);
@@ -328,5 +413,5 @@ const App = (() => {
 
   route();
 
-  return { loadFeed: loadFeed };
+  return { loadFeed: loadFeed, setTab: setTab, clearSearch: clearSearch };
 })();
