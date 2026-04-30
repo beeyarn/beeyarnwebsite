@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Allow actual files and folders to load normally (css, js, images etc)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route everything else to home.html
+RewriteRule ^ /home.html [L]
