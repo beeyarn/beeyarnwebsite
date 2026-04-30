@@ -98,7 +98,7 @@ const App = (() => {
     feedError.hidden = true;
 
     try {
-      const res = await fetch(`${API_BASE}/posts?page=${feedPage}&per_page=15`);
+      const res = await fetch(`${API_BASE}/home?page=${feedPage}&per_page=15`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
 
