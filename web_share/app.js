@@ -8,8 +8,8 @@
 /* ============================================================
    CONFIG
    ============================================================ */
-const API_BASE  = 'https://api.beeyarn.com/api';
-const PER_PAGE  = 10;
+const API_BASE = 'https://api.beeyarn.com/api';
+const PER_PAGE = 10;
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn';
 
 /* ============================================================
@@ -21,7 +21,7 @@ const Cache = {
 
   /** Current feed pagination state */
   feed: {
-    page:    0,
+    page: 0,
     hasMore: true,
     loading: false,
   },
@@ -38,7 +38,7 @@ const Cache = {
 
   resetFeed() {
     this.posts.clear();
-    this.feed.page    = 0;
+    this.feed.page = 0;
     this.feed.hasMore = true;
     this.feed.loading = false;
   },
@@ -75,12 +75,12 @@ const Api = {
 function relativeTime(dateStr) {
   if (!dateStr) return '';
   const diff = Date.now() - new Date(dateStr).getTime();
-  const sec  = Math.floor(diff / 1000);
-  if (sec < 30)          return 'just now';
-  if (sec < 3600)        return `${Math.floor(sec / 60)}m`;
-  if (sec < 86400)       return `${Math.floor(sec / 3600)}h`;
-  if (sec < 86400 * 7)   return `${Math.floor(sec / 86400)}d`;
-  if (sec < 86400 * 30)  return `${Math.floor(sec / (86400 * 7))}w`;
+  const sec = Math.floor(diff / 1000);
+  if (sec < 30) return 'just now';
+  if (sec < 3600) return `${Math.floor(sec / 60)}m`;
+  if (sec < 86400) return `${Math.floor(sec / 3600)}h`;
+  if (sec < 86400 * 7) return `${Math.floor(sec / 86400)}d`;
+  if (sec < 86400 * 30) return `${Math.floor(sec / (86400 * 7))}w`;
   if (sec < 86400 * 365) return `${Math.floor(sec / (86400 * 30))}mo`;
   return `${Math.floor(sec / (86400 * 365))}y`;
 }
@@ -93,7 +93,7 @@ function relativeTime(dateStr) {
 function formatCount(n) {
   if (!n && n !== 0) return '0';
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000)     return `${(n / 1_000).toFixed(1)}k`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(1)}k`;
   return String(n);
 }
 
@@ -120,7 +120,7 @@ function isAndroidMobile() {
    DOWNLOAD MODAL
    ============================================================ */
 const Modal = {
-  overlay:  document.getElementById('downloadModal'),
+  overlay: document.getElementById('downloadModal'),
   closeBtn: document.getElementById('modalClose'),
 
   init() {
@@ -214,7 +214,7 @@ const Router = {
  */
 function avatarHtml(user, sizeClass = 'avatar') {
   const thumb = user?.profilePicture?.thumb;
-  const name  = user?.name || '?';
+  const name = user?.name || '?';
   if (thumb) {
     return `<img class="${sizeClass}" src="${esc(thumb)}" alt="${esc(name)}" loading="lazy" />`;
   }
@@ -305,8 +305,8 @@ function detailMediaHtml(media) {
  * @returns {string}
  */
 function postCardHtml(post) {
-  const user     = post.user || {};
-  const media    = post.media || [];
+  const user = post.user || {};
+  const media = post.media || [];
   const sponsoredBadge = post.isAd
     ? `<span class="post-sponsored-badge">Sponsored</span>`
     : '';
@@ -336,7 +336,7 @@ function postCardHtml(post) {
 
       <div class="post-card-body">
         ${post.title ? `<h2 class="post-title">${esc(post.title)}</h2>` : ''}
-        ${post.body  ? `<p class="post-text">${esc(post.body)}</p>` : ''}
+        ${post.body ? `<p class="post-text">${esc(post.body)}</p>` : ''}
       </div>
 
       <div class="post-metrics">
@@ -397,10 +397,10 @@ const Views = {
       <div class="feed-end-msg" id="feedEnd" hidden>You're all caught up 🐝</div>
     `;
 
-    const feedList    = document.getElementById('feedList');
-    const sentinel    = document.getElementById('loadSentinel');
-    const spinner     = document.getElementById('feedSpinner');
-    const feedEnd     = document.getElementById('feedEnd');
+    const feedList = document.getElementById('feedList');
+    const sentinel = document.getElementById('loadSentinel');
+    const spinner = document.getElementById('feedSpinner');
+    const feedEnd = document.getElementById('feedEnd');
 
     // If we already have cached posts, render them immediately
     if (Cache.posts.size > 0) {
@@ -408,7 +408,7 @@ const Views = {
       feedList.innerHTML = cachedPosts.map(postCardHtml).join('');
       if (!Cache.feed.hasMore) {
         sentinel.hidden = true;
-        feedEnd.hidden  = false;
+        feedEnd.hidden = false;
       }
     }
 
@@ -450,7 +450,7 @@ const Views = {
 
       try {
         const nextPage = Cache.feed.page + 1;
-        const posts    = await Api.fetchHomePosts(nextPage);
+        const posts = await Api.fetchHomePosts(nextPage);
 
         // Remove skeletons on first load
         if (Cache.feed.page === 0) feedList.innerHTML = '';
@@ -462,7 +462,7 @@ const Views = {
           Cache.feed.page = nextPage;
 
           const fragment = document.createDocumentFragment();
-          const temp     = document.createElement('div');
+          const temp = document.createElement('div');
           temp.innerHTML = posts.map(postCardHtml).join('');
           while (temp.firstChild) fragment.appendChild(temp.firstChild);
           feedList.appendChild(fragment);
@@ -472,7 +472,7 @@ const Views = {
 
         if (!Cache.feed.hasMore) {
           sentinel.hidden = true;
-          feedEnd.hidden  = false;
+          feedEnd.hidden = false;
         }
       } catch (err) {
         console.error('Feed fetch error:', err);
@@ -556,7 +556,7 @@ const Views = {
     }
 
     // Render full post detail
-    const user  = post.user || {};
+    const user = post.user || {};
     const media = post.media || [];
 
     detailContent.innerHTML = `
@@ -583,7 +583,7 @@ const Views = {
 
         <div class="detail-body">
           ${post.title ? `<h1 class="detail-title">${esc(post.title)}</h1>` : ''}
-          ${post.body  ? `<p class="detail-text">${esc(post.body)}</p>` : ''}
+          ${post.body ? `<p class="detail-text">${esc(post.body)}</p>` : ''}
         </div>
 
         <div class="detail-view-count">
@@ -656,8 +656,8 @@ const Views = {
    ============================================================ */
 function boot() {
   // Register routes
-  Router.on('/',         () => Views.feed());
-  Router.on('/p/:slug',  (params) => Views.postDetail(params));
+  Router.on('/', () => Views.feed());
+  Router.on('/p/:slug', (params) => Views.postDetail(params));
 
   // Init modal
   Modal.init();
