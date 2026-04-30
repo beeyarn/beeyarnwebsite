@@ -49,7 +49,7 @@ const Cache = {
    ============================================================ */
 const Api = {
   /**
-   * Fetch a page of home posts.
+   * Fetch a page of home posts.....
    * @param {number} page
    * @returns {Promise<object[]>}
    */
