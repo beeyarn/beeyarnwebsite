@@ -242,13 +242,19 @@ const App = (() => {
 
     try {
       let p = cache[slug];
+
+      // If not in cache, load the feed first to find the post
       if (!p) {
-        const res = await fetch(`${API_BASE}/post/${encodeURIComponent(slug)}`);
-        if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : 'Server error: ' + res.status);
+        const res = await fetch(`${API_BASE}/home?page=1`);
+        if (!res.ok) throw new Error('Server error: ' + res.status);
         const json = await res.json();
-        p = json.data || json;
-        cache[slug] = p;
+        const posts = Array.isArray(json.data) ? json.data : [];
+        posts.forEach(function(post) { cache[post.slug] = post; });
+        p = cache[slug] || null;
       }
+
+      if (!p) throw new Error('Post not found.');
+
       renderPost(p);
       setMetas(p);
     } catch (e) {
