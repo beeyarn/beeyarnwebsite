@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.beeyarn.beeyarn",
+    "sha256_cert_fingerprints": [
+      "82:28:DD:AA:7C:8C:49:2E:A3:46:42:28:4F:8D:7A:37:D9:06:57:EE:27:04:6E:2A:B1:F7:F6:E5:A6:32:8D:6E"
+    ]
+  }
+}]
