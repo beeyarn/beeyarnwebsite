@@ -1,45 +1,39 @@
 /* =============================================
    BeeYarn Feed SPA — app.js
-   Routes: /           → feed view
-           /p/:slug    → post detail view
-   API:    https://api.beeyarn.com
+   Routes: /        → feed  (GET /api/home)
+           /p/:slug → post  (GET /api/post/:slug)
    ============================================= */
 
 const App = (() => {
   'use strict';
 
   const API_BASE = 'https://api.beeyarn.com/api';
-  const APP_PKG  = 'com.beeyarn.beeyarn';
 
-  /* ── DOM refs ─────────────────────────────── */
-  const views = {
-    feed: document.getElementById('view-feed'),
-    post: document.getElementById('view-post'),
-  };
+  /* ── DOM refs ──────────────────────────────── */
+  const views       = { feed: document.getElementById('view-feed'), post: document.getElementById('view-post') };
+  const feedLoading = document.getElementById('feed-loading');
+  const feedError   = document.getElementById('feed-error');
+  const feedErrorMsg= document.getElementById('feed-error-msg');
+  const feedTable   = document.getElementById('feed-table');
+  const feedTbody   = document.getElementById('feed-tbody');
+  const feedLoadMore= document.getElementById('feed-load-more');
+  const btnLoadMore = document.getElementById('btn-load-more');
+  const postLoading = document.getElementById('post-loading');
+  const postArticle = document.getElementById('post-article');
+  const postError   = document.getElementById('post-error');
+  const postErrorMsg= document.getElementById('post-error-msg');
+  const btnBack     = document.getElementById('btn-back');
 
-  const feedList      = document.getElementById('feed-list');
-  const feedLoading   = document.getElementById('feed-loading');
-  const feedError     = document.getElementById('feed-error');
-  const feedErrorMsg  = document.getElementById('feed-error-msg');
-  const feedLoadMore  = document.getElementById('feed-load-more');
-  const btnLoadMore   = document.getElementById('btn-load-more');
-
-  const postLoading   = document.getElementById('post-loading');
-  const postArticle   = document.getElementById('post-article');
-  const postError     = document.getElementById('post-error');
-  const postErrorMsg  = document.getElementById('post-error-msg');
-  const appBanner     = document.getElementById('app-banner');
-  const appBannerLink = document.getElementById('app-banner-link');
-  const btnBack       = document.getElementById('btn-back');
-
-  /* ── State ────────────────────────────────── */
+  /* ── State ─────────────────────────────────── */
   let feedPage     = 1;
-  let feedLoading_ = false;
+  let feedBusy     = false;
   let feedHasMore  = true;
+  // Cache posts loaded from feed so post detail can reuse the data
+  const postCache  = {};
 
-  /* ── Router ───────────────────────────────── */
+  /* ── Router ────────────────────────────────── */
   function route() {
-    const path = location.pathname;
+    const path      = location.pathname;
     const postMatch = path.match(/^\/p\/([^/]+)\/?$/);
 
     if (postMatch) {
@@ -47,18 +41,16 @@ const App = (() => {
       loadPost(decodeURIComponent(postMatch[1]));
     } else {
       showView('feed');
-      if (feedList.children.length === 0) loadFeed(true);
+      if (feedTbody.children.length === 0) loadFeed(true);
     }
   }
 
   function showView(name) {
-    Object.entries(views).forEach(([k, el]) => {
-      el.hidden = (k !== name);
-    });
+    Object.entries(views).forEach(([k, el]) => { el.hidden = (k !== name); });
     window.scrollTo(0, 0);
   }
 
-  /* ── Navigation ───────────────────────────── */
+  /* ── Navigation ────────────────────────────── */
   function navigate(path) {
     history.pushState({}, '', path);
     route();
@@ -66,15 +58,16 @@ const App = (() => {
 
   window.addEventListener('popstate', route);
 
-  // Intercept same-origin /p/... links
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href]');
     if (!a) return;
-    const url = new URL(a.href, location.origin);
-    if (url.origin === location.origin && url.pathname.startsWith('/p/')) {
-      e.preventDefault();
-      navigate(url.pathname);
-    }
+    try {
+      const url = new URL(a.href, location.origin);
+      if (url.origin === location.origin && url.pathname.startsWith('/p/')) {
+        e.preventDefault();
+        navigate(url.pathname);
+      }
+    } catch (_) {}
   });
 
   btnBack.addEventListener('click', () => {
@@ -82,117 +75,114 @@ const App = (() => {
     else navigate('/');
   });
 
-  /* ── Feed ─────────────────────────────────── */
+  /* ── Feed ──────────────────────────────────── */
   async function loadFeed(reset = false) {
-    if (feedLoading_) return;
+    if (feedBusy) return;
     if (reset) {
       feedPage = 1;
       feedHasMore = true;
-      feedList.innerHTML = '';
+      feedTbody.innerHTML = '';
+      feedTable.hidden = true;
       feedLoadMore.hidden = true;
     }
     if (!feedHasMore) return;
 
-    feedLoading_ = true;
+    feedBusy = true;
     feedLoading.hidden = false;
-    feedError.hidden = true;
+    feedError.hidden   = true;
 
     try {
-      const res = await fetch(`${API_BASE}/home?page=${feedPage}&per_page=15`);
+      const res  = await fetch(`${API_BASE}/home?page=${feedPage}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
 
-      // Support {data:[...]} envelope or plain array
-      const posts   = Array.isArray(json) ? json : (json.data ?? []);
-      const hasMore = Array.isArray(json)
-        ? posts.length === 15
-        : !!(json.next_page_url ?? (json.meta && json.meta.current_page < json.meta.last_page));
+      const posts   = json.data ?? [];
+      const meta    = json.meta ?? {};
+      const hasMore = meta.current_page < meta.last_page;
 
-      posts.forEach(p => feedList.appendChild(buildCard(p)));
+      posts.forEach(p => {
+        postCache[p.slug] = p;          // cache for post detail
+        feedTbody.appendChild(buildRow(p));
+      });
+
       feedPage++;
-      feedHasMore = hasMore && posts.length > 0;
+      feedHasMore = hasMore;
+      feedTable.hidden    = false;
       feedLoadMore.hidden = !feedHasMore;
     } catch (err) {
       feedErrorMsg.textContent = 'Could not load posts. ' + err.message;
       feedError.hidden = false;
     } finally {
       feedLoading.hidden = true;
-      feedLoading_ = false;
+      feedBusy = false;
     }
   }
 
   btnLoadMore.addEventListener('click', () => loadFeed(false));
 
-  /* ── Build card ───────────────────────────── */
-  function buildCard(post) {
-    const slug    = post.slug ?? post.id;
-    const name    = esc(post.user?.name ?? post.author ?? 'BeeYarner');
-    const uname   = post.user?.username ? '@' + esc(post.user.username) : '';
-    const avatar  = post.user?.avatar_url ?? post.user?.profile_photo_url ?? '';
-    const body    = esc(post.body ?? post.content ?? '');
-    const time    = relativeTime(post.created_at);
-    const likes   = post.likes_count   ?? post.likes   ?? 0;
-    const comments= post.comments_count ?? post.comments ?? 0;
-    const media   = post.media?.[0] ?? null;
+  /* ── Build feed row ────────────────────────── */
+  function buildRow(p) {
+    const slug      = p.slug;
+    const title     = p.title || '(untitled)';
+    const topic     = p.topic || '';
+    const avatar    = p.user?.profile_picture?.thumb || p.user?.profile_picture?.url || '';
+    const name      = p.user?.name || 'BeeYarner';
+    const username  = p.user?.username || '';
+    const time      = relativeTime(p.created_at);
+    const views_    = p.number_of_views ?? 0;
+    const likes     = p.likes_count ?? 0;
+    const comments  = p.comments_count ?? 0;
+    const hasMedia  = p.post_media?.files?.length > 0;
+    const mediaType = p.post_media?.files?.[0]?.type || '';
 
-    const card = document.createElement('article');
-    card.className = 'by-card';
-    card.setAttribute('role', 'link');
-    card.setAttribute('tabindex', '0');
-    card.dataset.slug = slug;
+    const tr = document.createElement('tr');
+    tr.dataset.slug = slug;
 
-    card.innerHTML = `
-      <div class="by-card__header">
-        <img class="by-avatar" src="${esc(avatar)}" alt="${name}"
-             onerror="this.src=''" />
-        <div class="by-card__meta">
-          <span class="by-card__name">${name}</span>
-          ${uname ? `<span class="by-card__username">${uname}</span>` : ''}
+    tr.innerHTML = `
+      <td>
+        <div class="by-row__topic-cell">
+          <img class="by-row__avatar"
+               src="${escAttr(avatar)}"
+               alt="${escAttr(name)}"
+               onerror="this.style.visibility='hidden'" />
+          <div class="by-row__info">
+            <span class="by-row__title">${escHtml(title)}</span>
+            <div class="by-row__meta">
+              ${topic ? `<span class="by-topic-tag">${escHtml(topic)}</span>` : ''}
+              <span class="by-row__author">by <strong>${escHtml(name)}</strong>${username ? ' @' + escHtml(username) : ''}</span>
+              ${hasMedia ? `<span class="by-has-media"><i class="bi bi-${mediaType === 'video' ? 'play-circle' : 'image'}"></i> ${mediaType}</span>` : ''}
+            </div>
+          </div>
         </div>
-        <time class="by-card__time">${time}</time>
-      </div>
-      ${media ? renderCardMedia(media) : ''}
-      ${body ? `<div class="by-card__body">${body}</div>` : ''}
-      <div class="by-card__footer">
-        <span><i class="bi bi-heart"></i>${likes}</span>
-        <span><i class="bi bi-chat"></i>${comments}</span>
-      </div>
+      </td>
+      <td class="by-stat-cell">${views_}</td>
+      <td class="by-stat-cell">${likes}</td>
+      <td class="by-stat-cell by-hide-sm">${comments}</td>
+      <td class="by-time-cell">${time}</td>
     `;
 
-    card.addEventListener('click', () => navigate('/p/' + encodeURIComponent(slug)));
-    card.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') navigate('/p/' + encodeURIComponent(slug));
-    });
-
-    return card;
+    tr.addEventListener('click', () => navigate('/p/' + encodeURIComponent(slug)));
+    return tr;
   }
 
-  function renderCardMedia(media) {
-    const url = esc(media.url ?? media.original_url ?? '');
-    if (!url) return '';
-    const type = (media.type ?? media.mime_type ?? '').toLowerCase();
-    if (type.startsWith('video') || url.match(/\.(mp4|webm|mov)(\?|$)/i)) {
-      return `<div class="by-card__media"><video src="${url}" muted playsinline preload="metadata"></video></div>`;
-    }
-    return `<div class="by-card__media"><img src="${url}" alt="post media" loading="lazy" /></div>`;
-  }
-
-  /* ── Post detail ──────────────────────────── */
+  /* ── Post detail ───────────────────────────── */
   async function loadPost(slug) {
     postLoading.hidden = false;
     postArticle.hidden = true;
     postError.hidden   = true;
-    appBanner.hidden   = true;
 
     try {
-      const res = await fetch(`${API_BASE}/post/${encodeURIComponent(slug)}`);
-      if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : `HTTP ${res.status}`);
-      const json = await res.json();
-      const post = json.data ?? json;
-
-      renderPost(post, slug);
+      // Try cache first (data already fetched from feed), then fetch
+      let post = postCache[slug] ?? null;
+      if (!post) {
+        const res = await fetch(`${API_BASE}/post/${encodeURIComponent(slug)}`);
+        if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : `HTTP ${res.status}`);
+        const json = await res.json();
+        post = json.data ?? json;
+        postCache[slug] = post;
+      }
+      renderPost(post);
       updateMeta(post);
-      showAppBanner(slug);
     } catch (err) {
       postErrorMsg.textContent = err.message || 'Post not found.';
       postError.hidden = false;
@@ -201,69 +191,109 @@ const App = (() => {
     }
   }
 
-  function renderPost(post, slug) {
-    const name    = esc(post.user?.name ?? post.author ?? 'BeeYarner');
-    const uname   = post.user?.username ? '@' + esc(post.user.username) : '';
-    const avatar  = post.user?.avatar_url ?? post.user?.profile_photo_url ?? '';
-    const body    = esc(post.body ?? post.content ?? '');
-    const time    = formatDate(post.created_at);
-    const likes   = post.likes_count    ?? post.likes    ?? 0;
-    const comments= post.comments_count  ?? post.comments  ?? 0;
+  /* ── Render post detail ────────────────────── */
+  function renderPost(p) {
+    const name     = p.user?.name || 'BeeYarner';
+    const username = p.user?.username || '';
+    const avatar   = p.user?.profile_picture?.url || p.user?.profile_picture?.thumb || '';
+    const verified = p.user?.is_verified || false;
 
-    document.getElementById('post-avatar').src = avatar;
-    document.getElementById('post-avatar').alt = name;
-    document.getElementById('post-author').textContent   = name;
-    document.getElementById('post-username').textContent = uname;
-    document.getElementById('post-time').textContent     = time;
-    document.getElementById('post-time').setAttribute('datetime', post.created_at ?? '');
-    document.getElementById('post-body').textContent     = post.body ?? post.content ?? '';
-    document.getElementById('post-like-count').textContent    = likes;
-    document.getElementById('post-comment-count').textContent = comments;
+    document.getElementById('post-title').textContent    = p.title || '';
+    document.getElementById('post-topic-tag').textContent= p.topic || '';
+    document.getElementById('post-topic-tag').hidden      = !p.topic;
+    document.getElementById('post-name').textContent      = name;
+    document.getElementById('post-username').textContent  = username ? '@' + username : '';
+    document.getElementById('post-verified').hidden        = !verified;
+    document.getElementById('post-time').textContent       = formatDate(p.created_at);
+    document.getElementById('post-time').setAttribute('datetime', p.created_at || '');
+    document.getElementById('post-body').textContent       = p.body || '';
+    document.getElementById('post-views').textContent      = p.number_of_views ?? 0;
+    document.getElementById('post-likes').textContent      = p.likes_count ?? 0;
+    document.getElementById('post-comments').textContent   = p.comments_count ?? 0;
+    document.getElementById('post-shares').textContent     = p.shares_count ?? 0;
+
+    const avatarEl = document.getElementById('post-avatar');
+    avatarEl.src = avatar;
+    avatarEl.alt = name;
+    avatarEl.onerror = () => { avatarEl.style.visibility = 'hidden'; };
 
     // Media
     const mediaWrap = document.getElementById('post-media');
     mediaWrap.innerHTML = '';
-    const mediaItems = post.media ?? [];
-    mediaItems.forEach(m => {
-      const url  = m.url ?? m.original_url ?? '';
-      const type = (m.type ?? m.mime_type ?? '').toLowerCase();
-      if (!url) return;
-      if (type.startsWith('video') || url.match(/\.(mp4|webm|mov)(\?|$)/i)) {
+    const files = p.post_media?.files ?? [];
+    files.forEach(f => mediaWrap.appendChild(buildMediaItem(f)));
+
+    // App link = share_url or construct it
+    const shareUrl = p.share_url || `https://www.beeyarn.com/p/${encodeURIComponent(p.slug)}`;
+    document.getElementById('post-app-link').href = shareUrl;
+
+    // Share button
+    const btnShare = document.getElementById('btn-share-post');
+    btnShare.onclick = () => {
+      if (navigator.share) {
+        navigator.share({ title: p.title, url: shareUrl }).catch(() => {});
+      } else {
+        navigator.clipboard?.writeText(shareUrl).then(() => alert('Link copied!')).catch(() => {});
+      }
+    };
+
+    postArticle.hidden = false;
+  }
+
+  /* ── Media item ────────────────────────────── */
+  function buildMediaItem(f) {
+    const wrap = document.createElement('div');
+    wrap.className = 'by-media-item';
+
+    const url   = f.url   || '';
+    const thumb = f.thumb || '';
+    const type  = (f.type || '').toLowerCase();
+
+    if (type === 'video') {
+      // Show thumbnail with play button; click replaces with <video>
+      if (thumb) {
+        wrap.classList.add('by-thumb-wrap');
+        wrap.innerHTML = `
+          <img src="${escAttr(thumb)}" alt="video thumbnail" />
+          <div class="by-play-btn"><i class="bi bi-play-circle-fill"></i></div>
+        `;
+        wrap.addEventListener('click', () => {
+          const v = document.createElement('video');
+          v.src      = url;
+          v.controls = true;
+          v.autoplay = true;
+          v.playsinline = true;
+          wrap.innerHTML = '';
+          wrap.classList.remove('by-thumb-wrap');
+          wrap.appendChild(v);
+        });
+      } else {
         const v = document.createElement('video');
         v.src      = url;
         v.controls = true;
         v.playsinline = true;
         v.preload  = 'metadata';
-        mediaWrap.appendChild(v);
-      } else {
-        const img = document.createElement('img');
-        img.src     = url;
-        img.alt     = 'post image';
-        img.loading = 'lazy';
-        mediaWrap.appendChild(img);
+        wrap.appendChild(v);
       }
-    });
-
-    // App deep link (Android App Links)
-    const deepLink = `https://www.beeyarn.com/p/${encodeURIComponent(slug)}`;
-    document.getElementById('post-app-link').href = deepLink;
-
-    postArticle.hidden = false;
-  }
-
-  function showAppBanner(slug) {
-    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      appBannerLink.href = `https://www.beeyarn.com/p/${encodeURIComponent(slug)}`;
-      appBanner.hidden = false;
+    } else {
+      const img = document.createElement('img');
+      img.src     = url;
+      img.alt     = 'post image';
+      img.loading = 'lazy';
+      wrap.appendChild(img);
     }
+
+    return wrap;
   }
 
-  /* ── OG meta update ───────────────────────── */
-  function updateMeta(post) {
-    const title = (post.user?.name ?? 'BeeYarner') + ' on BeeYarn';
-    const desc  = (post.body ?? post.content ?? '').slice(0, 200);
-    const image = post.media?.[0]?.url ?? post.media?.[0]?.original_url ?? '';
+  /* ── OG meta ───────────────────────────────── */
+  function updateMeta(p) {
+    const title = `${p.title || 'Post'} — BeeYarn`;
+    const desc  = (p.body || '').slice(0, 200) || 'View this post on BeeYarn.';
+    const image = p.post_media?.files?.[0]?.thumb
+               || p.post_media?.files?.[0]?.url
+               || p.user?.profile_picture?.url
+               || '';
 
     document.title = title;
     setMeta('property', 'og:title',       title);
@@ -276,30 +306,28 @@ const App = (() => {
 
   function setMeta(attr, val, content) {
     let el = document.querySelector(`meta[${attr}="${val}"]`);
-    if (!el) {
-      el = document.createElement('meta');
-      el.setAttribute(attr, val);
-      document.head.appendChild(el);
-    }
+    if (!el) { el = document.createElement('meta'); el.setAttribute(attr, val); document.head.appendChild(el); }
     el.setAttribute('content', content);
   }
 
-  /* ── Helpers ──────────────────────────────── */
-  function esc(str) {
+  /* ── Helpers ───────────────────────────────── */
+  function escHtml(str) {
     if (!str) return '';
-    const d = document.createElement('div');
-    d.appendChild(document.createTextNode(String(str)));
-    return d.innerHTML;
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
+
+  function escAttr(str) { return escHtml(str); }
 
   function relativeTime(iso) {
     if (!iso) return '';
     const diff = Date.now() - new Date(iso).getTime();
     const s = Math.floor(diff / 1000);
-    if (s < 60)   return 'just now';
-    if (s < 3600) return Math.floor(s / 60) + 'm';
-    if (s < 86400)return Math.floor(s / 3600) + 'h';
-    return Math.floor(s / 86400) + 'd';
+    if (s < 60)    return 'just now';
+    if (s < 3600)  return Math.floor(s / 60) + 'm ago';
+    if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+    return Math.floor(s / 86400) + 'd ago';
   }
 
   function formatDate(iso) {
@@ -310,9 +338,8 @@ const App = (() => {
     });
   }
 
-  /* ── Boot ─────────────────────────────────── */
+  /* ── Boot ──────────────────────────────────── */
   route();
 
-  // Expose for inline onclick (retry buttons)
   return { loadFeed };
 })();
