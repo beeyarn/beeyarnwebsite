@@ -437,6 +437,99 @@
 
     .widget__copy { font-size: 11px; color: #aaa; margin-top: 10px !important; margin-bottom: 0 !important; }
 
+    /* === CARD === */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      margin-bottom: 10px;
+      display: flex;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      overflow: hidden;
+    }
+    .card:hover { border-color: #9ca3af; }
+
+    .card-left {
+      width: 40px; background: #f8f9fa;
+      flex-shrink: 0;
+      display: flex; flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      border-right: 1px solid var(--border);
+    }
+
+    .card-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%; object-fit: cover;
+      background: var(--green-bg);
+    }
+
+    .card-body { flex: 1; min-width: 0; padding: 10px 12px; }
+
+    .card-meta {
+      font-size: 12px; color: var(--sub);
+      display: flex; flex-wrap: wrap; gap: 4px;
+      align-items: center; margin-bottom: 5px;
+    }
+
+    .card-name   { font-weight: 700; color: var(--text); }
+    .card-handle { color: var(--sub); }
+    .card-time   { color: var(--sub); }
+    .card-dot    { color: #ccc; }
+
+    .card-topic {
+      background: var(--green-bg); color: var(--green);
+      font-size: 10px; font-weight: 700;
+      padding: 1px 7px; border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-size: 15px; font-weight: 600;
+      color: var(--text); line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .card-excerpt {
+      font-size: 13px; color: var(--sub);
+      line-height: 1.5; margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-thumb {
+      border-radius: 4px; overflow: hidden;
+      margin-bottom: 8px; position: relative;
+      background: #000; max-height: 260px;
+    }
+
+    .card-thumb img {
+      width: 100%; max-height: 260px;
+      object-fit: cover; display: block;
+    }
+
+    .card-thumb-play {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.25);
+    }
+
+    .card-thumb-play i { font-size: 2rem; color: rgba(255,255,255,0.9); }
+
+    .card-actions { display: flex; gap: 4px; flex-wrap: wrap; }
+
+    .card-stat {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 12px; color: var(--sub); font-weight: 600;
+      padding: 4px 8px; border-radius: 2px;
+      transition: background 0.1s;
+    }
+
+    .card-stat:hover { background: var(--bg); color: var(--text); }
+
     /* === RESPONSIVE === */
     @media (max-width: 960px) { .sidebar { display: none; } }
     @media (max-width: 640px) {
@@ -494,21 +587,21 @@
           <span>Loading posts…</span>
         </div>
 
-        <div id="feed-error" class="state-box" hidden>
+        <div id="feed-error" class="state-box" style="display:none">
           <i class="bi bi-wifi-off"></i>
-          <p>Couldn't load posts</p>
+          <p id="feed-error-msg">Couldn't load posts</p>
           <button class="btn" onclick="App.loadFeed(true)">Try again</button>
         </div>
 
         <div id="feed-list"></div>
 
-        <div id="feed-load-more" class="load-more-wrap" hidden>
+        <div id="feed-load-more" class="load-more-wrap" style="display:none">
           <button id="btn-load-more" class="btn btn-outline">Load more</button>
         </div>
       </div>
 
       <!-- POST DETAIL VIEW -->
-      <div id="view-post" hidden>
+      <div id="view-post" style="display:none">
 
         <button class="back-btn" id="btn-back">
           <i class="bi bi-arrow-left"></i> Back to Feed
@@ -519,13 +612,13 @@
           <span>Loading post…</span>
         </div>
 
-        <div id="post-error" class="state-box" hidden>
+        <div id="post-error" class="state-box" style="display:none">
           <i class="bi bi-question-circle"></i>
           <p id="post-error-msg">Post not found</p>
           <button class="btn" onclick="history.back()">Go back</button>
         </div>
 
-        <div class="post-detail" id="post-article" hidden>
+        <div class="post-detail" id="post-article" style="display:none">
           <div class="post-detail__head">
             <div class="post-detail__meta">
               <img id="post-avatar" class="post-detail__avatar" src="" alt="" />
