@@ -1,0 +1,66 @@
+<!--
+  Nginx config needed:
+  location / { try_files $uri $uri/ /home.html; }
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#F5A623" />
+  <title>BeeYarn</title>
+  <meta name="description" content="BeeYarn — Share stories, connect with your community." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="navbar-logo" data-link>
+        <span class="navbar-logo-icon">🐝</span>
+        <span class="navbar-logo-text">BeeYarn</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main app container -->
+  <div class="app-container" id="app">
+    <!-- Views are rendered here by the router -->
+  </div>
+
+  <!-- Mobile bottom sticky banner -->
+  <div class="mobile-banner" id="mobileBanner">
+    <span class="mobile-banner-text">Get the full experience — Download BeeYarn</span>
+    <a
+      href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn btn-primary btn-sm"
+    >
+      Play Store
+    </a>
+  </div>
+
+  <!-- Download / Interaction Popup Modal -->
+  <div class="modal-overlay" id="downloadModal" aria-modal="true" role="dialog" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-logo">🐝</div>
+      <h2 class="modal-title">Open in BeeYarn</h2>
+      <p class="modal-subtitle">Like, comment and interact with the community</p>
+      <a
+        href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary btn-block"
+        id="playStoreBtn"
+      >
+        Download on Google Play
+      </a>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

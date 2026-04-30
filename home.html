@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="BeeYarn - Be Seen. Be Heard. A social platform where everyone gets paid." />
+  <meta name="author" content="BeeYarn" />
+
+  <!-- Open Graph defaults (app.js overwrites these for post pages) -->
+  <meta property="og:title" content="BeeYarn - Be Seen. Be Heard." />
+  <meta property="og:description" content="A social platform connecting people. Everyone gets paid." />
+  <meta property="og:image" content="https://www.beeyarn.com/assets/img/homepage.jpg" />
+  <meta property="og:url" content="https://www.beeyarn.com/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>BeeYarn</title>
+  <link rel="icon" type="image/jpeg" href="/assets/favicon.jpg" />
+  <link rel="apple-touch-icon" href="/assets/favicon.jpg" />
+  <meta name="theme-color" content="#1C5B31" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- Top nav -->
+  <header class="by-nav">
+    <a href="/" class="by-nav__logo" id="logoLink">
+      <img src="/assets/img/logo.png" alt="BeeYarn" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'" />
+      <span style="display:none;font-weight:700;color:#1C5B31;font-size:1.25rem;">BeeYarn</span>
+    </a>
+    <nav class="by-nav__links">
+      <a href="https://www.beeyarn.com/index.html">Home</a>
+      <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn" target="_blank" rel="noopener">
+        <i class="bi bi-google-play"></i> Get the App
+      </a>
+    </nav>
+  </header>
+
+  <!-- Main content area — router swaps between #view-feed and #view-post -->
+  <main class="by-main">
+
+    <!-- Feed view -->
+    <div id="view-feed" class="by-view" hidden>
+      <div class="by-feed-header">
+        <h1>What's happening</h1>
+        <p class="by-subtext">Discover posts from the BeeYarn community</p>
+      </div>
+
+      <div id="feed-list" class="by-feed-list">
+        <!-- cards injected by app.js -->
+      </div>
+
+      <div id="feed-load-more" class="by-load-more" hidden>
+        <button id="btn-load-more" class="by-btn">Load more</button>
+      </div>
+
+      <div id="feed-loading" class="by-spinner-wrap">
+        <span class="by-spinner"></span>
+      </div>
+
+      <div id="feed-error" class="by-error" hidden>
+        <i class="bi bi-exclamation-circle"></i>
+        <p id="feed-error-msg">Something went wrong. Please try again.</p>
+        <button class="by-btn" onclick="App.loadFeed(true)">Retry</button>
+      </div>
+    </div>
+
+    <!-- Post detail view -->
+    <div id="view-post" class="by-view" hidden>
+      <button class="by-back-btn" id="btn-back">
+        <i class="bi bi-arrow-left"></i> Back
+      </button>
+
+      <div id="post-loading" class="by-spinner-wrap">
+        <span class="by-spinner"></span>
+      </div>
+
+      <article id="post-article" class="by-post-article" hidden>
+        <header class="by-post-header">
+          <img id="post-avatar" class="by-avatar by-avatar--lg" src="" alt="" />
+          <div>
+            <span id="post-author" class="by-post-author"></span>
+            <span id="post-username" class="by-post-username"></span>
+            <time id="post-time" class="by-post-time"></time>
+          </div>
+        </header>
+
+        <div id="post-media" class="by-post-media"></div>
+
+        <div id="post-body" class="by-post-body"></div>
+
+        <footer class="by-post-footer">
+          <span id="post-likes"><i class="bi bi-heart"></i> <span id="post-like-count">0</span></span>
+          <span id="post-comments"><i class="bi bi-chat"></i> <span id="post-comment-count">0</span></span>
+          <a id="post-app-link"
+             href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+             target="_blank" rel="noopener"
+             class="by-btn by-btn--sm">
+            Open in app
+          </a>
+        </footer>
+      </article>
+
+      <div id="post-error" class="by-error" hidden>
+        <i class="bi bi-exclamation-circle"></i>
+        <p id="post-error-msg">Post not found.</p>
+        <button class="by-btn" onclick="history.back()">Go back</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- App banner (shows on post detail for mobile) -->
+  <div id="app-banner" class="by-app-banner" hidden>
+    <div class="by-app-banner__inner">
+      <img src="/assets/img/logo.png" alt="" class="by-app-banner__icon"
+           onerror="this.style.display='none'" />
+      <div>
+        <strong>BeeYarn</strong>
+        <span>Open this post in the app</span>
+      </div>
+      <a id="app-banner-link"
+         href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+         class="by-btn by-btn--sm" target="_blank" rel="noopener">Open</a>
+      <button class="by-app-banner__close" aria-label="Dismiss" onclick="document.getElementById('app-banner').hidden=true">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
