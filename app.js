@@ -185,7 +185,7 @@ const App = (() => {
     appBanner.hidden   = true;
 
     try {
-      const res = await fetch(`${API_BASE}/posts/${encodeURIComponent(slug)}`);
+      const res = await fetch(`${API_BASE}/post/${encodeURIComponent(slug)}`);
       if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : `HTTP ${res.status}`);
       const json = await res.json();
       const post = json.data ?? json;
