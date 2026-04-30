@@ -22,19 +22,20 @@ const App = (() => {
   const btnBack     = document.getElementById('btn-back');
 
   // State
-  let page     = 1;
-  let busy     = false;
-  let hasMore  = true;
-  const cache  = {};
+  let page    = 1;
+  let busy    = false;
+  let hasMore = true;
+  const cache = {};
 
-  function show(el)  { el.style.display = ''; }
-  function hide(el)  { el.style.display = 'none'; }
+  // Hide/show using display property — flex for visible, none for hidden
+  function show(el, flex) { el.style.display = flex ? 'flex' : 'block'; }
+  function hide(el)       { el.style.display = 'none'; }
 
-  // ── Router ──────────────────────────────────
+  // ── Router ─────────────────────────────────────
   function route() {
     const m = location.pathname.match(/^\/p\/([^/]+)\/?$/);
     if (m) {
-      hide(viewFeed); show(viewPost);
+      show(viewPost); hide(viewFeed);
       loadPost(decodeURIComponent(m[1]));
     } else {
       show(viewFeed); hide(viewPost);
@@ -49,15 +50,13 @@ const App = (() => {
   }
 
   window.addEventListener('popstate', route);
-
+  btnMore.addEventListener('click', () => loadFeed(false));
   btnBack.addEventListener('click', () => {
     if (history.length > 1) history.back();
     else navigate('/');
   });
 
-  btnMore.addEventListener('click', () => loadFeed(false));
-
-  // ── Feed ────────────────────────────────────
+  // ── Feed ───────────────────────────────────────
   async function loadFeed(reset) {
     if (busy) return;
     if (reset) {
@@ -68,16 +67,16 @@ const App = (() => {
     if (!hasMore) return;
 
     busy = true;
-    show(feedLoading);
+    show(feedLoading, true);
     hide(feedError);
 
     try {
       const res  = await fetch(`${API_BASE}/home?page=${page}`);
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const json = await res.json();
+      if (!res.ok) throw new Error('Server error: ' + res.status);
 
-      const posts = json.data ?? [];
-      const meta  = json.meta ?? {};
+      const json = await res.json();
+      const posts = Array.isArray(json.data) ? json.data : [];
+      const meta  = json.meta || {};
 
       posts.forEach(p => {
         cache[p.slug] = p;
@@ -85,72 +84,74 @@ const App = (() => {
       });
 
       page++;
-      hasMore = (meta.current_page ?? 1) < (meta.last_page ?? 1);
+      hasMore = (meta.current_page || 1) < (meta.last_page || 1);
       if (hasMore) show(feedMore); else hide(feedMore);
+
     } catch (e) {
       document.getElementById('feed-error-msg').textContent = 'Could not load posts. ' + e.message;
-      show(feedError);
-    } finally {
-      hide(feedLoading);
-      busy = false;
+      show(feedError, true);
     }
+
+    hide(feedLoading);
+    busy = false;
   }
 
-  // ── Build card ───────────────────────────────
+  // ── Build card ──────────────────────────────────
   function buildCard(p) {
-    const avatar  = p.user?.profile_picture?.thumb || p.user?.profile_picture?.url || '';
-    const name    = p.user?.name    || 'BeeYarner';
-    const uname   = p.user?.username ? '@' + p.user.username : '';
-    const time    = ago(p.created_at);
-    const likes   = fmt(p.likes_count    ?? 0);
-    const comments= fmt(p.comments_count ?? 0);
-    const files   = p.post_media?.files ?? [];
-    const first   = files[0] ?? null;
+    const avatar   = (p.user && p.user.profile_picture && (p.user.profile_picture.thumb || p.user.profile_picture.url)) || '';
+    const name     = (p.user && p.user.name) || 'BeeYarner';
+    const username = (p.user && p.user.username) ? '@' + p.user.username : '';
+    const time     = ago(p.created_at);
+    const likes    = fmt(p.likes_count    || 0);
+    const comments = fmt(p.comments_count || 0);
+    const views    = fmt(p.number_of_views || 0);
+    const files    = (p.post_media && p.post_media.files) ? p.post_media.files : [];
+    const first    = files[0] || null;
 
-    let thumb = '';
+    let thumbHtml = '';
     if (first) {
-      const src = first.thumb || first.url || '';
+      const src     = first.thumb || first.url || '';
       const isVideo = first.type === 'video';
-      thumb = `
-        <div class="card-thumb">
-          <img src="${xa(src)}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'" />
-          ${isVideo ? '<div class="card-thumb-play"><i class="bi bi-play-circle-fill"></i></div>' : ''}
-        </div>`;
+      if (src) {
+        thumbHtml = '<div class="card-thumb">'
+          + '<img src="' + xa(src) + '" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'" />'
+          + (isVideo ? '<div class="card-thumb-play"><i class="bi bi-play-circle-fill"></i></div>' : '')
+          + '</div>';
+      }
     }
 
     const el = document.createElement('div');
     el.className = 'card';
-    el.innerHTML = `
-      <div class="card-left">
-        <img class="card-avatar" src="${xa(avatar)}" alt="${xa(name)}"
-             onerror="this.style.visibility='hidden'" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-name">${xh(name)}</span>
-          <span class="card-dot">·</span>
-          <span class="card-handle">${xh(uname)}</span>
-          <span class="card-dot">·</span>
-          <span class="card-time">${time}</span>
-          ${p.topic ? `<span class="card-dot">·</span><span class="card-topic">${xh(p.topic)}</span>` : ''}
-        </div>
-        ${p.title ? `<div class="card-title">${xh(p.title)}</div>` : ''}
-        ${p.body  ? `<div class="card-excerpt">${xh(p.body)}</div>` : ''}
-        ${thumb}
-        <div class="card-actions">
-          <span class="card-stat"><i class="bi bi-heart"></i> ${likes}</span>
-          <span class="card-stat"><i class="bi bi-chat"></i> ${comments}</span>
-          <span class="card-stat"><i class="bi bi-eye"></i> ${fmt(p.number_of_views ?? 0)}</span>
-        </div>
-      </div>
-    `;
+    el.innerHTML =
+      '<div class="card-left">'
+      +   '<img class="card-avatar" src="' + xa(avatar) + '" alt="' + xa(name) + '" onerror="this.style.visibility=\'hidden\'" />'
+      + '</div>'
+      + '<div class="card-body">'
+      +   '<div class="card-meta">'
+      +     '<span class="card-name">'   + xh(name)     + '</span>'
+      +     '<span class="card-dot">·</span>'
+      +     '<span class="card-handle">' + xh(username)  + '</span>'
+      +     '<span class="card-dot">·</span>'
+      +     '<span class="card-time">'   + time          + '</span>'
+      +     (p.topic ? '<span class="card-dot">·</span><span class="card-topic">' + xh(p.topic) + '</span>' : '')
+      +   '</div>'
+      +   (p.title ? '<div class="card-title">' + xh(p.title) + '</div>' : '')
+      +   (p.body  ? '<div class="card-excerpt">' + xh(p.body) + '</div>' : '')
+      +   thumbHtml
+      +   '<div class="card-actions">'
+      +     '<span class="card-stat"><i class="bi bi-heart"></i> ' + likes    + '</span>'
+      +     '<span class="card-stat"><i class="bi bi-chat"></i> '  + comments + '</span>'
+      +     '<span class="card-stat"><i class="bi bi-eye"></i> '   + views    + '</span>'
+      +   '</div>'
+      + '</div>';
+
     el.addEventListener('click', () => navigate('/p/' + encodeURIComponent(p.slug)));
     return el;
   }
 
-  // ── Post detail ──────────────────────────────
+  // ── Post detail ─────────────────────────────────
   async function loadPost(slug) {
-    show(postLoading);
+    show(postLoading, true);
     hide(postError);
     hide(postArticle);
 
@@ -158,146 +159,174 @@ const App = (() => {
       let p = cache[slug];
       if (!p) {
         const res = await fetch(`${API_BASE}/post/${encodeURIComponent(slug)}`);
-        if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : 'HTTP ' + res.status);
+        if (!res.ok) throw new Error(res.status === 404 ? 'Post not found.' : 'Server error: ' + res.status);
         const json = await res.json();
-        p = json.data ?? json;
+        p = json.data || json;
         cache[slug] = p;
       }
       renderPost(p);
       setMetas(p);
     } catch (e) {
       postErrorMsg.textContent = e.message || 'Post not found.';
-      show(postError);
-    } finally {
-      hide(postLoading);
+      show(postError, true);
     }
+
+    hide(postLoading);
   }
 
+  // ── Render post ─────────────────────────────────
   function renderPost(p) {
-    const avatar  = p.user?.profile_picture?.url || p.user?.profile_picture?.thumb || '';
-    const name    = p.user?.name    || 'BeeYarner';
-    const uname   = p.user?.username ? '@' + p.user.username : '';
-    const verified= p.user?.is_verified || false;
+    const user     = p.user || {};
+    const pic      = user.profile_picture || {};
+    const avatar   = pic.url || pic.thumb || '';
+    const name     = user.name     || 'BeeYarner';
+    const username = user.username ? '@' + user.username : '';
+    const verified = user.is_verified || false;
 
-    const av = document.getElementById('post-avatar');
+    var av = document.getElementById('post-avatar');
     av.src = avatar; av.alt = name;
-    av.onerror = () => { av.style.visibility = 'hidden'; };
+    av.onerror = function() { av.style.visibility = 'hidden'; };
 
-    document.getElementById('post-name').textContent    = name;
-    document.getElementById('post-username').textContent= uname;
-    document.getElementById('post-verified').style.display = verified ? '' : 'none';
+    document.getElementById('post-name').textContent     = name;
+    document.getElementById('post-username').textContent = username;
+    document.getElementById('post-verified').style.display = verified ? 'inline' : 'none';
 
-    const topicEl = document.getElementById('post-topic-tag');
-    const topicWrap = document.getElementById('post-topic-wrap');
+    var topicEl   = document.getElementById('post-topic-tag');
+    var topicWrap = document.getElementById('post-topic-wrap');
     if (p.topic) {
       topicEl.textContent = p.topic;
-      show(topicWrap); show(topicEl);
+      topicWrap.style.display = 'inline';
+      topicEl.style.display   = 'inline';
     } else {
-      hide(topicWrap); hide(topicEl);
+      topicWrap.style.display = 'none';
+      topicEl.style.display   = 'none';
     }
 
-    const timeEl = document.getElementById('post-time');
+    var timeEl = document.getElementById('post-time');
     timeEl.textContent = fullDate(p.created_at);
     timeEl.setAttribute('datetime', p.created_at || '');
 
     document.getElementById('post-title').textContent = p.title || '';
     document.getElementById('post-body').textContent  = p.body  || '';
 
-    document.getElementById('post-likes').textContent    = fmt(p.likes_count    ?? 0);
-    document.getElementById('post-comments').textContent = fmt(p.comments_count ?? 0);
-    document.getElementById('post-shares').textContent   = fmt(p.shares_count   ?? 0);
-    document.getElementById('post-views').textContent    = fmt(p.number_of_views ?? 0);
+    document.getElementById('post-likes').textContent    = fmt(p.likes_count     || 0);
+    document.getElementById('post-comments').textContent = fmt(p.comments_count  || 0);
+    document.getElementById('post-shares').textContent   = fmt(p.shares_count    || 0);
+    document.getElementById('post-views').textContent    = fmt(p.number_of_views || 0);
 
     // Media
-    const mediaWrap = document.getElementById('post-media');
+    var mediaWrap = document.getElementById('post-media');
     mediaWrap.innerHTML = '';
-    (p.post_media?.files ?? []).forEach(f => {
-      const url   = f.url   || '';
-      const thumb = f.thumb || '';
-      const wrap  = document.createElement('div');
+    var files = (p.post_media && p.post_media.files) ? p.post_media.files : [];
+    files.forEach(function(f) {
+      var url   = f.url   || '';
+      var thumb = f.thumb || '';
+      var wrap  = document.createElement('div');
       wrap.className = 'media-item';
 
       if (f.type === 'video') {
         if (thumb) {
           wrap.className += ' thumb-play';
-          wrap.innerHTML = `
-            <img src="${xa(thumb)}" alt="video" />
-            <div class="thumb-play-icon"><i class="bi bi-play-circle-fill"></i></div>`;
-          wrap.addEventListener('click', () => {
-            const v = document.createElement('video');
-            v.src = url; v.controls = true; v.autoplay = true; v.playsinline = true;
+          wrap.innerHTML = '<img src="' + xa(thumb) + '" alt="video thumbnail" />'
+            + '<div class="thumb-play-icon"><i class="bi bi-play-circle-fill"></i></div>';
+          wrap.addEventListener('click', function() {
+            var v = document.createElement('video');
+            v.src = url; v.controls = true; v.autoplay = true; v.setAttribute('playsinline','');
             wrap.className = 'media-item';
-            wrap.innerHTML = ''; wrap.appendChild(v);
+            wrap.innerHTML = '';
+            wrap.appendChild(v);
           });
         } else {
-          const v = document.createElement('video');
-          v.src = url; v.controls = true; v.playsinline = true; v.preload = 'metadata';
+          var v = document.createElement('video');
+          v.src = url; v.controls = true; v.preload = 'metadata'; v.setAttribute('playsinline','');
           wrap.appendChild(v);
         }
       } else {
-        const img = document.createElement('img');
+        var img = document.createElement('img');
         img.src = url; img.alt = 'image'; img.loading = 'lazy';
         wrap.appendChild(img);
       }
       mediaWrap.appendChild(wrap);
     });
 
-    const shareUrl = p.share_url || `https://www.beeyarn.com/p/${encodeURIComponent(p.slug)}`;
+    var shareUrl = p.share_url || ('https://www.beeyarn.com/p/' + encodeURIComponent(p.slug));
     document.getElementById('post-app-link').href = shareUrl;
 
-    document.getElementById('btn-share').onclick = () => {
-      if (navigator.share) navigator.share({ title: p.title, url: shareUrl }).catch(() => {});
-      else if (navigator.clipboard) navigator.clipboard.writeText(shareUrl).then(() => alert('Link copied!'));
+    document.getElementById('btn-share').onclick = function() {
+      if (navigator.share) {
+        navigator.share({ title: p.title, url: shareUrl });
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareUrl).then(function() { alert('Link copied!'); });
+      }
     };
 
     show(postArticle);
   }
 
-  // ── OG meta ──────────────────────────────────
+  // ── OG meta ──────────────────────────────────────
   function setMetas(p) {
-    const title = (p.title || 'Post') + ' — BeeYarn';
-    const desc  = (p.body || '').slice(0, 200) || 'View on BeeYarn';
-    const img   = p.post_media?.files?.[0]?.thumb || p.post_media?.files?.[0]?.url || '';
+    var title = (p.title || 'Post') + ' — BeeYarn';
+    var desc  = (p.body || '').slice(0, 200) || 'View on BeeYarn';
+    var img   = '';
+    if (p.post_media && p.post_media.files && p.post_media.files[0]) {
+      img = p.post_media.files[0].thumb || p.post_media.files[0].url || '';
+    }
     document.title = title;
-    meta('og:title', title); meta('og:description', desc); meta('og:url', location.href);
-    if (img) meta('og:image', img);
-    meta('twitter:title', title); meta('twitter:description', desc);
+    setMeta('og:title', title);  setMeta('og:description', desc);
+    setMeta('og:url', location.href);
+    if (img) setMeta('og:image', img);
+    setMeta('twitter:title', title); setMeta('twitter:description', desc);
   }
 
-  function meta(name, val) {
-    const attr = name.startsWith('og:') ? 'property' : 'name';
-    let el = document.querySelector(`meta[${attr}="${name}"]`);
+  function setMeta(name, val) {
+    var attr = name.indexOf('og:') === 0 ? 'property' : 'name';
+    var el = document.querySelector('meta[' + attr + '="' + name + '"]');
     if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
     el.setAttribute('content', val);
   }
 
-  // ── Helpers ───────────────────────────────────
+  // ── Helpers ───────────────────────────────────────
   function xh(s) {
-    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(s || '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
   function xa(s) { return xh(s); }
 
   function fmt(n) {
-    if (n >= 1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'') + 'M';
-    if (n >= 1e3) return (n/1e3).toFixed(1).replace(/\.0$/,'') + 'K';
+    n = parseInt(n, 10) || 0;
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000)    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
     return String(n);
   }
 
-  function ago(iso) {
-    if (!iso) return '';
-    const s = Math.floor((Date.now() - new Date(iso)) / 1000);
+  function ago(str) {
+    if (!str) return '';
+    // Handle "2026-04-30 18:12:25" format (replace space with T for iOS/Safari)
+    var d = new Date(str.replace(' ', 'T'));
+    if (isNaN(d)) return '';
+    var s = Math.floor((Date.now() - d.getTime()) / 1000);
     if (s < 60)    return 'just now';
-    if (s < 3600)  return Math.floor(s/60)   + 'm';
-    if (s < 86400) return Math.floor(s/3600)  + 'h';
-    return Math.floor(s/86400) + 'd';
+    if (s < 3600)  return Math.floor(s / 60)   + 'm';
+    if (s < 86400) return Math.floor(s / 3600)  + 'h';
+    return Math.floor(s / 86400) + 'd';
   }
 
-  function fullDate(iso) {
-    if (!iso) return '';
-    return new Date(iso).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
+  function fullDate(str) {
+    if (!str) return '';
+    var d = new Date(str.replace(' ', 'T'));
+    if (isNaN(d)) return str;
+    return d.toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
   }
 
-  // ── Boot ──────────────────────────────────────
+  // ── Boot ──────────────────────────────────────────
+  // Hide everything first, then route
+  hide(feedLoading);
+  hide(feedError);
+  hide(feedMore);
+  hide(viewPost);
+
   route();
-  return { loadFeed };
+
+  return { loadFeed: loadFeed };
 })();
