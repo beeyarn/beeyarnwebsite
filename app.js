@@ -14,8 +14,7 @@ const App = (() => {
   const feedLoading = document.getElementById('feed-loading');
   const feedError   = document.getElementById('feed-error');
   const feedErrorMsg= document.getElementById('feed-error-msg');
-  const feedTable   = document.getElementById('feed-table');
-  const feedTbody   = document.getElementById('feed-tbody');
+  const feedList    = document.getElementById('feed-list');
   const feedLoadMore= document.getElementById('feed-load-more');
   const btnLoadMore = document.getElementById('btn-load-more');
   const postLoading = document.getElementById('post-loading');
@@ -81,8 +80,7 @@ const App = (() => {
     if (reset) {
       feedPage = 1;
       feedHasMore = true;
-      feedTbody.innerHTML = '';
-      feedTable.hidden = true;
+      feedList.innerHTML = '';
       feedLoadMore.hidden = true;
     }
     if (!feedHasMore) return;
@@ -101,13 +99,12 @@ const App = (() => {
       const hasMore = meta.current_page < meta.last_page;
 
       posts.forEach(p => {
-        postCache[p.slug] = p;          // cache for post detail
-        feedTbody.appendChild(buildRow(p));
+        postCache[p.slug] = p;
+        feedList.appendChild(buildRow(p));
       });
 
       feedPage++;
       feedHasMore = hasMore;
-      feedTable.hidden    = false;
       feedLoadMore.hidden = !feedHasMore;
     } catch (err) {
       feedErrorMsg.textContent = 'Could not load posts. ' + err.message;
@@ -120,49 +117,70 @@ const App = (() => {
 
   btnLoadMore.addEventListener('click', () => loadFeed(false));
 
-  /* ── Build feed row ────────────────────────── */
+  /* ── Build feed card ───────────────────────── */
   function buildRow(p) {
     const slug      = p.slug;
     const title     = p.title || '(untitled)';
     const topic     = p.topic || '';
     const avatar    = p.user?.profile_picture?.thumb || p.user?.profile_picture?.url || '';
     const name      = p.user?.name || 'BeeYarner';
-    const username  = p.user?.username || '';
+    const username  = p.user?.username ? '@' + p.user.username : '';
     const time      = relativeTime(p.created_at);
-    const views_    = p.number_of_views ?? 0;
-    const likes     = p.likes_count ?? 0;
-    const comments  = p.comments_count ?? 0;
-    const hasMedia  = p.post_media?.files?.length > 0;
-    const mediaType = p.post_media?.files?.[0]?.type || '';
+    const views_    = fmt(p.number_of_views ?? 0);
+    const likes     = fmt(p.likes_count ?? 0);
+    const comments  = fmt(p.comments_count ?? 0);
+    const files     = p.post_media?.files ?? [];
+    const firstFile = files[0] ?? null;
 
-    const tr = document.createElement('tr');
-    tr.dataset.slug = slug;
+    // media preview (thumbnail or image)
+    let mediaHtml = '';
+    if (firstFile) {
+      const thumb = firstFile.thumb || firstFile.url || '';
+      if (firstFile.type === 'video') {
+        mediaHtml = `
+          <div class="by-card__media-thumb">
+            <img src="${escAttr(thumb)}" alt="video" loading="lazy" onerror="this.parentElement.style.display='none'" />
+            <div class="by-video-overlay"><i class="bi bi-play-circle-fill"></i></div>
+          </div>`;
+      } else if (thumb) {
+        mediaHtml = `
+          <div class="by-card__media-thumb">
+            <img src="${escAttr(thumb)}" alt="media" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          </div>`;
+      }
+    }
 
-    tr.innerHTML = `
-      <td>
-        <div class="by-row__topic-cell">
-          <img class="by-row__avatar"
-               src="${escAttr(avatar)}"
-               alt="${escAttr(name)}"
-               onerror="this.style.visibility='hidden'" />
-          <div class="by-row__info">
-            <span class="by-row__title">${escHtml(title)}</span>
-            <div class="by-row__meta">
-              ${topic ? `<span class="by-topic-tag">${escHtml(topic)}</span>` : ''}
-              <span class="by-row__author">by <strong>${escHtml(name)}</strong>${username ? ' @' + escHtml(username) : ''}</span>
-              ${hasMedia ? `<span class="by-has-media"><i class="bi bi-${mediaType === 'video' ? 'play-circle' : 'image'}"></i> ${mediaType}</span>` : ''}
-            </div>
-          </div>
+    const card = document.createElement('article');
+    card.className = 'by-card';
+    card.dataset.slug = slug;
+
+    card.innerHTML = `
+      <div class="by-card__left">
+        <img class="by-avatar by-avatar--sm" src="${escAttr(avatar)}" alt="${escAttr(name)}"
+             onerror="this.style.visibility='hidden'" />
+      </div>
+      <div class="by-card__right">
+        <div class="by-card__header">
+          <span class="by-card__name">${escHtml(name)}</span>
+          <span class="by-card__dot">·</span>
+          <span class="by-card__handle">${escHtml(username)}</span>
+          <span class="by-card__dot">·</span>
+          <span class="by-card__time">${time}</span>
+          ${topic ? `<span class="by-card__topic"><span class="by-topic-chip">${escHtml(topic)}</span></span>` : ''}
         </div>
-      </td>
-      <td class="by-stat-cell">${views_}</td>
-      <td class="by-stat-cell">${likes}</td>
-      <td class="by-stat-cell by-hide-sm">${comments}</td>
-      <td class="by-time-cell">${time}</td>
+        ${title ? `<p class="by-card__title">${escHtml(title)}</p>` : ''}
+        ${p.body ? `<p class="by-card__body">${escHtml(p.body)}</p>` : ''}
+        ${mediaHtml}
+        <div class="by-card__footer">
+          <span class="by-card__stat"><i class="bi bi-heart"></i>${likes}</span>
+          <span class="by-card__stat"><i class="bi bi-chat"></i>${comments}</span>
+          <span class="by-card__stat"><i class="bi bi-eye"></i>${views_}</span>
+        </div>
+      </div>
     `;
 
-    tr.addEventListener('click', () => navigate('/p/' + encodeURIComponent(slug)));
-    return tr;
+    card.addEventListener('click', () => navigate('/p/' + encodeURIComponent(slug)));
+    return card;
   }
 
   /* ── Post detail ───────────────────────────── */
@@ -311,6 +329,12 @@ const App = (() => {
   }
 
   /* ── Helpers ───────────────────────────────── */
+  function fmt(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (n >= 1000)    return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return String(n);
+  }
+
   function escHtml(str) {
     if (!str) return '';
     return String(str)

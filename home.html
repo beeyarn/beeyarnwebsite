@@ -15,196 +15,217 @@
   <link rel="apple-touch-icon" href="/assets/favicon.jpg" />
   <meta name="theme-color" content="#1C5B31" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
   <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 
-  <!-- Header -->
-  <header class="by-header">
-    <div class="by-header__inner">
-      <a href="/" class="by-logo">
-        <img src="/assets/img/logo.png" alt="BeeYarn" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
-        <span class="by-logo__text" style="display:none">BeeYarn</span>
+  <!-- Top navbar -->
+  <nav class="by-navbar">
+    <div class="by-navbar__inner">
+      <a href="/" class="by-navbar__brand">
+        <img src="/assets/img/logo.png" alt="BeeYarn"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="by-navbar__wordmark" style="display:none">
+          <span class="by-wordmark-bee">Bee</span><span class="by-wordmark-yarn">Yarn</span>
+        </span>
       </a>
-      <div class="by-header__right">
-        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn" target="_blank" rel="noopener">
-          <img class="by-store-badge" src="/assets/img/google-play-badge.svg" alt="Get it on Google Play" />
+
+      <div class="by-navbar__search">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Search BeeYarn…" disabled title="Search coming soon" />
+      </div>
+
+      <div class="by-navbar__actions">
+        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+           target="_blank" rel="noopener" class="by-nav-badge">
+          <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
         </a>
-        <span class="by-store-soon">
-          <img class="by-store-badge" src="/assets/img/app-store-badge.svg" alt="App Store - Coming Soon" />
-          <span class="by-store-soon__label">Coming Soon</span>
+        <span class="by-nav-badge by-nav-badge--soon" title="iOS app coming soon">
+          <img src="/assets/img/app-store-badge.svg" alt="App Store" />
+          <span class="by-coming-soon-tag">Soon</span>
         </span>
       </div>
     </div>
-  </header>
+  </nav>
 
-  <!-- Sub-nav / tagline bar -->
-  <div class="by-subnav">
-    <div class="by-subnav__inner">
-      <span class="by-subnav__brand">BeeYarn &mdash; Be Seen. Be Heard.</span>
-      <span class="by-subnav__tagline">Everyone gets paid.</span>
-    </div>
-  </div>
+  <!-- Page body -->
+  <div class="by-page">
 
-  <div class="by-layout">
+    <!-- Left sidebar -->
+    <aside class="by-leftnav">
+      <nav class="by-leftnav__links">
+        <a href="/" class="by-leftnav__item by-leftnav__item--active">
+          <i class="bi bi-house-fill"></i><span>Feed</span>
+        </a>
+        <a href="/index.html" class="by-leftnav__item">
+          <i class="bi bi-info-circle"></i><span>About</span>
+        </a>
+        <a href="/privacy" class="by-leftnav__item">
+          <i class="bi bi-shield-check"></i><span>Privacy</span>
+        </a>
+        <a href="/termsofuse" class="by-leftnav__item">
+          <i class="bi bi-file-text"></i><span>Terms</span>
+        </a>
+        <a href="/contact" class="by-leftnav__item">
+          <i class="bi bi-envelope"></i><span>Contact</span>
+        </a>
+      </nav>
+      <div class="by-leftnav__appbtns">
+        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+           target="_blank" rel="noopener" class="by-dl-btn">
+          <i class="bi bi-google-play"></i> Get on Android
+        </a>
+        <span class="by-dl-btn by-dl-btn--muted" title="iOS coming soon">
+          <i class="bi bi-apple"></i> iOS — Coming Soon
+        </span>
+      </div>
+    </aside>
 
-    <!-- Main column -->
-    <main class="by-main">
+    <!-- Feed / Post -->
+    <main class="by-feed-col">
 
       <!-- FEED VIEW -->
       <div id="view-feed" class="by-view">
-
-        <div class="by-board">
-          <div class="by-board__title">
-            <i class="bi bi-collection"></i> Latest Posts
-          </div>
-
-          <div id="feed-loading" class="by-spinner-wrap">
-            <span class="by-spinner"></span>
-          </div>
-
-          <div id="feed-error" class="by-error" hidden>
-            <i class="bi bi-exclamation-circle"></i>
-            <p id="feed-error-msg">Something went wrong.</p>
-            <button class="by-btn" onclick="App.loadFeed(true)">Retry</button>
-          </div>
-
-          <table id="feed-table" class="by-table" hidden>
-            <thead>
-              <tr>
-                <th class="by-col-topic">Topic</th>
-                <th class="by-col-stats">Views</th>
-                <th class="by-col-stats">Likes</th>
-                <th class="by-col-stats by-hide-sm">Replies</th>
-                <th class="by-col-time">Last Post</th>
-              </tr>
-            </thead>
-            <tbody id="feed-tbody">
-              <!-- rows injected by app.js -->
-            </tbody>
-          </table>
-
-          <div id="feed-load-more" class="by-pagination" hidden>
-            <button id="btn-load-more" class="by-btn">Load more posts</button>
-          </div>
+        <div class="by-feed-topbar">
+          <h1>Home</h1>
         </div>
 
+        <div id="feed-loading" class="by-center-state">
+          <span class="by-spinner"></span>
+        </div>
+
+        <div id="feed-error" class="by-center-state" hidden>
+          <i class="bi bi-wifi-off by-state-icon"></i>
+          <p>Couldn't load posts</p>
+          <button class="by-pill-btn" onclick="App.loadFeed(true)">Try again</button>
+        </div>
+
+        <div id="feed-list"></div>
+
+        <div id="feed-load-more" class="by-center-state" hidden>
+          <button id="btn-load-more" class="by-pill-btn by-pill-btn--outline">
+            Load more
+          </button>
+        </div>
       </div>
 
       <!-- POST DETAIL VIEW -->
       <div id="view-post" class="by-view" hidden>
 
-        <div class="by-breadcrumb">
-          <button class="by-back-btn" id="btn-back">
-            <i class="bi bi-arrow-left"></i> Back to Feed
+        <div class="by-feed-topbar by-feed-topbar--post">
+          <button class="by-icon-btn" id="btn-back" aria-label="Go back">
+            <i class="bi bi-arrow-left"></i>
           </button>
+          <h1>Post</h1>
         </div>
 
-        <div id="post-loading" class="by-spinner-wrap">
+        <div id="post-loading" class="by-center-state">
           <span class="by-spinner"></span>
         </div>
 
-        <div id="post-error" class="by-error" hidden>
-          <i class="bi bi-exclamation-circle"></i>
-          <p id="post-error-msg">Post not found.</p>
-          <button class="by-btn" onclick="history.back()">Go back</button>
+        <div id="post-error" class="by-center-state" hidden>
+          <i class="bi bi-question-circle by-state-icon"></i>
+          <p id="post-error-msg">Post not found</p>
+          <button class="by-pill-btn" onclick="history.back()">Go back</button>
         </div>
 
-        <article id="post-article" class="by-post" hidden>
-
-          <!-- Post title bar -->
-          <div class="by-post__titlebar">
-            <span id="post-topic-tag" class="by-topic-tag"></span>
-            <h1 id="post-title" class="by-post__title"></h1>
-          </div>
-
-          <!-- Author row -->
-          <div class="by-post__author-row">
+        <article id="post-article" class="by-post-full" hidden>
+          <div class="by-post-full__author">
             <img id="post-avatar" class="by-avatar by-avatar--md" src="" alt="" />
-            <div class="by-post__author-info">
-              <span id="post-name" class="by-post__name"></span>
-              <span id="post-username" class="by-post__username"></span>
-              <span id="post-verified" class="by-verified" hidden><i class="bi bi-patch-check-fill"></i></span>
+            <div class="by-post-full__author-info">
+              <span id="post-name" class="by-author-name"></span>
+              <span id="post-verified" class="by-verified-badge" hidden>
+                <i class="bi bi-patch-check-fill"></i>
+              </span>
+              <span id="post-username" class="by-author-handle"></span>
             </div>
-            <time id="post-time" class="by-post__time"></time>
-          </div>
-
-          <!-- Body -->
-          <div id="post-body" class="by-post__body"></div>
-
-          <!-- Media -->
-          <div id="post-media" class="by-post__media"></div>
-
-          <!-- Stats bar -->
-          <div class="by-post__stats">
-            <span><i class="bi bi-eye"></i> <span id="post-views">0</span> views</span>
-            <span><i class="bi bi-heart"></i> <span id="post-likes">0</span> likes</span>
-            <span><i class="bi bi-chat"></i> <span id="post-comments">0</span> replies</span>
-            <span><i class="bi bi-share"></i> <span id="post-shares">0</span> shares</span>
-          </div>
-
-          <!-- CTA -->
-          <div class="by-post__cta">
-            <a id="post-app-link"
-               href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-               target="_blank" rel="noopener"
-               class="by-btn">
-              <i class="bi bi-google-play"></i> Open in BeeYarn App
+            <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+               target="_blank" rel="noopener" class="by-pill-btn by-pill-btn--sm by-follow-btn">
+              Follow
             </a>
-            <button class="by-btn-outline" id="btn-share-post">
-              <i class="bi bi-share"></i> Share
-            </button>
           </div>
 
+          <div class="by-post-full__topic-row">
+            <span id="post-topic-tag" class="by-topic-chip"></span>
+          </div>
+
+          <h2 id="post-title" class="by-post-full__title"></h2>
+          <div id="post-body" class="by-post-full__body"></div>
+          <div id="post-media" class="by-post-full__media"></div>
+
+          <time id="post-time" class="by-post-full__time"></time>
+
+          <div class="by-post-full__divider"></div>
+
+          <div class="by-post-full__stats">
+            <span><strong id="post-likes">0</strong> Likes</span>
+            <span><strong id="post-comments">0</strong> Replies</span>
+            <span><strong id="post-shares">0</strong> Shares</span>
+            <span><strong id="post-views">0</strong> Views</span>
+          </div>
+
+          <div class="by-post-full__divider"></div>
+
+          <div class="by-post-full__actions">
+            <button class="by-action-btn"><i class="bi bi-heart"></i> Like</button>
+            <button class="by-action-btn"><i class="bi bi-chat"></i> Reply</button>
+            <button class="by-action-btn" id="btn-share-post"><i class="bi bi-share"></i> Share</button>
+          </div>
+
+          <div class="by-post-full__divider"></div>
+
+          <div class="by-post-full__open-app">
+            <p>Join the conversation on BeeYarn</p>
+            <div class="by-open-app-badges">
+              <a id="post-app-link"
+                 href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+                 target="_blank" rel="noopener">
+                <img src="/assets/img/google-play-badge.svg" alt="Get on Google Play" />
+              </a>
+              <span class="by-nav-badge by-nav-badge--soon by-nav-badge--lg" title="iOS app coming soon">
+                <img src="/assets/img/app-store-badge.svg" alt="App Store" />
+                <span class="by-coming-soon-tag">Soon</span>
+              </span>
+            </div>
+          </div>
         </article>
 
       </div>
-
     </main>
 
-    <!-- Sidebar -->
-    <aside class="by-sidebar">
-      <div class="by-sidebar__box">
-        <div class="by-sidebar__title">About BeeYarn</div>
-        <p>BeeYarn is a social platform where you can share, connect, and <strong>get paid</strong> for your content.</p>
-        <div class="by-sidebar__badges">
-          <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn" target="_blank" rel="noopener">
-            <img src="/assets/img/google-play-badge.svg" alt="Get it on Google Play" style="height:28px;width:auto;" />
+    <!-- Right sidebar -->
+    <aside class="by-rightnav">
+      <div class="by-widget">
+        <h3 class="by-widget__title">Download BeeYarn</h3>
+        <p class="by-widget__text">Share, connect and get paid for your content.</p>
+        <div class="by-widget__badges">
+          <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+             target="_blank" rel="noopener">
+            <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
           </a>
-          <span class="by-store-soon">
-            <img src="/assets/img/app-store-badge.svg" alt="App Store - Coming Soon" style="height:28px;width:auto;" />
-            <span class="by-store-soon__label">Coming Soon</span>
+          <span class="by-nav-badge by-nav-badge--soon by-nav-badge--lg" title="iOS app coming soon">
+            <img src="/assets/img/app-store-badge.svg" alt="App Store" />
+            <span class="by-coming-soon-tag">Soon</span>
           </span>
         </div>
       </div>
 
-      <div class="by-sidebar__box">
-        <div class="by-sidebar__title">Quick Links</div>
-        <ul class="by-sidebar__links">
-          <li><a href="/index.html"><i class="bi bi-house"></i> Home</a></li>
-          <li><a href="/privacy"><i class="bi bi-shield-check"></i> Privacy Policy</a></li>
-          <li><a href="/termsofuse"><i class="bi bi-file-text"></i> Terms of Use</a></li>
-          <li><a href="/contentpolicy"><i class="bi bi-journal-check"></i> Content Policy</a></li>
-          <li><a href="/contact"><i class="bi bi-envelope"></i> Contact Us</a></li>
+      <div class="by-widget">
+        <h3 class="by-widget__title">About BeeYarn</h3>
+        <ul class="by-widget__list">
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/termsofuse">Terms of Use</a></li>
+          <li><a href="/contentpolicy">Content Policy</a></li>
+          <li><a href="/faqs">FAQs</a></li>
+          <li><a href="/contact">Contact Us</a></li>
         </ul>
+        <p class="by-widget__copy">&copy; 2026 BeeYarn</p>
       </div>
     </aside>
 
-  </div>
-
-  <!-- Footer -->
-  <footer class="by-footer">
-    <div class="by-footer__inner">
-      <span>&copy; 2026 BeeYarn. All rights reserved.</span>
-      <span class="by-footer__links">
-        <a href="/privacy">Privacy</a> &middot;
-        <a href="/termsofuse">Terms</a> &middot;
-        <a href="/contentpolicy">Content Policy</a>
-      </span>
-    </div>
-  </footer>
+  </div><!-- .by-page -->
 
   <script src="/app.js"></script>
 </body>
