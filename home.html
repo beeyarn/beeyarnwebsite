@@ -3,229 +3,613 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="BeeYarn - Be Seen. Be Heard. A social platform where everyone gets paid." />
+  <meta name="description" content="BeeYarn - Be Seen. Be Heard." />
   <meta property="og:title" content="BeeYarn - Be Seen. Be Heard." />
-  <meta property="og:description" content="A social platform connecting people. Everyone gets paid." />
   <meta property="og:image" content="https://www.beeyarn.com/assets/img/homepage.jpg" />
   <meta property="og:url" content="https://www.beeyarn.com/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>BeeYarn</title>
   <link rel="icon" type="image/jpeg" href="/assets/favicon.jpg" />
-  <link rel="apple-touch-icon" href="/assets/favicon.jpg" />
   <meta name="theme-color" content="#1C5B31" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-  <link rel="stylesheet" href="/style.css" />
+  <style>
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #1C5B31;
+      --green-dark: #145022;
+      --green-bg: #eaf5ee;
+      --text: #1c1c1c;
+      --sub: #6b7280;
+      --border: #e5e7eb;
+      --bg: #f6f7f8;
+      --white: #fff;
+      --card-radius: 4px;
+      --nav-h: 48px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--green); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* === NAVBAR === */
+    .nav {
+      position: sticky; top: 0; z-index: 99;
+      height: var(--nav-h);
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 20px; gap: 12px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-weight: 700; font-size: 18px; color: var(--green);
+      text-decoration: none; flex-shrink: 0;
+    }
+
+    .nav-logo img { height: 30px; width: auto; }
+
+    .nav-logo span { color: var(--green); }
+
+    .nav-search {
+      flex: 1; max-width: 400px;
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      color: var(--sub); font-size: 13px;
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .badge-wrap { position: relative; display: inline-flex; }
+    .badge-wrap img { height: 26px; width: auto; display: block; }
+    .badge-wrap.soon img { opacity: 0.45; filter: grayscale(0.5); cursor: not-allowed; }
+    .badge-wrap.soon .soon-label {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.5);
+      color: #fff; font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      border-radius: 5px; pointer-events: none;
+    }
+
+    /* === LAYOUT === */
+    .page {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 0 16px;
+      display: flex; gap: 24px;
+      align-items: flex-start;
+    }
+
+    /* === FEED COLUMN === */
+    .feed-col { flex: 1; min-width: 0; }
+
+    /* === FEED SORT BAR === */
+    .sort-bar {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 8px 12px;
+      display: flex; align-items: center; gap: 8px;
+      margin-bottom: 10px;
+      font-size: 13px; font-weight: 600; color: var(--sub);
+    }
+
+    .sort-bar span {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 10px; border-radius: 20px;
+      cursor: pointer; transition: background 0.1s;
+    }
+
+    .sort-bar span.active { background: var(--green-bg); color: var(--green); }
+    .sort-bar span:hover  { background: var(--bg); color: var(--text); }
+
+    /* === POST CARD === */
+    .post-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      margin-bottom: 10px;
+      display: flex;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      overflow: hidden;
+    }
+
+    .post-card:hover { border-color: #9ca3af; }
+
+    /* left vote/stat strip */
+    .post-card__left {
+      width: 40px;
+      background: #f8f9fa;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 0;
+      gap: 4px;
+      border-right: 1px solid var(--border);
+    }
+
+    .post-card__avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--green-bg);
+    }
+
+    .post-card__views {
+      font-size: 10px; color: var(--sub); font-weight: 600;
+      text-align: center; line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    /* main content */
+    .post-card__body {
+      flex: 1; min-width: 0;
+      padding: 8px 10px;
+      display: flex; gap: 10px;
+    }
+
+    .post-card__content { flex: 1; min-width: 0; }
+
+    .post-card__meta {
+      font-size: 11px; color: var(--sub);
+      margin-bottom: 4px;
+      display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
+    }
+
+    .post-card__author { font-weight: 600; color: var(--sub); }
+    .post-card__author:hover { text-decoration: underline; color: var(--text); }
+
+    .post-card__topic {
+      background: var(--green-bg);
+      color: var(--green);
+      font-size: 10px; font-weight: 700;
+      padding: 1px 7px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .post-card__title {
+      font-size: 15px; font-weight: 600;
+      color: var(--text); line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .post-card__excerpt {
+      font-size: 12px; color: var(--sub);
+      line-height: 1.5; margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .post-card__actions {
+      display: flex; gap: 4px; flex-wrap: wrap;
+    }
+
+    .post-card__action {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 11px; color: var(--sub); font-weight: 600;
+      padding: 4px 8px; border-radius: 2px;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .post-card__action:hover { background: var(--bg); color: var(--text); text-decoration: none; }
+
+    /* thumbnail on right */
+    .post-card__thumb {
+      width: 80px; height: 60px;
+      border-radius: 4px; overflow: hidden;
+      flex-shrink: 0; position: relative;
+      background: #000; align-self: center;
+    }
+
+    .post-card__thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+
+    .post-card__thumb .play-icon {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.3);
+    }
+
+    .post-card__thumb .play-icon i {
+      font-size: 1.4rem; color: rgba(255,255,255,0.9);
+    }
+
+    /* === STATES === */
+    .state-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 40px 20px;
+      text-align: center; color: var(--sub);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 12px;
+    }
+
+    .state-box i { font-size: 2rem; }
+
+    .spinner {
+      width: 30px; height: 30px;
+      border: 3px solid var(--border);
+      border-top-color: var(--green);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* === LOAD MORE === */
+    .load-more-wrap { text-align: center; padding: 16px; }
+
+    /* === BUTTONS === */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 16px; border-radius: 20px;
+      background: var(--green); color: #fff;
+      font-family: inherit; font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: background 0.15s;
+    }
+
+    .btn:hover { background: var(--green-dark); color: #fff; text-decoration: none; }
+
+    .btn-outline {
+      background: transparent; color: var(--green);
+      border: 1.5px solid var(--green);
+    }
+
+    .btn-outline:hover { background: var(--green-bg); color: var(--green); }
+
+    /* === POST DETAIL === */
+    .back-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 700; color: var(--sub);
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; padding: 10px 0 14px;
+      transition: color 0.1s;
+    }
+
+    .back-btn:hover { color: var(--text); }
+
+    .post-detail {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+
+    .post-detail__head {
+      padding: 16px 16px 0;
+    }
+
+    .post-detail__meta {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--sub);
+      margin-bottom: 10px;
+    }
+
+    .post-detail__avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%; object-fit: cover;
+      background: var(--green-bg); flex-shrink: 0;
+    }
+
+    .post-detail__author { font-weight: 700; color: var(--text); font-size: 13px; }
+    .post-detail__handle { color: var(--sub); }
+    .post-detail__time   { color: var(--sub); }
+
+    .post-detail__topic {
+      background: var(--green-bg); color: var(--green);
+      font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+
+    .post-detail__verified { color: #1d9bf0; font-size: 13px; }
+
+    .post-detail__title {
+      font-size: 20px; font-weight: 700;
+      color: var(--text); line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .post-detail__body {
+      font-size: 15px; line-height: 1.7;
+      color: var(--text); white-space: pre-wrap;
+      word-break: break-word;
+      padding: 0 16px 14px;
+    }
+
+    .post-detail__media {
+      display: flex; flex-direction: column; gap: 10px;
+      padding: 0 16px 14px;
+    }
+
+    .media-item { border-radius: 8px; overflow: hidden; background: #000; position: relative; }
+    .media-item img { width: 100%; max-height: 500px; object-fit: contain; display: block; }
+    .media-item video { width: 100%; max-height: 500px; display: block; }
+
+    .thumb-play { cursor: pointer; }
+    .thumb-play img { width: 100%; max-height: 400px; object-fit: cover; display: block; filter: brightness(0.8); }
+    .thumb-play-icon {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .thumb-play-icon i { font-size: 3.5rem; color: rgba(255,255,255,0.92); filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); transition: transform 0.1s; }
+    .thumb-play:hover .thumb-play-icon i { transform: scale(1.08); }
+
+    .post-detail__stats {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--sub);
+    }
+
+    .post-detail__stats strong { color: var(--text); font-weight: 700; }
+
+    .post-detail__actions {
+      display: flex; gap: 4px;
+      padding: 8px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .action-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-family: inherit; font-size: 12px; font-weight: 700;
+      color: var(--sub); background: none; border: none;
+      cursor: pointer; padding: 6px 10px; border-radius: 2px;
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .action-btn:hover { background: var(--bg); color: var(--text); }
+
+    .post-detail__app-cta {
+      margin: 14px 16px 16px;
+      background: var(--green-bg);
+      border-radius: 8px; padding: 14px 16px;
+      text-align: center;
+    }
+
+    .post-detail__app-cta p {
+      font-weight: 600; color: var(--green-dark);
+      font-size: 13px; margin-bottom: 10px;
+    }
+
+    .cta-badges { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+    .cta-badges img { height: 36px; }
+
+    /* === SIDEBAR === */
+    .sidebar { width: 312px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
+
+    .widget {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+    }
+
+    .widget__head {
+      background: var(--green);
+      color: #fff; font-weight: 700;
+      font-size: 13px; padding: 10px 14px;
+    }
+
+    .widget__body { padding: 12px 14px; }
+
+    .widget__body p { font-size: 13px; color: var(--sub); line-height: 1.5; margin-bottom: 12px; }
+
+    .widget__badges { display: flex; flex-direction: column; gap: 8px; }
+    .widget__badges img { height: 34px; }
+
+    .widget__links { list-style: none; display: flex; flex-direction: column; }
+    .widget__links li a {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 0; font-size: 13px; color: var(--text);
+      border-bottom: 1px solid var(--border);
+    }
+    .widget__links li:last-child a { border-bottom: none; }
+    .widget__links li a:hover { color: var(--green); text-decoration: none; }
+    .widget__links li a i { font-size: 14px; color: var(--green); }
+
+    .widget__copy { font-size: 11px; color: #aaa; margin-top: 10px !important; margin-bottom: 0 !important; }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 960px) { .sidebar { display: none; } }
+    @media (max-width: 640px) {
+      .page { padding: 0 8px; margin-top: 10px; }
+      .nav-search { display: none; }
+      .post-card__left { width: 32px; }
+      .post-card__thumb { width: 60px; height: 50px; }
+      .post-detail__title { font-size: 17px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Top navbar -->
-  <nav class="by-navbar">
-    <div class="by-navbar__inner">
-      <a href="/" class="by-navbar__brand">
-        <img src="/assets/img/logo.png" alt="BeeYarn"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
-        <span class="by-navbar__wordmark" style="display:none">
-          <span class="by-wordmark-bee">Bee</span><span class="by-wordmark-yarn">Yarn</span>
-        </span>
+  <!-- Navbar -->
+  <nav class="nav">
+    <a href="/" class="nav-logo">
+      <img src="/assets/img/logo.png" alt="BeeYarn"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+      <span style="display:none">BeeYarn</span>
+    </a>
+
+    <div class="nav-search">
+      <i class="bi bi-search"></i>
+      <span style="color:#9ca3af">Search BeeYarn</span>
+    </div>
+
+    <div class="nav-right">
+      <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+         target="_blank" rel="noopener" class="badge-wrap">
+        <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
       </a>
-
-      <div class="by-navbar__search">
-        <i class="bi bi-search"></i>
-        <input type="text" placeholder="Search BeeYarn…" disabled title="Search coming soon" />
-      </div>
-
-      <div class="by-navbar__actions">
-        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-           target="_blank" rel="noopener" class="by-nav-badge">
-          <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
-        </a>
-        <span class="by-nav-badge by-nav-badge--soon" title="iOS app coming soon">
-          <img src="/assets/img/app-store-badge.svg" alt="App Store" />
-          <span class="by-coming-soon-tag">Soon</span>
-        </span>
-      </div>
+      <span class="badge-wrap soon" title="iOS app coming soon">
+        <img src="/assets/img/app-store-badge.svg" alt="App Store" />
+        <span class="soon-label">Soon</span>
+      </span>
     </div>
   </nav>
 
-  <!-- Page body -->
-  <div class="by-page">
+  <!-- Page -->
+  <div class="page">
 
-    <!-- Left sidebar -->
-    <aside class="by-leftnav">
-      <nav class="by-leftnav__links">
-        <a href="/" class="by-leftnav__item by-leftnav__item--active">
-          <i class="bi bi-house-fill"></i><span>Feed</span>
-        </a>
-        <a href="/index.html" class="by-leftnav__item">
-          <i class="bi bi-info-circle"></i><span>About</span>
-        </a>
-        <a href="/privacy" class="by-leftnav__item">
-          <i class="bi bi-shield-check"></i><span>Privacy</span>
-        </a>
-        <a href="/termsofuse" class="by-leftnav__item">
-          <i class="bi bi-file-text"></i><span>Terms</span>
-        </a>
-        <a href="/contact" class="by-leftnav__item">
-          <i class="bi bi-envelope"></i><span>Contact</span>
-        </a>
-      </nav>
-      <div class="by-leftnav__appbtns">
-        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-           target="_blank" rel="noopener" class="by-dl-btn">
-          <i class="bi bi-google-play"></i> Get on Android
-        </a>
-        <span class="by-dl-btn by-dl-btn--muted" title="iOS coming soon">
-          <i class="bi bi-apple"></i> iOS — Coming Soon
-        </span>
-      </div>
-    </aside>
-
-    <!-- Feed / Post -->
-    <main class="by-feed-col">
+    <!-- Feed -->
+    <div class="feed-col">
 
       <!-- FEED VIEW -->
-      <div id="view-feed" class="by-view">
-        <div class="by-feed-topbar">
-          <h1>Home</h1>
+      <div id="view-feed">
+        <div class="sort-bar">
+          <span class="active"><i class="bi bi-house-fill"></i> Home</span>
+          <span><i class="bi bi-fire"></i> Hot</span>
+          <span><i class="bi bi-clock"></i> New</span>
         </div>
 
-        <div id="feed-loading" class="by-center-state">
-          <span class="by-spinner"></span>
+        <div id="feed-loading" class="state-box">
+          <div class="spinner"></div>
+          <span>Loading posts…</span>
         </div>
 
-        <div id="feed-error" class="by-center-state" hidden>
-          <i class="bi bi-wifi-off by-state-icon"></i>
+        <div id="feed-error" class="state-box" hidden>
+          <i class="bi bi-wifi-off"></i>
           <p>Couldn't load posts</p>
-          <button class="by-pill-btn" onclick="App.loadFeed(true)">Try again</button>
+          <button class="btn" onclick="App.loadFeed(true)">Try again</button>
         </div>
 
         <div id="feed-list"></div>
 
-        <div id="feed-load-more" class="by-center-state" hidden>
-          <button id="btn-load-more" class="by-pill-btn by-pill-btn--outline">
-            Load more
-          </button>
+        <div id="feed-load-more" class="load-more-wrap" hidden>
+          <button id="btn-load-more" class="btn btn-outline">Load more</button>
         </div>
       </div>
 
       <!-- POST DETAIL VIEW -->
-      <div id="view-post" class="by-view" hidden>
+      <div id="view-post" hidden>
 
-        <div class="by-feed-topbar by-feed-topbar--post">
-          <button class="by-icon-btn" id="btn-back" aria-label="Go back">
-            <i class="bi bi-arrow-left"></i>
-          </button>
-          <h1>Post</h1>
+        <button class="back-btn" id="btn-back">
+          <i class="bi bi-arrow-left"></i> Back to Feed
+        </button>
+
+        <div id="post-loading" class="state-box">
+          <div class="spinner"></div>
+          <span>Loading post…</span>
         </div>
 
-        <div id="post-loading" class="by-center-state">
-          <span class="by-spinner"></span>
-        </div>
-
-        <div id="post-error" class="by-center-state" hidden>
-          <i class="bi bi-question-circle by-state-icon"></i>
+        <div id="post-error" class="state-box" hidden>
+          <i class="bi bi-question-circle"></i>
           <p id="post-error-msg">Post not found</p>
-          <button class="by-pill-btn" onclick="history.back()">Go back</button>
+          <button class="btn" onclick="history.back()">Go back</button>
         </div>
 
-        <article id="post-article" class="by-post-full" hidden>
-          <div class="by-post-full__author">
-            <img id="post-avatar" class="by-avatar by-avatar--md" src="" alt="" />
-            <div class="by-post-full__author-info">
-              <span id="post-name" class="by-author-name"></span>
-              <span id="post-verified" class="by-verified-badge" hidden>
-                <i class="bi bi-patch-check-fill"></i>
-              </span>
-              <span id="post-username" class="by-author-handle"></span>
+        <div class="post-detail" id="post-article" hidden>
+          <div class="post-detail__head">
+            <div class="post-detail__meta">
+              <img id="post-avatar" class="post-detail__avatar" src="" alt="" />
+              <span id="post-name" class="post-detail__author"></span>
+              <span id="post-verified" class="post-detail__verified" hidden><i class="bi bi-patch-check-fill"></i></span>
+              <span id="post-username" class="post-detail__handle"></span>
+              <span>·</span>
+              <time id="post-time" class="post-detail__time"></time>
+              <span id="post-topic-wrap" hidden>·</span>
+              <span id="post-topic-tag" class="post-detail__topic"></span>
             </div>
-            <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-               target="_blank" rel="noopener" class="by-pill-btn by-pill-btn--sm by-follow-btn">
-              Follow
-            </a>
+            <h1 id="post-title" class="post-detail__title"></h1>
           </div>
 
-          <div class="by-post-full__topic-row">
-            <span id="post-topic-tag" class="by-topic-chip"></span>
-          </div>
+          <div id="post-body" class="post-detail__body"></div>
+          <div id="post-media" class="post-detail__media"></div>
 
-          <h2 id="post-title" class="by-post-full__title"></h2>
-          <div id="post-body" class="by-post-full__body"></div>
-          <div id="post-media" class="by-post-full__media"></div>
-
-          <time id="post-time" class="by-post-full__time"></time>
-
-          <div class="by-post-full__divider"></div>
-
-          <div class="by-post-full__stats">
+          <div class="post-detail__stats">
             <span><strong id="post-likes">0</strong> Likes</span>
-            <span><strong id="post-comments">0</strong> Replies</span>
+            <span><strong id="post-comments">0</strong> Comments</span>
             <span><strong id="post-shares">0</strong> Shares</span>
             <span><strong id="post-views">0</strong> Views</span>
           </div>
 
-          <div class="by-post-full__divider"></div>
-
-          <div class="by-post-full__actions">
-            <button class="by-action-btn"><i class="bi bi-heart"></i> Like</button>
-            <button class="by-action-btn"><i class="bi bi-chat"></i> Reply</button>
-            <button class="by-action-btn" id="btn-share-post"><i class="bi bi-share"></i> Share</button>
+          <div class="post-detail__actions">
+            <button class="action-btn"><i class="bi bi-heart"></i> Like</button>
+            <button class="action-btn"><i class="bi bi-chat"></i> Comment</button>
+            <button class="action-btn" id="btn-share"><i class="bi bi-share"></i> Share</button>
           </div>
 
-          <div class="by-post-full__divider"></div>
-
-          <div class="by-post-full__open-app">
+          <div class="post-detail__app-cta">
             <p>Join the conversation on BeeYarn</p>
-            <div class="by-open-app-badges">
-              <a id="post-app-link"
-                 href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+            <div class="cta-badges">
+              <a id="post-app-link" href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
                  target="_blank" rel="noopener">
-                <img src="/assets/img/google-play-badge.svg" alt="Get on Google Play" />
+                <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
               </a>
-              <span class="by-nav-badge by-nav-badge--soon by-nav-badge--lg" title="iOS app coming soon">
-                <img src="/assets/img/app-store-badge.svg" alt="App Store" />
-                <span class="by-coming-soon-tag">Soon</span>
+              <span class="badge-wrap soon" title="iOS coming soon">
+                <img src="/assets/img/app-store-badge.svg" alt="App Store" style="height:36px" />
+                <span class="soon-label">Soon</span>
               </span>
             </div>
           </div>
-        </article>
+        </div>
 
       </div>
-    </main>
+    </div>
 
-    <!-- Right sidebar -->
-    <aside class="by-rightnav">
-      <div class="by-widget">
-        <h3 class="by-widget__title">Download BeeYarn</h3>
-        <p class="by-widget__text">Share, connect and get paid for your content.</p>
-        <div class="by-widget__badges">
-          <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-             target="_blank" rel="noopener">
-            <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
-          </a>
-          <span class="by-nav-badge by-nav-badge--soon by-nav-badge--lg" title="iOS app coming soon">
-            <img src="/assets/img/app-store-badge.svg" alt="App Store" />
-            <span class="by-coming-soon-tag">Soon</span>
-          </span>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="widget">
+        <div class="widget__head">Home</div>
+        <div class="widget__body">
+          <p>Your BeeYarn feed. See what the community is sharing, get paid for your content.</p>
+          <div class="widget__badges">
+            <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+               target="_blank" rel="noopener">
+              <img src="/assets/img/google-play-badge.svg" alt="Google Play" />
+            </a>
+            <span class="badge-wrap soon" title="iOS coming soon" style="display:block">
+              <img src="/assets/img/app-store-badge.svg" alt="App Store" />
+              <span class="soon-label">Soon</span>
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="by-widget">
-        <h3 class="by-widget__title">About BeeYarn</h3>
-        <ul class="by-widget__list">
-          <li><a href="/privacy">Privacy Policy</a></li>
-          <li><a href="/termsofuse">Terms of Use</a></li>
-          <li><a href="/contentpolicy">Content Policy</a></li>
-          <li><a href="/faqs">FAQs</a></li>
-          <li><a href="/contact">Contact Us</a></li>
-        </ul>
-        <p class="by-widget__copy">&copy; 2026 BeeYarn</p>
+      <div class="widget">
+        <div class="widget__head">BeeYarn</div>
+        <div class="widget__body">
+          <ul class="widget__links">
+            <li><a href="/index.html"><i class="bi bi-house"></i> About BeeYarn</a></li>
+            <li><a href="/privacy"><i class="bi bi-shield-check"></i> Privacy Policy</a></li>
+            <li><a href="/termsofuse"><i class="bi bi-file-text"></i> Terms of Use</a></li>
+            <li><a href="/contentpolicy"><i class="bi bi-journal-check"></i> Content Policy</a></li>
+            <li><a href="/faqs"><i class="bi bi-question-circle"></i> FAQs</a></li>
+            <li><a href="/contact"><i class="bi bi-envelope"></i> Contact</a></li>
+          </ul>
+          <p class="widget__copy">&copy; 2026 BeeYarn. All rights reserved.</p>
+        </div>
       </div>
     </aside>
 
-  </div><!-- .by-page -->
+  </div>
 
   <script src="/app.js"></script>
 </body>
