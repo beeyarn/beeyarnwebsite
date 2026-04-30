@@ -1,0 +1,16 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["REPLACE_WITH_TEAM_ID.com.beeyarn.beeyarn"],
+        "components": [
+          {
+            "/": "/p/*",
+            "comment": "Matches all BeeYarn post URLs"
+          }
+        ]
+      }
+    ]
+  }
+}
