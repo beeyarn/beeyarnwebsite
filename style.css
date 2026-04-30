@@ -303,6 +303,46 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
   text-decoration: none;
 }
 
+/* ── App store badges ────────────────────────── */
+.by-header__right {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.by-store-badge {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.by-store-soon {
+  position: relative;
+  display: inline-block;
+  cursor: not-allowed;
+}
+
+.by-store-soon img {
+  opacity: .55;
+  filter: grayscale(.4);
+}
+
+.by-store-soon__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
 /* header outline (white on green bg) */
 .by-header .by-btn-outline {
   color: #fff;
@@ -552,6 +592,13 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
 }
 
 .by-sidebar__links li a i { color: var(--green); font-size: .85rem; }
+
+.by-sidebar__badges {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding: .5rem .75rem .75rem;
+}
 
 /* ── Spinner ─────────────────────────────────── */
 .by-spinner-wrap {
