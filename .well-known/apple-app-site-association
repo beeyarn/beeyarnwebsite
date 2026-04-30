@@ -3,7 +3,9 @@
     "apps": [],
     "details": [
       {
-        "appIDs": ["REPLACE_WITH_TEAM_ID.com.beeyarn.beeyarn"],
+        "appIDs": [
+          "12345678.com.beeyarn.beeyarn"
+        ],
         "components": [
           {
             "/": "/p/*",
