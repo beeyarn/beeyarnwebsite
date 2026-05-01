@@ -1,10 +1,11 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.beeyarn.beeyarn",
-    "sha256_cert_fingerprints": [
-      "82:28:DD:AA:7C:8C:49:2E:A3:46:42:28:4F:8D:7A:37:D9:06:57:EE:27:04:6E:2A:B1:F7:F6:E5:A6:32:8D:6E"
-    ]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.beeyarn.beeyarn",
+      "sha256_cert_fingerprints":
+        ["5E:2E:62:57:E0:D0:03:71:90:29:F4:F1:2A:97:F1:ED:44:14:FA:2A:D5:17:16:6E:75:C8:87:78:C9:BB:75:58"]
+    }
   }
-}]
+]
