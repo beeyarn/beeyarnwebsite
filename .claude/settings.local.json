@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Read(//c/xampp/htdocs/beeyarnwebsite/**)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(grep -r \"og:title\\\\|og:description\\\\|og:image\" /c/xampp/htdocs/beeyarnwebsite/*.html)"
     ]
   }
 }

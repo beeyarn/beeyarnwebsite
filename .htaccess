@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Server-side OG meta tag injection for post share links (/p/{slug})
+# Must come BEFORE the catch-all rule so crawlers get pre-rendered meta tags
+RewriteRule ^p/([^/]+)/?$ /p.php?slug=$1 [L,QSA]
+
 # Allow actual files and folders to load normally (css, js, images etc)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
