@@ -655,13 +655,33 @@
     .card-action-btn { background: none; border: none; cursor: pointer; font-family: inherit; }
 
     /* === RESPONSIVE === */
+    /* Prevent horizontal overflow on all screens */
+    html, body { overflow-x: hidden; }
+    img, video  { max-width: 100%; height: auto; }
+
     @media (max-width: 960px) { .sidebar { display: none; } }
+
     @media (max-width: 640px) {
-      .page { padding: 0 8px; margin-top: 10px; }
-      .nav-search { display: none; }
-      .post-card__left { width: 32px; }
-      .post-card__thumb { width: 60px; height: 50px; }
+      .page               { padding: 0 8px; margin-top: 10px; }
+      .nav                { padding: 0 12px; gap: 8px; }
+      .nav-search         { display: none; }
+      .badge-wrap img     { height: 22px; }
+      .post-card__left    { width: 32px; }
+      .post-card__thumb   { width: 60px; height: 50px; }
       .post-detail__title { font-size: 17px; }
+      .post-detail__body  { font-size: 14px; padding: 0 12px 12px; }
+      .post-detail__head  { padding: 12px 12px 0; }
+      .post-detail__stats { gap: 10px; font-size: 12px; padding: 10px 12px; }
+      .post-detail__actions { padding: 6px 8px; }
+      .post-detail__app-cta { margin: 10px 12px 12px; }
+      .card-thumb         { max-height: 220px; }
+      .media-item img,
+      .media-item video   { max-height: 320px; width: 100%; object-fit: contain; }
+    }
+
+    /* Very small screens — hide App Store badge to prevent navbar overflow */
+    @media (max-width: 360px) {
+      .nav-right .badge-wrap:last-child { display: none; }
     }
   </style>
 </head>
@@ -669,7 +689,7 @@
 
   <!-- Navbar -->
   <nav class="nav">
-    <a href="/" class="nav-logo">
+    <a href="/home.html" class="nav-logo">
       <img src="/assets/img/logo.png" alt="BeeYarn"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
       <span style="display:none">BeeYarn</span>
@@ -831,7 +851,6 @@
             <li><a href="/faqs"><i class="bi bi-question-circle"></i> FAQs</a></li>
             <li><a href="/contact"><i class="bi bi-envelope"></i> Contact</a></li>
           </ul>
-          <p class="widget__copy">&copy; 2026 BeeYarn. All rights reserved.</p>
         </div>
       </div>
     </aside>

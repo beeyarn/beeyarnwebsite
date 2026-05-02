@@ -359,7 +359,7 @@ const App = (() => {
     timeEl.setAttribute('datetime', p.created_at || '');
 
     document.getElementById('post-title').textContent = p.title || '';
-    document.getElementById('post-body').textContent  = p.body  || '';
+    document.getElementById('post-body').innerHTML    = linkify(p.body || '');
 
     document.getElementById('post-likes').textContent    = fmt(p.likes_count     || 0);
     document.getElementById('post-comments').textContent = fmt(p.comments_count  || 0);
@@ -441,6 +441,24 @@ const App = (() => {
   }
 
   // ── Helpers ───────────────────────────────────────
+
+  // Escape text then turn http/https URLs into clickable <a> tags
+  function linkify(text) {
+    if (!text) return '';
+    var urlRegex = /https?:\/\/[^\s<>"']+/g;
+    var result = '';
+    var lastIndex = 0;
+    var match;
+    while ((match = urlRegex.exec(text)) !== null) {
+      result += xh(text.slice(lastIndex, match.index));
+      var url = match[0];
+      result += '<a href="' + xh(url) + '" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">' + xh(url) + '</a>';
+      lastIndex = match.index + url.length;
+    }
+    result += xh(text.slice(lastIndex));
+    return result;
+  }
+
   function xh(s) {
     return String(s || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;')
