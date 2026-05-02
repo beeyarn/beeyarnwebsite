@@ -4,6 +4,12 @@ RewriteEngine On
 # Must come BEFORE the catch-all rule so crawlers get pre-rendered meta tags
 RewriteRule ^p/([^/]+)/?$ /p.php?slug=$1 [L,QSA]
 
+# Invite landing page (/invite/{code})
+RewriteRule ^invite/([^/]+)/?$ /invite.php?code=$1 [L,QSA]
+
+# Silent referral code retrieval page (called by Flutter app on first launch)
+RewriteRule ^get-referral-code/?$ /get-referral-code.html [L]
+
 # Allow actual files and folders to load normally (css, js, images etc)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <!--
+    BeeYarn — Silent referral code retrieval page.
+
+    Called by the Flutter app on first launch via an in-app WebView.
+    Reads the pending_referral_code from localStorage, validates the expiry,
+    outputs raw JSON, then deletes the code so it only works once.
+
+    Output:
+      { "code": "abc123" }   — valid code found
+      { "code": null }       — no code, or expired
+  -->
+</head>
+<body>
+<script>
+  (function () {
+    var code    = null;
+    var output  = { code: null };
+
+    try {
+      var stored  = localStorage.getItem('pending_referral_code');
+      var expires = parseInt(localStorage.getItem('pending_referral_expires') || '0', 10);
+      var valid   = stored && stored.length > 0 && Date.now() < expires;
+
+      if (valid) {
+        code = stored;
+        // Delete immediately — one-time use
+        localStorage.removeItem('pending_referral_code');
+        localStorage.removeItem('pending_referral_expires');
+        output = { code: code };
+      }
+    } catch (e) {
+      // localStorage unavailable — return null
+    }
+
+    // Write raw JSON as the entire document body
+    document.open();
+    document.write(JSON.stringify(output));
+    document.close();
+  })();
+</script>
+</body>
+</html>

@@ -32,47 +32,76 @@ $og_url   = $slug
 $og_type  = 'article';
 $page_title = 'BeeYarn';
 
-// ── 3. Fetch post data from the API ──────────────────────────────────────────
+// ── 3. Fetch post data (with file-based cache) ───────────────────────────────
+
+// Cache post API responses for 1 hour so repeated hits (viral posts, crawlers
+// re-fetching) don't hammer the backend API.
+define('CACHE_DIR', sys_get_temp_dir() . '/beeyarn_og_cache');
+define('CACHE_TTL', 300); // 5 minutes — purge endpoint handles instant invalidation on post update
+
+function cache_get(string $key): ?array
+{
+    $file = CACHE_DIR . '/' . $key . '.json';
+    if (!file_exists($file)) return null;
+    if (time() - filemtime($file) > CACHE_TTL) {
+        @unlink($file);
+        return null;
+    }
+    $data = @json_decode(file_get_contents($file), true);
+    return is_array($data) ? $data : null;
+}
+
+function cache_set(string $key, array $data): void
+{
+    if (!is_dir(CACHE_DIR)) @mkdir(CACHE_DIR, 0755, true);
+    @file_put_contents(CACHE_DIR . '/' . $key . '.json', json_encode($data), LOCK_EX);
+}
 
 if ($slug) {
-    $api_url = 'https://api.beeyarn.com/api/posts/' . rawurlencode($slug);
-    $post    = null;
+    $api_url   = 'https://api.beeyarn.com/api/posts/' . rawurlencode($slug);
+    $cache_key = 'post_' . preg_replace('/[^a-zA-Z0-9_\-]/', '', $slug);
+    $post      = cache_get($cache_key);
 
-    // Try cURL first (better SSL handling, timeouts, error reporting)
-    if (function_exists('curl_init')) {
-        $ch = curl_init($api_url);
-        curl_setopt_array($ch, [
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT        => 5,
-            CURLOPT_CONNECTTIMEOUT => 3,
-            CURLOPT_USERAGENT      => 'BeeYarnBot/1.0 (OG meta fetcher)',
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS      => 3,
-            CURLOPT_SSL_VERIFYPEER => true,
-        ]);
-        $raw    = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
+    if ($post === null) {
+        // Cache miss — fetch from API
+        if (function_exists('curl_init')) {
+            $ch = curl_init($api_url);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT        => 5,
+                CURLOPT_CONNECTTIMEOUT => 3,
+                CURLOPT_USERAGENT      => 'BeeYarnBot/1.0 (OG meta fetcher)',
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_MAXREDIRS      => 3,
+                CURLOPT_SSL_VERIFYPEER => true,
+            ]);
+            $raw    = curl_exec($ch);
+            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
 
-        if ($raw !== false && $status === 200) {
-            $decoded = json_decode($raw, true);
-            if (is_array($decoded)) {
-                $post = isset($decoded['data']) ? $decoded['data'] : $decoded;
+            if ($raw !== false && $status === 200) {
+                $decoded = json_decode($raw, true);
+                if (is_array($decoded)) {
+                    $post = isset($decoded['data']) ? $decoded['data'] : $decoded;
+                }
+            }
+        } else {
+            $ctx = stream_context_create(['http' => [
+                'timeout'       => 5,
+                'user_agent'    => 'BeeYarnBot/1.0 (OG meta fetcher)',
+                'ignore_errors' => true,
+            ]]);
+            $raw = @file_get_contents($api_url, false, $ctx);
+            if ($raw !== false) {
+                $decoded = json_decode($raw, true);
+                if (is_array($decoded)) {
+                    $post = isset($decoded['data']) ? $decoded['data'] : $decoded;
+                }
             }
         }
-    } else {
-        // Fallback: file_get_contents with a short timeout
-        $ctx = stream_context_create(['http' => [
-            'timeout'       => 5,
-            'user_agent'    => 'BeeYarnBot/1.0 (OG meta fetcher)',
-            'ignore_errors' => true,
-        ]]);
-        $raw = @file_get_contents($api_url, false, $ctx);
-        if ($raw !== false) {
-            $decoded = json_decode($raw, true);
-            if (is_array($decoded)) {
-                $post = isset($decoded['data']) ? $decoded['data'] : $decoded;
-            }
+
+        if (is_array($post) && !empty($post)) {
+            cache_set($cache_key, $post);
         }
     }
 
@@ -169,6 +198,7 @@ $html = str_replace('</head>', $meta_block . "\n</head>", $html);
 // ── 7. Send the response ─────────────────────────────────────────────────────
 
 header('Content-Type: text/html; charset=UTF-8');
-// Allow social crawlers to cache the preview for up to 1 hour
-header('Cache-Control: public, max-age=3600');
+// TTL matches the internal file cache (300s). The purge endpoint handles
+// instant invalidation on post update, so this is just a safety-net ceiling.
+header('Cache-Control: public, max-age=300');
 echo $html;
