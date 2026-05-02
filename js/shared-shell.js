@@ -21,11 +21,7 @@
         { label: 'Contact', href: `${rootPrefix}contact` },
     ];
 
-    const socialLinks = [
-        { href: 'https://www.facebook.com/profile.php?id=61570488695195', title: 'Facebook', icon: 'fab fa-facebook-f' },
-        { href: 'https://www.linkedin.com/company/beeyarn/?viewAsMember=true', title: 'LinkedIn', icon: 'fab fa-linkedin-in' },
-        { href: 'https://x.com/beeyarnapp', title: 'Twitter', icon: 'fab fa-twitter' },
-    ];
+    const socialLinks = [];
 
     function buildHeader() {
         const navItems = pageLinks

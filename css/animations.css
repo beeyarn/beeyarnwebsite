@@ -62,10 +62,37 @@ footer a:hover i {
 }
 
 /* --- Navbar shadow on scroll -------------------- */
+#shared-header {
+    position: relative;
+    z-index: 1035;
+}
+
 #mainNav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1035 !important;
+    isolation: isolate;
     transition: box-shadow 0.3s ease, background-color 0.3s ease !important;
     background-color: #fff !important;
     opacity: 1;
+    pointer-events: auto;
+}
+#mainNav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: #fff;
+    z-index: -1;
+}
+#mainNav .container,
+#mainNav .navbar-brand,
+#mainNav .navbar-toggler,
+#mainNav .nav-link,
+#mainNav .navbar-collapse {
+    position: relative;
+    z-index: 1;
 }
 #mainNav.scrolled {
     background-color: #fff !important;
