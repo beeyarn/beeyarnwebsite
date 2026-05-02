@@ -7,6 +7,14 @@ const App = (() => {
 
   const API_BASE = 'https://api.beeyarn.com/api';
 
+  // Auth Modal
+  const authOverlay = document.getElementById('auth-modal-overlay');
+  window.AuthModal = {
+    show: function() { authOverlay.classList.remove('hidden'); document.body.style.overflow = 'hidden'; },
+    hide: function() { authOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
+  };
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') AuthModal.hide(); });
+
   // DOM
   const viewFeed    = document.getElementById('view-feed');
   const viewPost    = document.getElementById('view-post');
@@ -163,7 +171,7 @@ const App = (() => {
       const meta  = json.meta || {};
 
       posts.forEach(function(p) {
-        cache[p.slug] = p;
+        if (!p.is_ad && p.slug) cache[p.slug] = p;
         allPosts.push(p);
       });
       renderFiltered();
@@ -181,8 +189,63 @@ const App = (() => {
     busy = false;
   }
 
+  // ── Build ad card ───────────────────────────────
+  function buildAdCard(p) {
+    const advertiser = p.advertiser || {};
+    const avatar = (advertiser.profile_picture && (advertiser.profile_picture.thumb || advertiser.profile_picture.url)) || '';
+    const name   = advertiser.name || 'Sponsored';
+    const files  = (p.post_media && p.post_media.files) ? p.post_media.files : [];
+    const first  = files[0] || null;
+
+    let thumbHtml = '';
+    if (first) {
+      const src     = first.thumb || first.url || '';
+      const isVideo = first.type === 'video';
+      if (src) {
+        thumbHtml = '<div class="card-thumb">'
+          + '<img src="' + xa(src) + '" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'" />'
+          + (isVideo ? '<div class="card-thumb-play"><i class="bi bi-play-circle-fill"></i></div>' : '')
+          + '</div>';
+      }
+    }
+
+    let ctaHtml = '';
+    if (p.cta) {
+      if (p.cta.whatsapp && p.cta.whatsapp.url) {
+        ctaHtml += '<a class="card-cta-btn" href="' + xa(p.cta.whatsapp.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
+          + '<i class="bi bi-whatsapp"></i> ' + xh(p.cta.whatsapp.label || 'WhatsApp') + '</a>';
+      }
+      if (p.cta.url && p.cta.url.url) {
+        ctaHtml += '<a class="card-cta-btn card-cta-btn--outline" href="' + xa(p.cta.url.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
+          + '<i class="bi bi-box-arrow-up-right"></i> ' + xh(p.cta.url.label || 'Learn More') + '</a>';
+      }
+    }
+
+    const el = document.createElement('div');
+    el.className = 'card card--ad';
+    el.innerHTML =
+      '<div class="card-left">'
+      +   '<img class="card-avatar" src="' + xa(avatar) + '" alt="' + xa(name) + '" onerror="this.style.visibility=\'hidden\'" />'
+      + '</div>'
+      + '<div class="card-body">'
+      +   '<div class="card-meta">'
+      +     '<span class="card-name">' + xh(name) + '</span>'
+      +     '<span class="card-dot">·</span>'
+      +     '<span class="card-sponsored"><i class="bi bi-megaphone-fill"></i> Sponsored</span>'
+      +     (p.topic ? '<span class="card-dot">·</span><span class="card-topic">' + xh(p.topic) + '</span>' : '')
+      +   '</div>'
+      +   (p.title ? '<div class="card-title">' + xh(p.title) + '</div>' : '')
+      +   (p.body  ? '<div class="card-excerpt">' + xh(p.body)  + '</div>' : '')
+      +   thumbHtml
+      +   (ctaHtml ? '<div class="card-cta-row">' + ctaHtml + '</div>' : '')
+      + '</div>';
+
+    return el;
+  }
+
   // ── Build card ──────────────────────────────────
   function buildCard(p) {
+    if (p.is_ad) return buildAdCard(p);
     const avatar   = (p.user && p.user.profile_picture && (p.user.profile_picture.thumb || p.user.profile_picture.url)) || '';
     const name     = (p.user && p.user.name) || 'BeeYarner';
     const username = (p.user && p.user.username) ? '@' + p.user.username : '';
@@ -224,8 +287,8 @@ const App = (() => {
       +   (p.body  ? '<div class="card-excerpt">' + xh(p.body) + '</div>' : '')
       +   thumbHtml
       +   '<div class="card-actions">'
-      +     '<span class="card-stat"><i class="bi bi-heart"></i> ' + likes    + '</span>'
-      +     '<span class="card-stat"><i class="bi bi-chat"></i> '  + comments + '</span>'
+      +     '<button class="card-stat card-action-btn" onclick="event.stopPropagation();AuthModal.show()"><i class="bi bi-heart"></i> ' + likes    + '</button>'
+      +     '<button class="card-stat card-action-btn" onclick="event.stopPropagation();AuthModal.show()"><i class="bi bi-chat"></i> '  + comments + '</button>'
       +     '<span class="card-stat"><i class="bi bi-eye"></i> '   + views    + '</span>'
       +   '</div>'
       + '</div>';
@@ -337,6 +400,9 @@ const App = (() => {
       }
       mediaWrap.appendChild(wrap);
     });
+
+    document.getElementById('btn-post-like').onclick    = function() { AuthModal.show(); };
+    document.getElementById('btn-post-comment').onclick = function() { AuthModal.show(); };
 
     var shareUrl = p.share_url || ('https://www.beeyarn.com/p/' + encodeURIComponent(p.slug));
     document.getElementById('post-app-link').href = shareUrl;

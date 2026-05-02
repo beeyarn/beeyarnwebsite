@@ -572,6 +572,88 @@
 
     .card-stat:hover { background: var(--bg); color: var(--text); }
 
+    /* === AUTH MODAL === */
+    .auth-modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      animation: fadeInOverlay 0.15s ease;
+    }
+    .auth-modal-overlay.hidden { display: none; }
+    @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+
+    .auth-modal {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 28px 24px 24px;
+      width: 100%; max-width: 360px;
+      text-align: center;
+      position: relative;
+      animation: slideUp 0.2s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .auth-modal__close {
+      position: absolute; top: 12px; right: 14px;
+      background: none; border: none; cursor: pointer;
+      font-size: 18px; color: var(--sub);
+      line-height: 1; padding: 4px;
+      border-radius: 4px; transition: background 0.1s;
+    }
+    .auth-modal__close:hover { background: var(--bg); color: var(--text); }
+
+    .auth-modal__icon { font-size: 2.2rem; color: var(--green); margin-bottom: 10px; }
+
+    .auth-modal h2 {
+      font-size: 17px; font-weight: 700; color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .auth-modal p {
+      font-size: 13px; color: var(--sub);
+      line-height: 1.5; margin-bottom: 20px;
+    }
+
+    .auth-modal__btns {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .auth-modal__btns .btn { width: 100%; justify-content: center; font-size: 14px; padding: 10px; }
+
+    /* Sign-in to comment bar */
+    .sign-in-comment {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .sign-in-comment:hover { background: var(--green-bg); }
+    .sign-in-comment p { font-size: 13px; color: var(--sub); display: flex; align-items: center; gap: 6px; }
+    .sign-in-comment span { font-size: 12px; font-weight: 700; color: var(--green); flex-shrink: 0; }
+
+    /* Ad card */
+    .card--ad { border-color: #e8d88a; }
+    .card--ad:hover { border-color: #c9a800; }
+    .card-sponsored { font-size: 11px; color: #a07800; font-weight: 600; }
+
+    .card-cta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+    .card-cta-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 700; padding: 5px 10px;
+      border-radius: 4px; text-decoration: none;
+      background: var(--green); color: #fff;
+      transition: background 0.1s;
+    }
+    .card-cta-btn:hover { background: var(--green-dark); color: #fff; text-decoration: none; }
+    .card-cta-btn--outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+    .card-cta-btn--outline:hover { background: var(--green-bg); }
+
+    /* Interactive action buttons on cards */
+    .card-action-btn { background: none; border: none; cursor: pointer; font-family: inherit; }
+
     /* === RESPONSIVE === */
     @media (max-width: 960px) { .sidebar { display: none; } }
     @media (max-width: 640px) {
@@ -691,9 +773,14 @@
           </div>
 
           <div class="post-detail__actions">
-            <button class="action-btn"><i class="bi bi-heart"></i> Like</button>
-            <button class="action-btn"><i class="bi bi-chat"></i> Comment</button>
+            <button class="action-btn" id="btn-post-like"><i class="bi bi-heart"></i> Like</button>
+            <button class="action-btn" id="btn-post-comment"><i class="bi bi-chat"></i> Comment</button>
             <button class="action-btn" id="btn-share"><i class="bi bi-share"></i> Share</button>
+          </div>
+
+          <div class="sign-in-comment" id="sign-in-comment-bar" onclick="AuthModal.show()">
+            <p><i class="bi bi-chat-dots"></i> Sign in to join the discussion</p>
+            <span>Sign In →</span>
           </div>
 
           <div class="post-detail__app-cta">
@@ -749,6 +836,26 @@
       </div>
     </aside>
 
+  </div>
+
+  <!-- Auth Required Modal -->
+  <div id="auth-modal-overlay" class="auth-modal-overlay hidden" onclick="if(event.target===this)AuthModal.hide()">
+    <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+      <button class="auth-modal__close" onclick="AuthModal.hide()" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+      <div class="auth-modal__icon"><i class="bi bi-lock-fill"></i></div>
+      <h2 id="auth-modal-title">Sign in to continue</h2>
+      <p>Like, comment, save, and follow posts on BeeYarn. Join the conversation.</p>
+      <div class="auth-modal__btns">
+        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+           target="_blank" rel="noopener" class="btn">
+          <i class="bi bi-box-arrow-in-right"></i> Sign In
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
+           target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="bi bi-person-plus"></i> Sign Up
+        </a>
+      </div>
+    </div>
   </div>
 
   <script src="/app.js"></script>

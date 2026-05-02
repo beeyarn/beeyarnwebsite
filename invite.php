@@ -422,26 +422,16 @@ header('Cache-Control: public, max-age=300');
 
 <script>
   (function () {
-    var code = <?= $code ? json_encode($code) : 'null' ?>;
-
-    // ── 1. Save referral code to localStorage (7-day expiry) ─────────────────
-    if (code) {
-      try {
-        localStorage.setItem('pending_referral_code', code);
-        localStorage.setItem('pending_referral_expires', Date.now() + 7 * 24 * 60 * 60 * 1000);
-      } catch (e) { /* localStorage blocked (private mode etc.) — silently ignore */ }
-    }
-
-    // ── 2. Platform detection ─────────────────────────────────────────────────
-    var ua       = navigator.userAgent;
-    var isIOS    = /iPhone|iPad|iPod/i.test(ua);
+    var code      = <?= $code ? json_encode($code) : 'null' ?>;
+    var ua        = navigator.userAgent;
+    var isIOS     = /iPhone|iPad|iPod/i.test(ua);
     var isAndroid = /Android/i.test(ua);
 
     var btnGoogle = document.getElementById('btn-google');
     var btnApple  = document.getElementById('btn-apple');
     var btnDeep   = document.getElementById('btn-deeplink');
 
-    // Show the right store button(s)
+    // ── 1. Platform detection — show the right store button(s) ───────────────
     if (isAndroid) {
       btnGoogle.style.display = 'flex';
     } else if (isIOS) {
@@ -452,62 +442,68 @@ header('Cache-Control: public, max-age=300');
       btnApple.style.display  = 'flex';
     }
 
-    // ── 3. Deep link attempt (mobile only) ───────────────────────────────────
-    // Try to open the app. If installed, OS intercepts it immediately.
-    // If not installed, nothing happens — after 2 seconds we redirect to
-    // the appropriate store automatically.
+    // ── 2. Clipboard copy helper ──────────────────────────────────────────────
+    // Copies the referral code to the system clipboard so the Flutter app can
+    // read it on first launch (deferred deep link fallback).
+    // This is the standard DIY approach when Play Install Referrer / SKAdNetwork
+    // are not available. The user may see a clipboard permission prompt on some
+    // Android versions — that is expected and unavoidable with this technique.
+    function copyCodeToClipboard(callback) {
+      if (!code) { callback(); return; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(callback, callback);
+      } else {
+        // Fallback for older browsers / restricted contexts
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = code;
+          ta.style.position = 'fixed';
+          ta.style.opacity  = '0';
+          document.body.appendChild(ta);
+          ta.focus(); ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (e) { /* silently ignore — app will just get no code */ }
+        callback();
+      }
+    }
+
+    // ── 3. Store button clicks — copy code then redirect ─────────────────────
+    [btnGoogle, btnApple].forEach(function (btn) {
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        if (!code) return; // no code — let href navigate normally
+        e.preventDefault();
+        var dest = btn.href;
+        copyCodeToClipboard(function () {
+          window.location.href = dest;
+        });
+      });
+    });
+
+    // ── 4. Deep link attempt (mobile only, for already-installed app) ─────────
+    // Fires beeyarn://invite/{code} silently. If the app is installed the OS
+    // intercepts it and DeepLinkService handles it — no clipboard needed.
+    // If not installed, nothing happens and the user taps the store button.
     if ((isIOS || isAndroid) && code) {
-      var deepLink  = 'beeyarn://invite/' + encodeURIComponent(code);
-      var storeUrl  = isIOS
-        ? 'https://apps.apple.com/app/beeyarn/id0000000000' // replace with real App Store ID when live
-        : btnGoogle.href;
+      var deepLink = 'beeyarn://invite/' + encodeURIComponent(code);
 
       // Show the "Open in BeeYarn" button
       btnDeep.style.display = 'flex';
 
-      // Attempt deep link silently via hidden iframe — avoids navigation errors
-      // in browsers that block unknown schemes on <a> click
-      var attemptDeepLink = function () {
-        var iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.src = deepLink;
-        document.body.appendChild(iframe);
-        setTimeout(function () { document.body.removeChild(iframe); }, 500);
-      };
+      // Attempt silently via hidden iframe on page load
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = deepLink;
+      document.body.appendChild(iframe);
+      setTimeout(function () {
+        if (document.body.contains(iframe)) document.body.removeChild(iframe);
+      }, 500);
 
-      // Auto-attempt on load, then fall back to store after 2s if the app
-      // didn't open (page would have been hidden/suspended if it had)
-      var fallbackTimer = null;
-
-      var startFallback = function () {
-        fallbackTimer = setTimeout(function () {
-          // Only redirect if the page is still visible (app didn't open)
-          if (!document.hidden) {
-            window.location.href = storeUrl;
-          }
-        }, 2000);
-      };
-
-      // Cancel fallback if user switches away (means app opened)
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden && fallbackTimer) {
-          clearTimeout(fallbackTimer);
-        }
-      });
-
-      window.addEventListener('pagehide', function () {
-        if (fallbackTimer) clearTimeout(fallbackTimer);
-      });
-
-      attemptDeepLink();
-      startFallback();
-
-      // Manual "Open in BeeYarn" click — re-attempt deep link and reset timer
+      // Manual tap — re-attempt
       btnDeep.addEventListener('click', function (e) {
         e.preventDefault();
-        if (fallbackTimer) clearTimeout(fallbackTimer);
-        attemptDeepLink();
-        startFallback();
+        window.location.href = deepLink;
       });
     }
   })();
