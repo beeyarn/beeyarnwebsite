@@ -192,53 +192,58 @@ const App = (() => {
   // ── Build ad card ───────────────────────────────
   function buildAdCard(p) {
     const advertiser = p.advertiser || {};
-    const avatar = (advertiser.profile_picture && (advertiser.profile_picture.thumb || advertiser.profile_picture.url)) || '';
-    const name   = advertiser.name || 'Sponsored';
-    const files  = (p.post_media && p.post_media.files) ? p.post_media.files : [];
-    const first  = files[0] || null;
+    const avatar  = (advertiser.profile_picture && (advertiser.profile_picture.thumb || advertiser.profile_picture.url)) || '';
+    const name    = advertiser.name     || 'Sponsored';
+    const handle  = advertiser.username ? '@' + advertiser.username : '';
+    const files   = (p.post_media && p.post_media.files) ? p.post_media.files : [];
+    const first   = files[0] || null;
+    const imgSrc  = first ? (first.thumb || first.url || '') : '';
 
-    let thumbHtml = '';
-    if (first) {
-      const src     = first.thumb || first.url || '';
-      const isVideo = first.type === 'video';
-      if (src) {
-        thumbHtml = '<div class="card-thumb">'
-          + '<img src="' + xa(src) + '" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'" />'
-          + (isVideo ? '<div class="card-thumb-play"><i class="bi bi-play-circle-fill"></i></div>' : '')
-          + '</div>';
-      }
-    }
+    // Banner: full-width image if available, else gold accent strip
+    const bannerHtml = imgSrc
+      ? '<div class="ad-card__banner">'
+        +   '<img src="' + xa(imgSrc) + '" alt="" loading="lazy" onerror="this.parentElement.className=\'ad-card__banner--empty\';this.remove()" />'
+        +   '<span class="ad-card__sponsored"><i class="bi bi-megaphone-fill"></i> Sponsored</span>'
+        + '</div>'
+      : '<div class="ad-card__banner--empty"></div>';
 
+    // Inline pill when no image banner
+    const inlinePill = imgSrc ? ''
+      : '<span class="ad-card__sponsored ad-card__sponsored--inline"><i class="bi bi-megaphone-fill"></i> Sponsored</span>';
+
+    // CTA buttons
     let ctaHtml = '';
     if (p.cta) {
       if (p.cta.whatsapp && p.cta.whatsapp.url) {
-        ctaHtml += '<a class="card-cta-btn" href="' + xa(p.cta.whatsapp.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
-          + '<i class="bi bi-whatsapp"></i> ' + xh(p.cta.whatsapp.label || 'WhatsApp') + '</a>';
+        ctaHtml += '<a class="ad-card__cta-primary" href="' + xa(p.cta.whatsapp.url) + '" target="_blank" rel="noopener">'
+          + '<i class="bi bi-whatsapp"></i> ' + xh(p.cta.whatsapp.label || 'Message on WhatsApp') + '</a>';
       }
       if (p.cta.url && p.cta.url.url) {
-        ctaHtml += '<a class="card-cta-btn card-cta-btn--outline" href="' + xa(p.cta.url.url) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">'
-          + '<i class="bi bi-box-arrow-up-right"></i> ' + xh(p.cta.url.label || 'Learn More') + '</a>';
+        ctaHtml += '<a class="ad-card__cta-secondary" href="' + xa(p.cta.url.url) + '" target="_blank" rel="noopener">'
+          + '<i class="bi bi-box-arrow-up-right"></i> ' + xh(p.cta.url.label || 'Visit Website') + '</a>';
       }
     }
 
     const el = document.createElement('div');
-    el.className = 'card card--ad';
+    el.className = 'ad-card';
     el.innerHTML =
-      '<div class="card-left">'
-      +   '<img class="card-avatar" src="' + xa(avatar) + '" alt="' + xa(name) + '" onerror="this.style.visibility=\'hidden\'" />'
-      + '</div>'
-      + '<div class="card-body">'
-      +   '<div class="card-meta">'
-      +     '<span class="card-name">' + xh(name) + '</span>'
-      +     '<span class="card-dot">·</span>'
-      +     '<span class="card-sponsored"><i class="bi bi-megaphone-fill"></i> Sponsored</span>'
-      +     (p.topic ? '<span class="card-dot">·</span><span class="card-topic">' + xh(p.topic) + '</span>' : '')
+      bannerHtml
+      + '<div class="ad-card__header">'
+      +   '<img class="ad-card__avatar" src="' + xa(avatar) + '" alt="' + xa(name) + '" onerror="this.style.visibility=\'hidden\'" />'
+      +   '<div class="ad-card__advertiser">'
+      +     '<div class="ad-card__name">' + xh(name) + '</div>'
+      +     (handle ? '<div class="ad-card__handle">' + xh(handle) + '</div>' : '')
       +   '</div>'
-      +   (p.title ? '<div class="card-title">' + xh(p.title) + '</div>' : '')
-      +   (p.body  ? '<div class="card-excerpt">' + xh(p.body)  + '</div>' : '')
-      +   thumbHtml
-      +   (ctaHtml ? '<div class="card-cta-row">' + ctaHtml + '</div>' : '')
-      + '</div>';
+      +   inlinePill
+      + '</div>'
+      + '<div class="ad-card__body">'
+      +   (p.topic ? '<span class="ad-card__topic">' + xh(p.topic) + '</span>' : '')
+      +   (p.title ? '<div class="ad-card__title">' + xh(p.title) + '</div>' : '')
+      +   (p.body  ? '<div class="ad-card__text">'  + xh(p.body)  + '</div>' : '')
+      + '</div>'
+      + (ctaHtml ? '<div class="ad-card__cta">' + ctaHtml + '</div>' : '');
+
+    el.addEventListener('click', function(e) { e.stopPropagation(); });
 
     return el;
   }

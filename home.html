@@ -634,22 +634,104 @@
     .sign-in-comment p { font-size: 13px; color: var(--sub); display: flex; align-items: center; gap: 6px; }
     .sign-in-comment span { font-size: 12px; font-weight: 700; color: var(--green); flex-shrink: 0; }
 
-    /* Ad card */
-    .card--ad { border-color: #e8d88a; }
-    .card--ad:hover { border-color: #c9a800; }
-    .card-sponsored { font-size: 11px; color: #a07800; font-weight: 600; }
-
-    .card-cta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-    .card-cta-btn {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; font-weight: 700; padding: 5px 10px;
-      border-radius: 4px; text-decoration: none;
-      background: var(--green); color: #fff;
-      transition: background 0.1s;
+    /* === AD CARD === */
+    .ad-card {
+      background: var(--white);
+      border: 1px solid #d4b84a;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
     }
-    .card-cta-btn:hover { background: var(--green-dark); color: #fff; text-decoration: none; }
-    .card-cta-btn--outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
-    .card-cta-btn--outline:hover { background: var(--green-bg); }
+
+    /* Image banner */
+    .ad-card__banner {
+      position: relative;
+      width: 100%;
+      background: #111;
+      max-height: 220px;
+      overflow: hidden;
+    }
+    .ad-card__banner img {
+      width: 100%; height: 220px;
+      object-fit: cover; display: block;
+    }
+    .ad-card__banner--empty {
+      height: 6px;
+      background: linear-gradient(90deg, #d4b84a, #f0d060, #d4b84a);
+    }
+
+    /* Sponsored pill — top-right over the banner */
+    .ad-card__sponsored {
+      position: absolute; top: 8px; right: 10px;
+      background: rgba(0,0,0,0.55);
+      color: #f0d060; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 20px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 4px;
+    }
+    /* When no banner image, pill goes inline in the header */
+    .ad-card__sponsored--inline {
+      position: static;
+      background: #fef9e7;
+      color: #a07800; border: 1px solid #d4b84a;
+    }
+
+    /* Advertiser row */
+    .ad-card__header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px 0;
+    }
+    .ad-card__avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      object-fit: cover; background: var(--green-bg); flex-shrink: 0;
+    }
+    .ad-card__advertiser { flex: 1; min-width: 0; }
+    .ad-card__name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .ad-card__handle { font-size: 11px; color: var(--sub); }
+
+    /* Content */
+    .ad-card__body { padding: 8px 14px 12px; }
+    .ad-card__title {
+      font-size: 15px; font-weight: 700;
+      color: var(--text); line-height: 1.4;
+      margin-bottom: 5px;
+    }
+    .ad-card__text {
+      font-size: 12px; color: var(--sub); line-height: 1.5;
+      display: -webkit-box; -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* CTA buttons */
+    .ad-card__cta {
+      display: flex; gap: 8px;
+      padding: 0 14px 14px;
+    }
+    .ad-card__cta a {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 12px; font-weight: 700; padding: 9px 12px;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.1s, border-color 0.1s;
+    }
+    .ad-card__cta-primary {
+      background: var(--green); color: #fff !important;
+    }
+    .ad-card__cta-primary:hover { background: var(--green-dark) !important; text-decoration: none; }
+    .ad-card__cta-secondary {
+      background: transparent; color: var(--green) !important;
+      border: 1.5px solid var(--green);
+    }
+    .ad-card__cta-secondary:hover { background: var(--green-bg) !important; text-decoration: none; }
+
+    /* Topic tag inside ad */
+    .ad-card__topic {
+      display: inline-block;
+      background: #fef9e7; color: #a07800;
+      font-size: 10px; font-weight: 700;
+      padding: 1px 7px; border-radius: 10px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      margin-bottom: 5px;
+    }
 
     /* Interactive action buttons on cards */
     .card-action-btn { background: none; border: none; cursor: pointer; font-family: inherit; }
