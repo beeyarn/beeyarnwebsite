@@ -63,10 +63,25 @@ footer a:hover i {
 
 /* --- Navbar shadow on scroll -------------------- */
 #mainNav {
-    transition: box-shadow 0.3s ease !important;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease !important;
+    background-color: #fff !important;
+    opacity: 1;
 }
 #mainNav.scrolled {
+    background-color: #fff !important;
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.1) !important;
+}
+#mainNav .navbar-collapse {
+    background-color: #fff;
+}
+
+@media (max-width: 991.98px) {
+    #mainNav .navbar-collapse {
+        margin-top: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
 }
 
 /* --- Shell inject fade (removes header/footer flash) */

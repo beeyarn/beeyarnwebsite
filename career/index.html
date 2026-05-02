@@ -31,15 +31,24 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { color: #1C5B31; }
+        body {
+            color: #1C5B31;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
         .navbar-light .navbar-brand,
         .navbar-light .navbar-nav .nav-link { color: #1C5B31; }
         .btn-primary { background-color: #1C5B31; border-color: #1C5B31; }
         .btn-primary:hover { background-color: #145022; border-color: #145022; }
 
         #careers-section {
+            flex: 1 0 auto;
             padding-top: 6rem;
             padding-bottom: 4rem;
+        }
+        #shared-footer footer {
+            margin-top: 0 !important;
         }
         #careers-section h1 {
             font-size: 2rem;
