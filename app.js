@@ -30,17 +30,19 @@ const App = (() => {
   const btnBack     = document.getElementById('btn-back');
 
   // State
-  let page      = 1;
-  let busy      = false;
-  let hasMore   = true;
-  let allPosts  = [];   // master list of every fetched post
-  let activeTab = 'home';
-  let searchQ   = '';
-  const cache   = {};
+  let page         = 1;
+  let busy         = false;
+  let hasMore      = true;
+  let allPosts     = [];   // master list of every fetched post
+  let activeTab    = 'home';
+  let searchQ      = '';
+  let savedScrollY = 0;
+  const cache      = {};
 
-  const searchInput   = document.getElementById('search-input');
-  const searchBar     = document.getElementById('search-results-bar');
-  const searchLabel   = document.getElementById('search-query-label');
+  const searchInput       = document.getElementById('search-input');
+  const mobileSearchInput = document.getElementById('mobile-search-input');
+  const searchBar         = document.getElementById('search-results-bar');
+  const searchLabel       = document.getElementById('search-query-label');
   const tabHome       = document.getElementById('tab-home');
   const tabHot        = document.getElementById('tab-hot');
   const tabNew        = document.getElementById('tab-new');
@@ -50,24 +52,32 @@ const App = (() => {
   function hide(el)       { el.style.display = 'none'; }
 
   // ── Router ─────────────────────────────────────
-  function route() {
+  function route(restoreScroll) {
     const m = location.pathname.match(/^\/p\/([^/]+)\/?$/);
     if (m) {
+      savedScrollY = window.scrollY;
       show(viewPost); hide(viewFeed);
       loadPost(decodeURIComponent(m[1]));
+      window.scrollTo(0, 0);
     } else {
       show(viewFeed); hide(viewPost);
-      if (feedList.children.length === 0) loadFeed(true);
+      if (feedList.children.length === 0) {
+        loadFeed(true);
+        window.scrollTo(0, 0);
+      } else if (restoreScroll) {
+        window.scrollTo(0, savedScrollY);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
-    window.scrollTo(0, 0);
   }
 
   function navigate(path) {
     history.pushState({}, '', path);
-    route();
+    route(false);
   }
 
-  window.addEventListener('popstate', route);
+  window.addEventListener('popstate', function() { route(true); });
   btnMore.addEventListener('click', () => loadFeed(false));
   btnBack.addEventListener('click', () => {
     if (history.length > 1) history.back();
@@ -76,33 +86,67 @@ const App = (() => {
 
   // ── Search ─────────────────────────────────────
   var searchTimer;
-  searchInput.addEventListener('input', function() {
+
+  function doSearch(q) {
+    searchQ = q.toLowerCase();
+    searchLabel.textContent = q;
+    show(searchBar);
+    renderFiltered();
+  }
+
+  function onSearchInput(inputEl) {
     clearTimeout(searchTimer);
     searchTimer = setTimeout(function() {
-      searchQ = searchInput.value.trim().toLowerCase();
-      if (searchQ) {
-        searchLabel.textContent = searchInput.value.trim();
-        show(searchBar);
-        renderFiltered();
+      var q = inputEl.value.trim();
+      if (q) {
+        doSearch(q);
       } else {
         clearSearch();
       }
-    }, 250);
-  });
+    }, 350);
+  }
+
+  searchInput.addEventListener('input', function() { onSearchInput(searchInput); });
+  if (mobileSearchInput) {
+    mobileSearchInput.addEventListener('input', function() { onSearchInput(mobileSearchInput); });
+  }
 
   function clearSearch() {
     searchQ = '';
     searchInput.value = '';
+    if (mobileSearchInput) mobileSearchInput.value = '';
     hide(searchBar);
     renderFiltered();
   }
 
+  // Mobile search panel toggle
+  window.MobileSearch = {
+    toggle: function() {
+      var bar = document.getElementById('mobile-search-bar');
+      if (bar.style.display === 'none') {
+        bar.style.display = 'block';
+        if (mobileSearchInput) mobileSearchInput.focus();
+      } else {
+        this.close();
+      }
+    },
+    close: function() {
+      var bar = document.getElementById('mobile-search-bar');
+      bar.style.display = 'none';
+      clearSearch();
+    }
+  };
+
   // ── Tabs ────────────────────────────────────────
   function setTab(tab) {
     activeTab = tab;
-    tabHome.className = tab === 'home' ? 'active' : '';
-    tabHot.className  = tab === 'hot'  ? 'active' : '';
-    tabNew.className  = tab === 'new'  ? 'active' : '';
+    [tabHome, tabHot, tabNew].forEach(function(el) {
+      el.className = '';
+      el.setAttribute('aria-selected', 'false');
+    });
+    var active = tab === 'home' ? tabHome : tab === 'hot' ? tabHot : tabNew;
+    active.className = 'active';
+    active.setAttribute('aria-selected', 'true');
     renderFiltered();
   }
 
@@ -346,7 +390,8 @@ const App = (() => {
 
     document.getElementById('post-name').textContent     = name;
     document.getElementById('post-username').textContent = username;
-    document.getElementById('post-verified').style.display = verified ? 'inline' : 'none';
+    var verifiedEl = document.getElementById('post-verified');
+    if (verified) verifiedEl.removeAttribute('hidden'); else verifiedEl.setAttribute('hidden', '');
 
     var topicEl   = document.getElementById('post-topic-tag');
     var topicWrap = document.getElementById('post-topic-wrap');
@@ -432,10 +477,13 @@ const App = (() => {
       img = p.post_media.files[0].thumb || p.post_media.files[0].url || '';
     }
     document.title = title;
-    setMeta('og:title', title);  setMeta('og:description', desc);
+    setMeta('og:title', title);
+    setMeta('og:description', desc);
     setMeta('og:url', location.href);
-    if (img) setMeta('og:image', img);
-    setMeta('twitter:title', title); setMeta('twitter:description', desc);
+    setMeta('description', desc);
+    if (img) { setMeta('og:image', img); setMeta('twitter:image', img); }
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', desc);
   }
 
   function setMeta(name, val) {
@@ -469,7 +517,11 @@ const App = (() => {
       .replace(/&/g,'&amp;').replace(/</g,'&lt;')
       .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
-  function xa(s) { return xh(s); }
+  function xa(url) {
+    var s = String(url || '');
+    if (/^\s*javascript\s*:/i.test(s) || /^\s*data\s*:/i.test(s)) return '';
+    return xh(s);
+  }
 
   function fmt(n) {
     n = parseInt(n, 10) || 0;
@@ -483,7 +535,9 @@ const App = (() => {
     // Handle "2026-04-30 18:12:25" format (replace space with T for iOS/Safari)
     var d = new Date(str.replace(' ', 'T'));
     if (isNaN(d)) return '';
-    var s = Math.floor((Date.now() - d.getTime()) / 1000);
+    var diff = Date.now() - d.getTime();
+    if (diff < 0)  return 'just now';  // future date — clock skew
+    var s = Math.floor(diff / 1000);
     if (s < 60)    return 'just now';
     if (s < 3600)  return Math.floor(s / 60)   + 'm';
     if (s < 86400) return Math.floor(s / 3600)  + 'h';

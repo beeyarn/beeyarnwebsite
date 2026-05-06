@@ -6,10 +6,11 @@
   <meta name="description" content="BeeYarn - Be Seen. Be Heard." />
   <meta property="og:title" content="BeeYarn - Be Seen. Be Heard." />
   <meta property="og:image" content="https://www.beeyarn.com/assets/img/homepage.jpg" />
-  <meta property="og:url" content="https://www.beeyarn.com/" />
+  <meta property="og:url" content="https://beeyarn.com/home" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>BeeYarn</title>
+  <link rel="canonical" href="https://beeyarn.com/home" />
   <link rel="icon" type="image/jpeg" href="/assets/favicon.jpg" />
   <meta name="theme-color" content="#1C5B31" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -155,131 +156,16 @@
       font-size: 13px; font-weight: 600; color: var(--sub);
     }
 
-    .sort-bar span {
+    .sort-bar button {
       display: flex; align-items: center; gap: 5px;
       padding: 5px 10px; border-radius: 20px;
       cursor: pointer; transition: background 0.1s;
+      background: none; border: none; font-family: inherit;
+      font-size: 13px; font-weight: 600; color: var(--sub);
     }
 
-    .sort-bar span.active { background: var(--green-bg); color: var(--green); }
-    .sort-bar span:hover  { background: var(--bg); color: var(--text); }
-
-    /* === POST CARD === */
-    .post-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--card-radius);
-      margin-bottom: 10px;
-      display: flex;
-      cursor: pointer;
-      transition: border-color 0.15s;
-      overflow: hidden;
-    }
-
-    .post-card:hover { border-color: #9ca3af; }
-
-    /* left vote/stat strip */
-    .post-card__left {
-      width: 40px;
-      background: #f8f9fa;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8px 0;
-      gap: 4px;
-      border-right: 1px solid var(--border);
-    }
-
-    .post-card__avatar {
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: var(--green-bg);
-    }
-
-    .post-card__views {
-      font-size: 10px; color: var(--sub); font-weight: 600;
-      text-align: center; line-height: 1.2;
-      margin-top: 2px;
-    }
-
-    /* main content */
-    .post-card__body {
-      flex: 1; min-width: 0;
-      padding: 8px 10px;
-      display: flex; gap: 10px;
-    }
-
-    .post-card__content { flex: 1; min-width: 0; }
-
-    .post-card__meta {
-      font-size: 11px; color: var(--sub);
-      margin-bottom: 4px;
-      display: flex; flex-wrap: wrap; gap: 4px; align-items: center;
-    }
-
-    .post-card__author { font-weight: 600; color: var(--sub); }
-    .post-card__author:hover { text-decoration: underline; color: var(--text); }
-
-    .post-card__topic {
-      background: var(--green-bg);
-      color: var(--green);
-      font-size: 10px; font-weight: 700;
-      padding: 1px 7px; border-radius: 10px;
-      text-transform: uppercase; letter-spacing: 0.04em;
-    }
-
-    .post-card__title {
-      font-size: 15px; font-weight: 600;
-      color: var(--text); line-height: 1.4;
-      margin-bottom: 4px;
-    }
-
-    .post-card__excerpt {
-      font-size: 12px; color: var(--sub);
-      line-height: 1.5; margin-bottom: 6px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .post-card__actions {
-      display: flex; gap: 4px; flex-wrap: wrap;
-    }
-
-    .post-card__action {
-      display: flex; align-items: center; gap: 4px;
-      font-size: 11px; color: var(--sub); font-weight: 600;
-      padding: 4px 8px; border-radius: 2px;
-      transition: background 0.1s, color 0.1s;
-    }
-
-    .post-card__action:hover { background: var(--bg); color: var(--text); text-decoration: none; }
-
-    /* thumbnail on right */
-    .post-card__thumb {
-      width: 80px; height: 60px;
-      border-radius: 4px; overflow: hidden;
-      flex-shrink: 0; position: relative;
-      background: #000; align-self: center;
-    }
-
-    .post-card__thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-    }
-
-    .post-card__thumb .play-icon {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,0.3);
-    }
-
-    .post-card__thumb .play-icon i {
-      font-size: 1.4rem; color: rgba(255,255,255,0.9);
-    }
+    .sort-bar button.active { background: var(--green-bg); color: var(--green); }
+    .sort-bar button:hover  { background: var(--bg); color: var(--text); }
 
     /* === STATES === */
     .state-box {
@@ -743,13 +629,44 @@
 
     @media (max-width: 960px) { .sidebar { display: none; } }
 
+    /* === MOBILE SEARCH === */
+    .mobile-search-btn {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--sub); font-size: 18px;
+      padding: 4px 6px; border-radius: 6px;
+      transition: background 0.1s;
+      margin-left: auto;
+    }
+    .mobile-search-btn:hover { background: var(--bg); color: var(--text); }
+
+    .mobile-search-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 12px;
+    }
+    .mobile-search-inner {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 7px 14px;
+      color: var(--sub);
+    }
+    .mobile-search-inner input {
+      flex: 1; border: none; background: none; outline: none;
+      font-family: inherit; font-size: 14px; color: var(--text);
+    }
+    .mobile-search-inner input::placeholder { color: #9ca3af; }
+    .mobile-search-inner button {
+      background: none; border: none; cursor: pointer;
+      color: var(--sub); font-size: 16px; padding: 0;
+    }
+
     @media (max-width: 640px) {
       .page               { padding: 0 8px; margin-top: 10px; }
       .nav                { padding: 0 12px; gap: 8px; }
       .nav-search         { display: none; }
+      .mobile-search-btn  { display: flex; }
       .badge-wrap img     { height: 22px; }
-      .post-card__left    { width: 32px; }
-      .post-card__thumb   { width: 60px; height: 50px; }
       .post-detail__title { font-size: 17px; }
       .post-detail__body  { font-size: 14px; padding: 0 12px 12px; }
       .post-detail__head  { padding: 12px 12px 0; }
@@ -771,7 +688,7 @@
 
   <!-- Navbar -->
   <nav class="nav">
-    <a href="/home.html" class="nav-logo">
+    <a href="/home" class="nav-logo">
       <img src="/assets/img/logo.png" alt="BeeYarn"
            onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
       <span style="display:none">BeeYarn</span>
@@ -781,6 +698,11 @@
       <i class="bi bi-search"></i>
       <input id="search-input" type="text" placeholder="Search posts, people…" autocomplete="off" />
     </div>
+
+    <!-- Mobile search toggle — only visible on small screens -->
+    <button id="mobile-search-btn" class="mobile-search-btn" aria-label="Search" onclick="MobileSearch.toggle()">
+      <i class="bi bi-search"></i>
+    </button>
 
     <div class="nav-right">
       <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
@@ -794,6 +716,15 @@
     </div>
   </nav>
 
+  <!-- Mobile search bar — shown below nav on small screens when toggled -->
+  <div id="mobile-search-bar" class="mobile-search-bar" style="display:none">
+    <div class="mobile-search-inner">
+      <i class="bi bi-search"></i>
+      <input id="mobile-search-input" type="search" placeholder="Search posts, people…" autocomplete="off" />
+      <button onclick="MobileSearch.close()" aria-label="Close search"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+
   <!-- Page -->
   <div class="page">
 
@@ -802,10 +733,10 @@
 
       <!-- FEED VIEW -->
       <div id="view-feed">
-        <div class="sort-bar">
-          <span id="tab-home" class="active" onclick="App.setTab('home')"><i class="bi bi-house-fill"></i> Home</span>
-          <span id="tab-hot"  onclick="App.setTab('hot')"><i class="bi bi-fire"></i> Hot</span>
-          <span id="tab-new"  onclick="App.setTab('new')"><i class="bi bi-clock"></i> New</span>
+        <div class="sort-bar" role="tablist">
+          <button id="tab-home" class="active" role="tab" aria-selected="true"  onclick="App.setTab('home')"><i class="bi bi-house-fill"></i> Home</button>
+          <button id="tab-hot"  role="tab" aria-selected="false" onclick="App.setTab('hot')"><i class="bi bi-fire"></i> Hot</button>
+          <button id="tab-new"  role="tab" aria-selected="false" onclick="App.setTab('new')"><i class="bi bi-clock"></i> New</button>
         </div>
 
         <div id="search-results-bar" style="display:none" class="search-bar-info">
@@ -943,17 +874,13 @@
   <div id="auth-modal-overlay" class="auth-modal-overlay hidden" onclick="if(event.target===this)AuthModal.hide()">
     <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
       <button class="auth-modal__close" onclick="AuthModal.hide()" aria-label="Close"><i class="bi bi-x-lg"></i></button>
-      <div class="auth-modal__icon"><i class="bi bi-lock-fill"></i></div>
-      <h2 id="auth-modal-title">Sign in to continue</h2>
-      <p>Like, comment, save, and follow posts on BeeYarn. Join the conversation.</p>
+      <div class="auth-modal__icon"><i class="bi bi-phone-fill"></i></div>
+      <h2 id="auth-modal-title">Get the BeeYarn app</h2>
+      <p>Like, comment, post, and follow on BeeYarn. Download the app to join the conversation.</p>
       <div class="auth-modal__btns">
         <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
            target="_blank" rel="noopener" class="btn">
-          <i class="bi bi-box-arrow-in-right"></i> Sign In
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn"
-           target="_blank" rel="noopener" class="btn btn-outline">
-          <i class="bi bi-person-plus"></i> Sign Up
+          <i class="bi bi-google-play"></i> Download on Google Play
         </a>
       </div>
     </div>

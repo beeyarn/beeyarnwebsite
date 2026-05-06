@@ -3,7 +3,9 @@
     "allow": [
       "Read(//c/xampp/htdocs/beeyarnwebsite/**)",
       "Read(//tmp/**)",
-      "Bash(grep -r \"og:title\\\\|og:description\\\\|og:image\" /c/xampp/htdocs/beeyarnwebsite/*.html)"
+      "Bash(grep -r \"og:title\\\\|og:description\\\\|og:image\" /c/xampp/htdocs/beeyarnwebsite/*.html)",
+      "Bash(grep -i \"apple-itunes-app\\\\|google-play-app\\\\|al:\\\\|app-specific\\\\|msapplication\" /c/xampp/htdocs/beeyarnwebsite/*.html)",
+      "Bash(grep:*)"
     ]
   }
 }
