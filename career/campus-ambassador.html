@@ -297,12 +297,11 @@
             };
 
             try {
-                await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify(payload)
+                const params = new URLSearchParams(payload);
+                await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+                    method: 'GET',
+                    mode: 'no-cors'
                 });
-                // no-cors means we can't read the response, but if we reach here the request was sent
                 form.style.display = 'none';
                 successMsg.style.display = 'block';
             } catch (err) {

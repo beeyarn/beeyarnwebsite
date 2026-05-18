@@ -4,18 +4,17 @@
 
 var SHEET_NAME = 'BeeYarn Ambassador Applications';
 
-function doPost(e) {
+function doGet(e) {
   var output = ContentService.createTextOutput();
   output.setMimeType(ContentService.MimeType.JSON);
 
   try {
-    var data = JSON.parse(e.postData.contents);
+    var data = e.parameter;
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(SHEET_NAME);
 
     if (!sheet) {
-      // Safety net: create the sheet if it doesn't exist yet
       sheet = ss.insertSheet(SHEET_NAME);
       sheet.appendRow([
         'Timestamp', 'Full Name', 'Email', 'Phone',
@@ -25,16 +24,16 @@ function doPost(e) {
     }
 
     sheet.appendRow([
-      new Date(),               // Timestamp
-      data.fullName     || '',
-      data.email        || '',
-      data.phone        || '',
-      data.institution  || '',
-      data.department   || '',
-      data.level        || '',
+      new Date(),
+      data.fullName       || '',
+      data.email          || '',
+      data.phone          || '',
+      data.institution    || '',
+      data.department     || '',
+      data.level          || '',
       data.socialPlatform || '',
-      data.whyAmbassador || '',
-      'Pending'                 // Status — update manually to Accepted / Rejected
+      data.whyAmbassador  || '',
+      'Pending'
     ]);
 
     output.setContent(JSON.stringify({ result: 'success' }));
@@ -42,7 +41,6 @@ function doPost(e) {
     output.setContent(JSON.stringify({ result: 'error', message: err.message }));
   }
 
-  // CORS headers so the fetch() from the website works
   return output;
 }
 
