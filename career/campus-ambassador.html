@@ -297,17 +297,14 @@
             };
 
             try {
-                const res = await fetch(APPS_SCRIPT_URL, {
+                await fetch(APPS_SCRIPT_URL, {
                     method: 'POST',
+                    mode: 'no-cors',
                     body: JSON.stringify(payload)
                 });
-                const json = await res.json();
-                if (json.result === 'success') {
-                    form.style.display = 'none';
-                    successMsg.style.display = 'block';
-                } else {
-                    throw new Error('Unexpected response');
-                }
+                // no-cors means we can't read the response, but if we reach here the request was sent
+                form.style.display = 'none';
+                successMsg.style.display = 'block';
             } catch (err) {
                 alert('Something went wrong. Please try again or email us at careers@beeyarn.com');
                 submitBtn.disabled = false;
