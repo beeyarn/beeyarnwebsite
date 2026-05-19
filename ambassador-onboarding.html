@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw" async></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="BeeYarn Campus Ambassador Onboarding Guide — everything you need to get started." />
+    <meta name="author" content="BeeYarn" />
+    <title>BeeYarn &mdash; Ambassador Onboarding Guide</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            color: #1C5B31;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-light .navbar-brand,
+        .navbar-light .navbar-nav .nav-link { color: #1C5B31; }
+
+        #onboarding-section {
+            flex: 1 0 auto;
+            padding-top: 6rem;
+            padding-bottom: 4rem;
+        }
+        #shared-footer footer { margin-top: 0 !important; }
+
+        .guide-wrap {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .guide-header {
+            background: #1C5B31;
+            color: #fff;
+            border-radius: 10px;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .guide-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            color: #fff;
+        }
+        .guide-header p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            margin: 0;
+            font-style: italic;
+        }
+
+        .congrats-box {
+            background: #f7faf8;
+            border: 1px solid #d1e7d8;
+            border-left: 4px solid #1C5B31;
+            border-radius: 8px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 2rem;
+        }
+        .congrats-box h2 {
+            font-size: 1.2rem;
+            color: #1C5B31;
+            margin-bottom: 0.5rem;
+        }
+        .congrats-box p {
+            color: #374151;
+            margin: 0;
+            line-height: 1.7;
+            font-size: 0.97rem;
+        }
+
+        .step-card {
+            border: 1px solid #d1e7d8;
+            border-radius: 10px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .step-number {
+            display: inline-block;
+            background: #1C5B31;
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .step-card h2 {
+            font-size: 1.15rem;
+            color: #1C5B31;
+            margin-bottom: 0.75rem;
+        }
+        .step-card p, .step-card li {
+            font-size: 0.97rem;
+            color: #374151;
+            line-height: 1.75;
+        }
+        .step-card ul {
+            padding-left: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .step-card ul li { margin-bottom: 0.3rem; }
+
+        .code-box {
+            background: #f3f7f4;
+            border: 1px solid #d1e7d8;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.92rem;
+            color: #1C5B31;
+            font-weight: 600;
+            margin: 0.75rem 0;
+        }
+
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.92rem;
+            color: #92400e;
+            margin: 0.75rem 0;
+        }
+
+        .check-list li {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0.4rem;
+        }
+        .check-list li::before {
+            content: '✅ ';
+        }
+
+        .req-card {
+            background: #f7faf8;
+            border: 1px solid #d1e7d8;
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .req-card h3 {
+            font-size: 1rem;
+            color: #1C5B31;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .req-card p {
+            font-size: 0.95rem;
+            color: #374151;
+            margin: 0;
+        }
+
+        .benefits-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+        .benefits-table th {
+            background: #1C5B31;
+            color: #fff;
+            padding: 0.6rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .benefits-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+        .benefits-table tr:last-child td { border-bottom: none; }
+
+        .rules-list li {
+            font-size: 0.97rem;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .help-box {
+            background: #1C5B31;
+            color: #fff;
+            border-radius: 10px;
+            padding: 1.75rem 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .help-box h2 { color: #fff; font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .help-box p { color: rgba(255,255,255,0.85); margin: 0; font-size: 0.97rem; }
+        .help-box a { color: #fff; font-weight: 700; text-decoration: underline; }
+
+        .footer-tagline {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            color: #6B7280;
+            font-style: italic;
+        }
+        .footer-tagline strong { color: #1C5B31; }
+    </style>
+</head>
+<body id="page-top">
+    <div id="shared-header"></div>
+
+    <section id="onboarding-section">
+        <div class="container px-5">
+            <div class="guide-wrap">
+
+                <!-- Header -->
+                <div class="guide-header">
+                    <h1>Welcome to the BeeYarn Ambassador Programme</h1>
+                    <p>Your official onboarding guide &mdash; please read carefully from start to finish.</p>
+                </div>
+
+                <!-- Congrats -->
+                <div class="congrats-box">
+                    <h2>Congratulations!</h2>
+                    <p>Your application to become a BeeYarn Campus Ambassador has been reviewed and accepted. Welcome to the team. You are now an official representative of BeeYarn at your institution and part of a growing network of student ambassadors across Nigeria.</p>
+                    <p style="margin-top: 0.75rem;">This guide walks you through everything you need to get started &mdash; from installing the app to earning and cashing out.</p>
+                </div>
+
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <span class="step-number">Step 1</span>
+                    <h2>Get the app</h2>
+                    <p>BeeYarn is currently available on <strong>Android only</strong>.</p>
+                    <ul>
+                        <li>Download BeeYarn from the <strong>Google Play Store</strong>: <a href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn" target="_blank" rel="noopener" style="color:#1C5B31; font-weight:600;">play.google.com/store/apps/details?id=com.beeyarn.beeyarn</a></li>
+                        <li>Create your account using your email address.</li>
+                        <li>Set up your profile &mdash; use a clear photo and a bio that represents you well. You are now the face of BeeYarn on your campus.</li>
+                    </ul>
+                    <div class="warning-box">
+                        <strong>Don't have an Android device?</strong> You will need access to one to participate as an ambassador. iOS is coming soon.
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <span class="step-number">Step 2</span>
+                    <h2>Get your unique share link</h2>
+                    <p>Your share link is how BeeYarn tracks every sign-up you refer. Every person who creates a BeeYarn account through your link is credited to you.</p>
+                    <p><strong>To get your share link:</strong></p>
+                    <div class="code-box">Profile &rarr; Settings &rarr; Refer &amp; Earn &rarr; Copy your share link</div>
+                    <p>Keep this link somewhere safe. This is your most important tool as an ambassador.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <span class="step-number">Step 3</span>
+                    <h2>Start referring</h2>
+                    <p>Share your link everywhere across your campus:</p>
+                    <ul>
+                        <li>WhatsApp groups (class groups, association groups, hostel groups)</li>
+                        <li>Your Instagram, X (Twitter), TikTok, Facebook stories and posts</li>
+                        <li>Campus notice boards (print a flyer with your link or a QR code)</li>
+                        <li>In person &mdash; tell people directly and send them your link</li>
+                        <li>Campus radio, departmental events, orientation programmes</li>
+                        <li>Student union, clubs, and association platforms</li>
+                    </ul>
+                    <p>The more people sign up through your link, the more Yarn Points you earn. There is no cap.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <span class="step-number">Step 4</span>
+                    <h2>Stay active on BeeYarn</h2>
+                    <p>Referring people is just one part of the role. You also need to be an active and visible presence on the platform itself. Points are earned through:</p>
+                    <ul class="check-list">
+                        <li>Creating posts</li>
+                        <li>Engaging with other people's posts (likes, comments)</li>
+                        <li>Sharing posts</li>
+                        <li>Referring new users via your share link</li>
+                        <li>Daily platform activity</li>
+                    </ul>
+                    <p>The more active you are, the faster your Yarn Points grow.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="step-card">
+                    <span class="step-number">Step 5</span>
+                    <h2>Unlock monetisation</h2>
+                    <p>Once you have built your presence and accumulated points, you can convert your Yarn Points to Naira. To unlock monetisation, you must meet <strong>all four</strong> of the following requirements:</p>
+
+                    <div class="req-card">
+                        <h3>Requirement 1 &mdash; Verify your identity</h3>
+                        <div class="code-box">Settings &rarr; Verify Identity</div>
+                        <p>Submit your identity documents for verification. This is processed by the BeeYarn admin team and typically takes a few days. Start this early &mdash; it must be completed before you can cash out.</p>
+                    </div>
+
+                    <div class="req-card">
+                        <h3>Requirement 2 &mdash; Reach <span id="min-followers">10,000</span> followers</h3>
+                        <p>You must reach <strong><span id="min-followers-2">10,000</span> followers</strong> on BeeYarn before monetisation is unlocked. Grow your following by posting consistently, engaging with others, and encouraging your referrals to follow you back.</p>
+                    </div>
+
+                    <div class="req-card">
+                        <h3>Requirement 3 &mdash; Maintain <span id="sub-months">3</span> consecutive months of subscription</h3>
+                        <div class="code-box">Settings &rarr; Subscription &rarr; Subscribe</div>
+                        <p>You must hold an active BeeYarn subscription for <strong><span id="sub-months-2">3</span> consecutive months</strong>.</p>
+                        <div class="warning-box" style="margin-top: 0.75rem;">
+                            <strong>Important:</strong> Enable auto-renewal to avoid your streak being broken by a missed payment. A lapsed subscription resets your consecutive count.
+                        </div>
+                    </div>
+
+                    <div class="req-card">
+                        <h3>Requirement 4 &mdash; Accumulate <span id="min-points">10,000</span> Yarn Points</h3>
+                        <p>You must accumulate <strong><span id="min-points-2">10,000</span> Yarn Points</strong> before you can convert to Naira. Your points build up through referrals and daily activity &mdash; keep going.</p>
+                    </div>
+
+                    <p style="margin-top: 1rem;"><strong>Once all four requirements are met</strong>, you will be able to convert your Yarn Points to Naira directly within the app.</p>
+                </div>
+
+                <!-- Benefits -->
+                <div class="step-card">
+                    <span class="step-number">Your Benefits</span>
+                    <h2>Ambassador benefits &mdash; a reminder</h2>
+                    <table class="benefits-table">
+                        <thead>
+                            <tr>
+                                <th>Benefit</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Yarn Points &rarr; Naira</strong></td>
+                                <td>Convert points to cash once monetisation is unlocked</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ambassador Certificate</strong></td>
+                                <td>Issued on request after an agreed period of activity</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PDF Recommendation Letter</strong></td>
+                                <td>Available on request from the BeeYarn team</td>
+                            </tr>
+                            <tr>
+                                <td><strong>National Ambassador Network</strong></td>
+                                <td>Access to our private ambassador community</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Rules -->
+                <div class="step-card">
+                    <span class="step-number">Rules &amp; Expectations</span>
+                    <h2>What we expect from you</h2>
+                    <ul class="rules-list">
+                        <li>Represent BeeYarn professionally and positively at all times.</li>
+                        <li>Comply with BeeYarn's <a href="https://beeyarn.com/contentpolicy" style="color:#1C5B31; font-weight:600;">Content Policy</a> and <a href="https://beeyarn.com/termsofuse" style="color:#1C5B31; font-weight:600;">Terms of Use</a> at all times.</li>
+                        <li>Do not make false claims about BeeYarn, its features, or earning potential when recruiting.</li>
+                        <li>Do not use spam, bots, or any artificial means to inflate your referrals or points &mdash; this will result in immediate removal from the programme and forfeiture of accumulated points.</li>
+                        <li>Remain active on the platform. Ambassadors who go inactive for an extended period may be removed from the programme.</li>
+                    </ul>
+                </div>
+
+                <!-- Help -->
+                <div class="help-box">
+                    <h2>Need help?</h2>
+                    <p>For any questions about the programme, your account, or your progress:</p>
+                    <p style="margin-top: 0.75rem;">&#x1F4E7; <a href="mailto:ambassador@beeyarn.com">ambassador@beeyarn.com</a></p>
+                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">Or reach us in-app: <strong>Settings &rarr; Help &amp; Support &rarr; Contact Us</strong></p>
+                </div>
+
+                <p class="footer-tagline">Welcome aboard. BeeYarn is proudly Nigerian-built &mdash; and you're now part of building it.<br /><strong>Team BeeYarn</strong></p>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="shared-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/shared-shell.js"></script>
+    <script>
+        fetch('https://api.beeyarn.com/api/settings')
+            .then(function(res) { return res.json(); })
+            .then(function(json) {
+                var d = json.data;
+                var followers = (d.min_followers_for_payout || 10000).toLocaleString();
+                var months    = d.subscription_months_required_for_payout || 3;
+                var points    = (d.min_yarn_points_for_payout || 10000).toLocaleString();
+
+                document.getElementById('min-followers').textContent   = followers;
+                document.getElementById('min-followers-2').textContent = followers;
+                document.getElementById('sub-months').textContent      = months;
+                document.getElementById('sub-months-2').textContent    = months;
+                document.getElementById('min-points').textContent      = points;
+                document.getElementById('min-points-2').textContent    = points;
+            })
+            .catch(function() {
+                // Silently keep the hardcoded fallback values if API is unreachable
+            });
+    </script>
+</body>
+</html>

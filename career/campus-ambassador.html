@@ -273,27 +273,33 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scripts.js"></script>
     <script src="../js/shared-shell.js"></script>
-    <iframe name="hidden-iframe" style="display:none;"></iframe>
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyJi3YPe2meYDTA5YkPcqarHyMxebqtadllOKtfITsP_Meo_-4aW4FQCGXfK-PusSBwAg/exec';
-
         const form = document.getElementById('ambassador-form');
         const successMsg = document.getElementById('success-message');
         const submitBtn = document.getElementById('submit-btn');
 
-        // Set form to submit into hidden iframe (avoids CORS entirely)
-        form.setAttribute('action', APPS_SCRIPT_URL);
-        form.setAttribute('method', 'GET');
-        form.setAttribute('target', 'hidden-iframe');
-
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting…';
-            // Let the form submit naturally into the iframe, then show success
-            setTimeout(function () {
-                form.style.display = 'none';
-                successMsg.style.display = 'block';
-            }, 2000);
+
+            try {
+                const res = await fetch('submit-ambassador.php', {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+                const json = await res.json();
+                if (json.result === 'success') {
+                    form.style.display = 'none';
+                    successMsg.style.display = 'block';
+                } else {
+                    throw new Error(json.message);
+                }
+            } catch (err) {
+                alert('Something went wrong. Please try again or email us at careers@beeyarn.com');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Application';
+            }
         });
     </script>
 </body>

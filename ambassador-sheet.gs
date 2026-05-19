@@ -10,9 +10,13 @@ function doGet(e) {
 
   try {
     var data = e.parameter;
+    Logger.log('Received data: ' + JSON.stringify(data));
 
     var ss = SpreadsheetApp.getActiveSpreadsheet();
+    Logger.log('Spreadsheet: ' + ss.getName());
+
     var sheet = ss.getSheetByName(SHEET_NAME);
+    Logger.log('Sheet found: ' + (sheet ? 'yes' : 'no'));
 
     if (!sheet) {
       sheet = ss.insertSheet(SHEET_NAME);
@@ -36,8 +40,10 @@ function doGet(e) {
       'Pending'
     ]);
 
+    Logger.log('Row appended successfully');
     output.setContent(JSON.stringify({ result: 'success' }));
   } catch (err) {
+    Logger.log('Error: ' + err.message);
     output.setContent(JSON.stringify({ result: 'error', message: err.message }));
   }
 
