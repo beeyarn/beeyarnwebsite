@@ -289,6 +289,17 @@
                             </div>
                         </div>
 
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="faqH13">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqB13" aria-expanded="false" aria-controls="faqB13">
+                                    How do I earn Yarn Points?
+                                </button>
+                            </h2>
+                            <div id="faqB13" class="accordion-collapse collapse" aria-labelledby="faqH13" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">You earn Yarn Points by being active on BeeYarn — posting, liking, commenting, sharing, going live, referring friends, and logging in daily. Points can be converted to cash once you meet the payout requirements. See the full breakdown on our <a href="yarnpoints">Yarn Points Policy</a> page.</div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <p class="mt-4">Still have questions? Contact us at <a href="mailto:support@beeyarn.com">support@beeyarn.com</a>.</p>

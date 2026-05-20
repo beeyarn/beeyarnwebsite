@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
+    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw" async></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Learn how to earn Yarn Points on BeeYarn — through posts, likes, referrals, live streams, and more." />
+    <meta name="author" content="BeeYarn" />
+    <meta property="og:title" content="BeeYarn Yarn Points Policy" />
+    <meta property="og:description" content="Learn how to earn Yarn Points on BeeYarn and convert them to cash." />
+    <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <meta property="og:url" content="https://beeyarn.com/yarnpoints" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="BeeYarn Yarn Points Policy" />
+    <meta name="twitter:description" content="Learn how to earn Yarn Points on BeeYarn and convert them to cash." />
+    <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <title>BeeYarn &mdash; Yarn Points Policy</title>
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
+    <link rel="apple-touch-icon" href="assets/favicon.jpg" />
+    <meta name="theme-color" content="#1C5B31" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            color: #1C5B31;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar-light .navbar-brand,
+        .navbar-light .navbar-nav .nav-link { color: #1C5B31; }
+        #yp-section {
+            flex: 1 0 auto;
+            padding-top: 6rem;
+            padding-bottom: 4rem;
+        }
+        #shared-footer footer { margin-top: 0 !important; }
+
+        .page-wrap { max-width: 760px; margin: 0 auto; }
+
+        .page-header {
+            background: #1C5B31;
+            color: #fff;
+            border-radius: 10px;
+            padding: 2.25rem 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .page-header h1 { font-size: 1.6rem; font-weight: 700; color: #fff; margin-bottom: 0.25rem; }
+        .page-header p { font-size: 0.95rem; color: rgba(255,255,255,0.8); margin: 0; }
+
+        .section-card {
+            border: 1px solid #d1e7d8;
+            border-radius: 10px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1C5B31;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-card p {
+            font-size: 0.97rem;
+            color: #374151;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Points table */
+        .points-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.93rem;
+            margin-top: 0.5rem;
+        }
+        .points-table th {
+            background: #1C5B31;
+            color: #fff;
+            padding: 0.55rem 0.9rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .points-table td {
+            padding: 0.55rem 0.9rem;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+            vertical-align: middle;
+        }
+        .points-table tr:last-child td { border-bottom: none; }
+        .points-table tr:nth-child(even) td { background: #f7faf8; }
+        .pts {
+            font-weight: 700;
+            color: #1C5B31;
+            white-space: nowrap;
+        }
+        .daily-limit {
+            font-size: 0.82rem;
+            color: #6B7280;
+        }
+
+        /* Milestone badges */
+        .milestone-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        @media (max-width: 576px) { .milestone-grid { grid-template-columns: 1fr; } }
+        .milestone-item {
+            background: #f7faf8;
+            border: 1px solid #d1e7d8;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .milestone-item .label { font-size: 0.9rem; color: #374151; }
+        .milestone-item .pts { font-size: 1rem; }
+
+        /* Currency table */
+        .currency-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.93rem;
+            margin-top: 0.5rem;
+        }
+        .currency-table th {
+            background: #1C5B31;
+            color: #fff;
+            padding: 0.55rem 0.9rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .currency-table td {
+            padding: 0.55rem 0.9rem;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+        .currency-table tr:last-child td { border-bottom: none; }
+        .currency-table tr:nth-child(even) td { background: #f7faf8; }
+
+        /* Payout requirements */
+        .req-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.97rem;
+            color: #374151;
+        }
+        .req-row:last-child { border-bottom: none; }
+        .req-row .req-icon { color: #1C5B31; font-size: 1.1rem; flex-shrink: 0; }
+        .req-row strong { color: #1C5B31; }
+
+        .notice-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-size: 0.92rem;
+            color: #92400e;
+            margin-top: 1.5rem;
+        }
+
+        .max-day-badge {
+            display: inline-block;
+            background: #e8f5ee;
+            color: #1C5B31;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 3px 12px;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+        }
+
+        .loading { color: #9CA3AF; font-style: italic; font-size: 0.9rem; }
+    </style>
+</head>
+<body id="page-top">
+    <div id="shared-header"></div>
+
+    <section id="yp-section">
+        <div class="container px-5">
+            <div class="page-wrap">
+
+                <div class="page-header">
+                    <h1>Yarn Points Policy</h1>
+                    <p>Everything you need to know about earning, accumulating, and converting your Yarn Points.</p>
+                </div>
+
+                <!-- What are Yarn Points -->
+                <div class="section-card">
+                    <h2><i class="fa fa-circle-info"></i> What are Yarn Points?</h2>
+                    <p>Yarn Points are BeeYarn's reward currency. Every time you contribute to the platform — by posting, engaging, referring friends, going live, or simply showing up daily — you earn Yarn Points. Once you meet the payout requirements, your points can be converted to real money in your local currency.</p>
+                    <p>Points are credited automatically. You can check your balance at any time in the app under <strong>Profile &rarr; Yarn Points</strong>.</p>
+                </div>
+
+                <!-- How to earn -->
+                <div class="section-card">
+                    <h2><i class="fa fa-star"></i> How to Earn Yarn Points <span class="max-day-badge" id="max-per-day">Max 60 pts/day</span></h2>
+                    <p>Points are earned across several activities. A daily cap applies to your total earnings per day.</p>
+
+                    <table class="points-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Points Earned</th>
+                                <th>Daily Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Daily login</td>
+                                <td class="pts" id="pts-login">0.6 pts</td>
+                                <td class="daily-limit" id="lim-login">0.3 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>Creating a post</td>
+                                <td class="pts" id="pts-post">1.5 pts</td>
+                                <td class="daily-limit" id="lim-post">1.5 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>Liking a post (you give the like)</td>
+                                <td class="pts" id="pts-like-giver">0.3 pts</td>
+                                <td class="daily-limit" id="lim-like-giver">6 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>Receiving a like on your post</td>
+                                <td class="pts" id="pts-like-receiver">0.3 pts per like</td>
+                                <td class="daily-limit">—</td>
+                            </tr>
+                            <tr>
+                                <td>Commenting on a post</td>
+                                <td class="pts" id="pts-comment">0.6 pts</td>
+                                <td class="daily-limit" id="lim-comment">6 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>Receiving a comment on your post</td>
+                                <td class="pts" id="pts-comment-owner">0.3 pts per comment</td>
+                                <td class="daily-limit">—</td>
+                            </tr>
+                            <tr>
+                                <td>Engagement milestone — every 10 likes received</td>
+                                <td class="pts" id="pts-eng-likes">0.3 pts</td>
+                                <td class="daily-limit">—</td>
+                            </tr>
+                            <tr>
+                                <td>Engagement milestone — every 5 comments received</td>
+                                <td class="pts" id="pts-eng-comments">0.6 pts</td>
+                                <td class="daily-limit">—</td>
+                            </tr>
+                            <tr>
+                                <td>Sharing a post</td>
+                                <td class="pts" id="pts-share">0.075 pts per share</td>
+                                <td class="daily-limit" id="lim-share">3 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>New real connection (mutual follow)</td>
+                                <td class="pts" id="pts-connection">0.9 pts</td>
+                                <td class="daily-limit" id="lim-connection">1.5 pts/day</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Live streams -->
+                <div class="section-card">
+                    <h2><i class="fa fa-tower-broadcast"></i> Live Streaming Points</h2>
+                    <p>Going live is one of the fastest ways to earn on BeeYarn. Points are earned by both hosts and viewers.</p>
+                    <table class="points-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>Points Earned</th>
+                                <th>Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Hosting a live stream</td>
+                                <td class="pts" id="pts-live-host">1.5 pts</td>
+                                <td class="daily-limit" id="lim-live-day">Max 3 lives/day</td>
+                            </tr>
+                            <tr>
+                                <td>Watching a live stream</td>
+                                <td class="pts" id="pts-live-viewer">0.6 pts</td>
+                                <td class="daily-limit" id="lim-live-viewer">9 pts/day</td>
+                            </tr>
+                            <tr>
+                                <td>Hosting — bonus for 10 minutes streamed</td>
+                                <td class="pts" id="pts-live-10min">1.5 pts</td>
+                                <td class="daily-limit">Per session</td>
+                            </tr>
+                            <tr>
+                                <td>Hosting — bonus for 100 viewers reached</td>
+                                <td class="pts" id="pts-live-100viewers">4.5 pts</td>
+                                <td class="daily-limit">Per session</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 0.75rem; font-size: 0.88rem; color: #6B7280;">Minimum watch time of <span id="min-watch-sec">18</span> seconds required before viewer points are credited. Maximum live duration is <span id="max-live-min">9</span> minutes per session.</p>
+                </div>
+
+                <!-- Referrals -->
+                <div class="section-card">
+                    <h2><i class="fa fa-user-plus"></i> Referral Points</h2>
+                    <p>Share your unique referral link and earn points when people you invite take action on BeeYarn.</p>
+                    <table class="points-table">
+                        <thead>
+                            <tr>
+                                <th>Referral Action</th>
+                                <th>Points Earned</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Your referral signs up</td>
+                                <td class="pts" id="pts-ref-signup">3 pts</td>
+                            </tr>
+                            <tr>
+                                <td>Your referral creates their first post</td>
+                                <td class="pts" id="pts-ref-firstpost">1.5 pts</td>
+                            </tr>
+                            <tr>
+                                <td>Your referral stays active for 7 days</td>
+                                <td class="pts" id="pts-ref-7days">3 pts</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 0.75rem; font-size: 0.88rem; color: #6B7280;">Get your referral link in the app: <strong>Profile &rarr; Settings &rarr; Refer &amp; Earn</strong>.</p>
+                </div>
+
+                <!-- Milestones -->
+                <div class="section-card">
+                    <h2><i class="fa fa-trophy"></i> Milestone Bonuses</h2>
+                    <p>Earn one-time bonus points for hitting key milestones on BeeYarn.</p>
+                    <div class="milestone-grid">
+                        <div class="milestone-item">
+                            <span class="label">Complete your profile</span>
+                            <span class="pts" id="ms-profile">1.5 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Verify your email</span>
+                            <span class="pts" id="ms-email">1.5 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Create your first post</span>
+                            <span class="pts" id="ms-firstpost">1.5 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Reach 10 posts created</span>
+                            <span class="pts" id="ms-10posts">3 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Reach your first 100 followers</span>
+                            <span class="pts" id="ms-100followers">6 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Every <span id="ms-likes-interval">150</span> likes received</span>
+                            <span class="pts" id="ms-likes-pts">3 pts</span>
+                        </div>
+                        <div class="milestone-item">
+                            <span class="label">Every <span id="ms-views-interval">75</span> views received</span>
+                            <span class="pts" id="ms-views-pts">0.3 pts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payout requirements -->
+                <div class="section-card">
+                    <h2><i class="fa fa-lock-open"></i> Payout Requirements</h2>
+                    <p>To convert your Yarn Points to cash, you must meet all of the following requirements:</p>
+                    <div class="req-row">
+                        <i class="fa fa-circle-check req-icon"></i>
+                        <span><strong>Verify your identity</strong> — submit your ID documents via <strong>Settings &rarr; Verify Identity</strong></span>
+                    </div>
+                    <div class="req-row">
+                        <i class="fa fa-circle-check req-icon"></i>
+                        <span>Reach <strong><span id="min-followers">10,000</span> followers</strong> on BeeYarn</span>
+                    </div>
+                    <div class="req-row">
+                        <i class="fa fa-circle-check req-icon"></i>
+                        <span>Hold an active subscription for <strong><span id="sub-months">3</span> consecutive months</strong></span>
+                    </div>
+                    <div class="req-row">
+                        <i class="fa fa-circle-check req-icon"></i>
+                        <span>Accumulate a minimum balance of <strong><span id="min-points">10,000</span> Yarn Points</strong></span>
+                    </div>
+                </div>
+
+                <!-- Conversion rates -->
+                <div class="section-card">
+                    <h2><i class="fa fa-money-bill-wave"></i> Point-to-Cash Conversion Rates</h2>
+                    <p>Once you're eligible to cash out, your Yarn Points are converted at the following rates:</p>
+                    <table class="currency-table" id="currency-table">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Currency</th>
+                                <th>Value per Yarn Point</th>
+                            </tr>
+                        </thead>
+                        <tbody id="currency-tbody">
+                            <tr><td colspan="3" class="loading">Loading rates...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="notice-box">
+                    <strong>Please note:</strong> Point values, earning rates, daily limits, and payout thresholds are updated regularly. The figures on this page are always pulled live from BeeYarn's settings and reflect the current values at time of loading. BeeYarn reserves the right to update these values at any time.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="shared-footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/shared-shell.js"></script>
+    <script>
+        function fmt(n) { return parseFloat(n).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 3 }); }
+
+        fetch('https://api.beeyarn.com/api/settings')
+            .then(function(res) { return res.json(); })
+            .then(function(json) {
+                var d = json.data;
+                var ps = d.reward_type.points_system;
+
+                // Max per day
+                document.getElementById('max-per-day').textContent = 'Max ' + fmt(ps.global_settings.max_points_per_day) + ' pts/day';
+
+                // Activity points
+                document.getElementById('pts-login').textContent         = fmt(ps.daily_login.points) + ' pts';
+                document.getElementById('lim-login').textContent         = fmt(ps.daily_login.daily_limit) + ' pts/day';
+                document.getElementById('pts-post').textContent          = fmt(ps.post_creation.points) + ' pts';
+                document.getElementById('lim-post').textContent          = fmt(ps.post_creation.daily_limit) + ' pts/day';
+                document.getElementById('pts-like-giver').textContent    = fmt(ps.post_like.giver_points) + ' pts';
+                document.getElementById('lim-like-giver').textContent    = fmt(ps.post_like.giver_daily_limit) + ' pts/day';
+                document.getElementById('pts-like-receiver').textContent = fmt(ps.post_like.receiver_points) + ' pts per like';
+                document.getElementById('pts-comment').textContent       = fmt(ps.comment.commenter_points) + ' pts';
+                document.getElementById('lim-comment').textContent       = fmt(ps.comment.commenter_daily_limit) + ' pts/day';
+                document.getElementById('pts-comment-owner').textContent = fmt(ps.comment.post_owner_points) + ' pts per comment';
+                document.getElementById('pts-eng-likes').textContent     = fmt(ps.post_engagement_received.points_per_10_likes) + ' pts';
+                document.getElementById('pts-eng-comments').textContent  = fmt(ps.post_engagement_received.points_per_5_comments) + ' pts';
+                document.getElementById('pts-share').textContent         = fmt(ps.post_share.points_per_share) + ' pts per share';
+                document.getElementById('lim-share').textContent         = fmt(ps.post_share.daily_limit) + ' pts/day';
+                document.getElementById('pts-connection').textContent    = fmt(ps.real_connections.new_connection_points) + ' pts';
+                document.getElementById('lim-connection').textContent    = fmt(ps.real_connections.daily_limit) + ' pts/day';
+
+                // Live
+                document.getElementById('pts-live-host').textContent      = fmt(ps.live_stream.host_points) + ' pts';
+                document.getElementById('lim-live-day').textContent       = 'Max ' + ps.live_stream.max_lives_per_day + ' lives/day';
+                document.getElementById('pts-live-viewer').textContent    = fmt(ps.live_stream.viewer_points) + ' pts';
+                document.getElementById('lim-live-viewer').textContent    = fmt(ps.live_stream.viewer_daily_limit) + ' pts/day';
+                document.getElementById('pts-live-10min').textContent     = fmt(ps.live_stream.points_for_10_minutes) + ' pts';
+                document.getElementById('pts-live-100viewers').textContent = fmt(ps.live_stream.points_for_100_viewers) + ' pts';
+                document.getElementById('min-watch-sec').textContent      = ps.live_stream.min_watch_seconds_for_points;
+                document.getElementById('max-live-min').textContent       = ps.live_stream.max_live_duration_minutes;
+
+                // Referrals
+                document.getElementById('pts-ref-signup').textContent    = fmt(ps.referral.signup_points) + ' pts';
+                document.getElementById('pts-ref-firstpost').textContent = fmt(ps.referral.first_post_points) + ' pts';
+                document.getElementById('pts-ref-7days').textContent     = fmt(ps.referral.active_7_days_points) + ' pts';
+
+                // Milestones
+                document.getElementById('ms-profile').textContent        = fmt(ps.milestones.profile_completed) + ' pts';
+                document.getElementById('ms-email').textContent          = fmt(ps.milestones.verified_email) + ' pts';
+                document.getElementById('ms-firstpost').textContent      = fmt(ps.milestones.first_post) + ' pts';
+                document.getElementById('ms-10posts').textContent        = fmt(ps.milestones.milestone_10_posts_created) + ' pts';
+                document.getElementById('ms-100followers').textContent   = fmt(ps.milestones.first_100_followers) + ' pts';
+                document.getElementById('ms-likes-interval').textContent = ps.milestones.likes_milestone_interval;
+                document.getElementById('ms-likes-pts').textContent      = fmt(ps.milestones.likes_milestone_points) + ' pts';
+                document.getElementById('ms-views-interval').textContent = ps.milestones.views_milestone_interval;
+                document.getElementById('ms-views-pts').textContent      = fmt(ps.milestones.views_milestone_points) + ' pts';
+
+                // Payout requirements
+                document.getElementById('min-followers').textContent = (d.min_followers_for_payout || 10000).toLocaleString();
+                document.getElementById('sub-months').textContent    = d.subscription_months_required_for_payout || 3;
+                document.getElementById('min-points').textContent    = (d.min_yarn_points_for_payout || 10000).toLocaleString();
+
+                // Currency rates
+                var currencies = d.currency.currencies;
+                var tbody = document.getElementById('currency-tbody');
+                tbody.innerHTML = '';
+                Object.keys(currencies).forEach(function(code) {
+                    var c = currencies[code];
+                    var row = document.createElement('tr');
+                    row.innerHTML =
+                        '<td>' + c.country + '</td>' +
+                        '<td>' + c.name + ' (' + c.currency_code + ')</td>' +
+                        '<td class="pts">' + c.symbol + '' + c.conversion_rate_per_point + '</td>';
+                    tbody.appendChild(row);
+                });
+            })
+            .catch(function() {
+                // Fallback values already in HTML — silently keep them
+            });
+    </script>
+</body>
+</html>
