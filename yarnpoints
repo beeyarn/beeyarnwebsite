@@ -224,7 +224,7 @@
                         <tbody>
                             <tr>
                                 <td>Daily login</td>
-                                <td class="pts" id="pts-login">0.6 pts</td>
+                                <td class="pts" id="pts-login">0.3 pts</td>
                                 <td class="daily-limit" id="lim-login">0.3 pts/day</td>
                             </tr>
                             <tr>
@@ -240,7 +240,7 @@
                             <tr>
                                 <td>Receiving a like on your post</td>
                                 <td class="pts" id="pts-like-receiver">0.3 pts per like</td>
-                                <td class="daily-limit">—</td>
+                                <td class="daily-limit">No set limit</td>
                             </tr>
                             <tr>
                                 <td>Commenting on a post</td>
@@ -250,7 +250,7 @@
                             <tr>
                                 <td>Receiving a comment on your post</td>
                                 <td class="pts" id="pts-comment-owner">0.3 pts per comment</td>
-                                <td class="daily-limit">—</td>
+                                <td class="daily-limit">No set limit</td>
                             </tr>
                             <tr>
                                 <td>Engagement milestone — every 10 likes received</td>
@@ -311,7 +311,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p style="margin-top: 0.75rem; font-size: 0.88rem; color: #6B7280;">Minimum watch time of <span id="min-watch-sec">18</span> seconds required before viewer points are credited. Maximum live duration is <span id="max-live-min">9</span> minutes per session.</p>
+                    <p style="margin-top: 0.75rem; font-size: 0.88rem; color: #6B7280;">Minimum watch time of <span id="min-watch-sec">—</span> seconds required before viewer points are credited. Maximum live duration per session is set by BeeYarn and may vary — check the app for the current limit.</p>
                 </div>
 
                 <!-- Referrals -->
@@ -385,7 +385,10 @@
                     <p>To convert your Yarn Points to cash, you must meet all of the following requirements:</p>
                     <div class="req-row">
                         <i class="fa fa-circle-check req-icon"></i>
-                        <span><strong>Verify your identity</strong> — submit your ID documents via <strong>Settings &rarr; Verify Identity</strong></span>
+                        <div>
+                            <span><strong>Verify your identity</strong> — go to <strong>Settings &rarr; Verify Identity</strong></span>
+                            <div style="font-size:0.85rem; color:#6B7280; margin-top:0.25rem;">Submit a valid ID document of your choice and your bank account details. Your bank account name must match the name on the ID document provided. Verification is processed by the BeeYarn admin team and typically takes a few days — start this early as it must be completed before you can cash out.</div>
+                        </div>
                     </div>
                     <div class="req-row">
                         <i class="fa fa-circle-check req-icon"></i>
@@ -393,7 +396,10 @@
                     </div>
                     <div class="req-row">
                         <i class="fa fa-circle-check req-icon"></i>
-                        <span>Hold an active subscription for <strong><span id="sub-months">3</span> consecutive months</strong></span>
+                        <div>
+                            <span>Hold an active subscription for <strong><span id="sub-months">3</span> consecutive months</strong></span>
+                            <div style="font-size:0.85rem; color:#6B7280; margin-top:0.25rem;"><i class="fa fa-gear" style="color:#1C5B31;"></i> Settings &rarr; Subscription &rarr; Subscribe &nbsp;&middot;&nbsp; <strong style="color:#92400e;">Tip:</strong> Enable auto-renewal to avoid breaking your streak — a lapsed subscription resets your consecutive count.</div>
+                        </div>
                     </div>
                     <div class="req-row">
                         <i class="fa fa-circle-check req-icon"></i>
@@ -419,8 +425,36 @@
                     </table>
                 </div>
 
+                <!-- Tracking points -->
+                <div class="section-card">
+                    <h2><i class="fa fa-clock-rotate-left"></i> Tracking Your Points</h2>
+                    <p>To see a full history of every point you have received, go to:</p>
+                    <div style="background:#f3f7f4; border:1px solid #d1e7d8; border-radius:6px; padding:0.75rem 1rem; font-size:0.92rem; color:#1C5B31; font-weight:600; margin-bottom:0.75rem;">
+                        Settings &rarr; Points and Earnings History
+                    </div>
+                    <p>Here you'll see a complete log of all points credited to your account — broken down by activity, date, and amount.</p>
+                </div>
+
+                <!-- Monetisation dashboard -->
+                <div class="section-card">
+                    <h2><i class="fa fa-wallet"></i> Monetisation Dashboard</h2>
+                    <p>To manage your earnings and cash out, go to:</p>
+                    <div style="background:#f3f7f4; border:1px solid #d1e7d8; border-radius:6px; padding:0.75rem 1rem; font-size:0.92rem; color:#1C5B31; font-weight:600; margin-bottom:0.75rem;">
+                        Settings &rarr; Monetisation
+                    </div>
+                    <p>From your Monetisation dashboard you can:</p>
+                    <ul style="padding-left:1.25rem; margin-bottom:0;">
+                        <li style="font-size:0.97rem; color:#374151; margin-bottom:0.4rem;">See which payout requirements are still pending and track your progress towards each one</li>
+                        <li style="font-size:0.97rem; color:#374151; margin-bottom:0.4rem;">View your current available Yarn Points balance</li>
+                        <li style="font-size:0.97rem; color:#374151; margin-bottom:0.4rem;">See the exchange rate to various currencies</li>
+                        <li style="font-size:0.97rem; color:#374151; margin-bottom:0.4rem;">Request a payout once all requirements are met</li>
+                        <li style="font-size:0.97rem; color:#374151;">View your full payout history</li>
+                    </ul>
+                    <p style="margin-top:0.75rem; font-size:0.88rem; color:#6B7280;">Note: A cooldown period applies between payout requests. Once a payout is requested, you will need to wait until your next eligible date before submitting another request. Your next eligible payout date is shown in the Monetisation dashboard.</p>
+                </div>
+
                 <div class="notice-box">
-                    <strong>Please note:</strong> Point values, earning rates, daily limits, and payout thresholds are updated regularly. The figures on this page are always pulled live from BeeYarn's settings and reflect the current values at time of loading. BeeYarn reserves the right to update these values at any time.
+                    <strong>Please note:</strong> Point values, earning rates, daily limits, and payout thresholds are subject to change. While this page attempts to reflect current values, always check the app under <strong>Settings &rarr; Monetisation</strong> for the most accurate and up-to-date figures. BeeYarn reserves the right to update these values at any time.
                 </div>
 
             </div>
@@ -445,7 +479,7 @@
                 document.getElementById('max-per-day').textContent = 'Max ' + fmt(ps.global_settings.max_points_per_day) + ' pts/day';
 
                 // Activity points
-                document.getElementById('pts-login').textContent         = fmt(ps.daily_login.points) + ' pts';
+                document.getElementById('pts-login').textContent         = fmt(ps.daily_login.daily_limit) + ' pts';
                 document.getElementById('lim-login').textContent         = fmt(ps.daily_login.daily_limit) + ' pts/day';
                 document.getElementById('pts-post').textContent          = fmt(ps.post_creation.points) + ' pts';
                 document.getElementById('lim-post').textContent          = fmt(ps.post_creation.daily_limit) + ' pts/day';
@@ -470,7 +504,6 @@
                 document.getElementById('pts-live-10min').textContent     = fmt(ps.live_stream.points_for_10_minutes) + ' pts';
                 document.getElementById('pts-live-100viewers').textContent = fmt(ps.live_stream.points_for_100_viewers) + ' pts';
                 document.getElementById('min-watch-sec').textContent      = ps.live_stream.min_watch_seconds_for_points;
-                document.getElementById('max-live-min').textContent       = ps.live_stream.max_live_duration_minutes;
 
                 // Referrals
                 document.getElementById('pts-ref-signup').textContent    = fmt(ps.referral.signup_points) + ' pts';
