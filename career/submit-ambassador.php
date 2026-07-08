@@ -26,8 +26,7 @@ if (empty($data['fullName']) || empty($data['email'])) {
     exit;
 }
 
-// Saves one level above public_html — not publicly accessible on cPanel
-$file = dirname($_SERVER['DOCUMENT_ROOT']) . '/ambassador-applications.csv';
+$file = '/var/beeyarn-storage/ambassador-applications.csv';
 $isNew = !file_exists($file);
 
 $handle = fopen($file, 'a');

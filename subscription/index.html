@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Opening BeeYarn…</title>
+  <link rel="icon" type="image/jpeg" href="/assets/favicon.jpg" />
+  <meta name="robots" content="noindex" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f6f7f8;
+      color: #1c1c1c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 36px 28px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1C5B31;
+      margin-bottom: 20px;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #1C5B31;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    p  { font-size: 13px; color: #6b7280; line-height: 1.5; margin-bottom: 24px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 20px;
+      border-radius: 24px;
+      background: #1C5B31;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .btn:hover { background: #145022; }
+    .btn svg { flex-shrink: 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">BeeYarn</div>
+    <div class="spinner" id="spinner"></div>
+    <h1 id="headline">Opening BeeYarn…</h1>
+    <p id="subtext">If the app doesn't open automatically, tap the button below.</p>
+    <a id="store-btn" class="btn" href="https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M3.18 23.76c.3.17.65.2.98.08l11.65-6.72-2.5-2.5-10.13 9.14zM.5 1.27C.19 1.6 0 2.1 0 2.73v18.54c0 .63.19 1.13.5 1.46l.08.07 10.38-10.38v-.25L.58 1.2.5 1.27zM20.34 10.3l-2.96-1.71-2.8 2.8 2.8 2.8 2.98-1.72c.85-.49.85-1.68-.02-2.17zM4.16.24L15.81 6.96l-2.5 2.5L3.18.32C3.5.2 3.86.07 4.16.24z"/>
+      </svg>
+      Get BeeYarn on Google Play
+    </a>
+  </div>
+
+  <script>
+    (function () {
+      var STORE_URL   = 'https://play.google.com/store/apps/details?id=com.beeyarn.beeyarn';
+      var APP_SCHEME  = 'beeyarn://subscription';
+      var PACKAGE     = 'com.beeyarn.beeyarn';
+      var ua          = navigator.userAgent || '';
+      var isAndroid   = /android/i.test(ua);
+      var isIOS       = /iphone|ipad|ipod/i.test(ua);
+      var timer;
+
+      function goStore() {
+        document.getElementById('spinner').style.display = 'none';
+        document.getElementById('headline').textContent  = 'Get BeeYarn';
+        document.getElementById('subtext').textContent   = 'Download the app to get started.';
+        window.location.href = STORE_URL;
+      }
+
+      // Cancel the store-redirect timer if the app opened (page went to background)
+      function cancelIfAppOpened() {
+        clearTimeout(timer);
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) cancelIfAppOpened();
+      });
+      window.addEventListener('blur',     cancelIfAppOpened);
+      window.addEventListener('pagehide', cancelIfAppOpened);
+
+      if (isAndroid) {
+        // Android Intent URL: Chrome opens the app if installed;
+        // if not installed, Chrome follows browser_fallback_url automatically.
+        window.location.href =
+          'intent://subscription#Intent;' +
+          'scheme=beeyarn;' +
+          'package=' + PACKAGE + ';' +
+          'S.browser_fallback_url=' + encodeURIComponent(STORE_URL) + ';' +
+          'end';
+      } else if (isIOS) {
+        // Custom URI scheme with store fallback after 1.5 s
+        timer = setTimeout(goStore, 1500);
+        window.location.href = APP_SCHEME;
+      } else {
+        // Desktop / unknown — just go to Play Store
+        goStore();
+      }
+    })();
+  </script>
+</body>
+</html>

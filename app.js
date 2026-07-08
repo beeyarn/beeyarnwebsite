@@ -1,6 +1,7 @@
 /* BeeYarn Feed SPA
-   /         → feed   GET /api/home
-   /p/:slug  → post   GET /api/post/:slug
+   /                  → feed     GET /api/home
+   /p/:slug           → post     GET /api/post/:slug
+   /profile/:username → profile  GET /api/profile/:username
 */
 const App = (() => {
   'use strict';
@@ -14,6 +15,25 @@ const App = (() => {
     hide: function() { authOverlay.classList.add('hidden'); document.body.style.overflow = ''; }
   };
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') AuthModal.hide(); });
+
+  // Media Lightbox (fullscreen image/video viewer)
+  const lightboxOverlay = document.getElementById('media-lightbox');
+  const lightboxContent = document.getElementById('media-lightbox-content');
+  window.MediaLightbox = {
+    show: function(type, url) {
+      lightboxContent.innerHTML = type === 'video'
+        ? '<video src="' + xa(url) + '" controls autoplay playsinline></video>'
+        : '<img src="' + xa(url) + '" alt="" />';
+      lightboxOverlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    },
+    hide: function() {
+      lightboxOverlay.classList.add('hidden');
+      lightboxContent.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+  };
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') MediaLightbox.hide(); });
 
   // DOM
   const viewFeed    = document.getElementById('view-feed');
@@ -29,6 +49,13 @@ const App = (() => {
   const postArticle = document.getElementById('post-article');
   const btnBack     = document.getElementById('btn-back');
 
+  const viewProfile     = document.getElementById('view-profile');
+  const profileLoading  = document.getElementById('profile-loading');
+  const profileError    = document.getElementById('profile-error');
+  const profileErrorMsg = document.getElementById('profile-error-msg');
+  const profileArticle  = document.getElementById('profile-article');
+  const btnBackProfile  = document.getElementById('btn-back-profile');
+
   // State
   let page         = 1;
   let busy         = false;
@@ -38,6 +65,7 @@ const App = (() => {
   let searchQ      = '';
   let savedScrollY = 0;
   const cache      = {};
+  const profileCache = {};
 
   const searchInput       = document.getElementById('search-input');
   const mobileSearchInput = document.getElementById('mobile-search-input');
@@ -53,14 +81,20 @@ const App = (() => {
 
   // ── Router ─────────────────────────────────────
   function route(restoreScroll) {
-    const m = location.pathname.match(/^\/p\/([^/]+)\/?$/);
-    if (m) {
+    const mPost    = location.pathname.match(/^\/p\/([^/]+)\/?$/);
+    const mProfile = location.pathname.match(/^\/profile\/([^/]+)\/?$/);
+    if (mPost) {
       savedScrollY = window.scrollY;
-      show(viewPost); hide(viewFeed);
-      loadPost(decodeURIComponent(m[1]));
+      show(viewPost); hide(viewFeed); hide(viewProfile);
+      loadPost(decodeURIComponent(mPost[1]));
+      window.scrollTo(0, 0);
+    } else if (mProfile) {
+      savedScrollY = window.scrollY;
+      show(viewProfile); hide(viewFeed); hide(viewPost);
+      loadProfile(decodeURIComponent(mProfile[1]));
       window.scrollTo(0, 0);
     } else {
-      show(viewFeed); hide(viewPost);
+      show(viewFeed); hide(viewPost); hide(viewProfile);
       if (feedList.children.length === 0) {
         loadFeed(true);
         window.scrollTo(0, 0);
@@ -80,6 +114,10 @@ const App = (() => {
   window.addEventListener('popstate', function() { route(true); });
   btnMore.addEventListener('click', () => loadFeed(false));
   btnBack.addEventListener('click', () => {
+    if (history.length > 1) history.back();
+    else navigate('/');
+  });
+  btnBackProfile.addEventListener('click', () => {
     if (history.length > 1) history.back();
     else navigate('/');
   });
@@ -216,6 +254,7 @@ const App = (() => {
 
       posts.forEach(function(p) {
         if (!p.is_ad && p.slug) cache[p.slug] = p;
+        if (p.original_post && p.original_post.slug) cache[p.original_post.slug] = p.original_post;
         allPosts.push(p);
       });
       renderFiltered();
@@ -241,12 +280,15 @@ const App = (() => {
     const handle  = advertiser.username ? '@' + advertiser.username : '';
     const files   = (p.post_media && p.post_media.files) ? p.post_media.files : [];
     const first   = files[0] || null;
+    const isVideo = first && first.type === 'video';
     const imgSrc  = first ? (first.thumb || first.url || '') : '';
+    const fullSrc = first ? (first.url || first.thumb || '') : '';
 
     // Banner: full-width image if available, else gold accent strip
     const bannerHtml = imgSrc
       ? '<div class="ad-card__banner">'
         +   '<img src="' + xa(imgSrc) + '" alt="" loading="lazy" onerror="this.parentElement.className=\'ad-card__banner--empty\';this.remove()" />'
+        +   (isVideo ? '<div class="card-thumb-play ad-card__play"><i class="bi bi-play-circle-fill"></i></div>' : '')
         +   '<span class="ad-card__sponsored"><i class="bi bi-megaphone-fill"></i> Sponsored</span>'
         + '</div>'
       : '<div class="ad-card__banner--empty"></div>';
@@ -255,17 +297,15 @@ const App = (() => {
     const inlinePill = imgSrc ? ''
       : '<span class="ad-card__sponsored ad-card__sponsored--inline"><i class="bi bi-megaphone-fill"></i> Sponsored</span>';
 
-    // CTA buttons
+    // CTA button — API returns a flat object: { type, label, url }
     let ctaHtml = '';
-    if (p.cta) {
-      if (p.cta.whatsapp && p.cta.whatsapp.url) {
-        ctaHtml += '<a class="ad-card__cta-primary" href="' + xa(p.cta.whatsapp.url) + '" target="_blank" rel="noopener">'
-          + '<i class="bi bi-whatsapp"></i> ' + xh(p.cta.whatsapp.label || 'Message on WhatsApp') + '</a>';
-      }
-      if (p.cta.url && p.cta.url.url) {
-        ctaHtml += '<a class="ad-card__cta-secondary" href="' + xa(p.cta.url.url) + '" target="_blank" rel="noopener">'
-          + '<i class="bi bi-box-arrow-up-right"></i> ' + xh(p.cta.url.label || 'Visit Website') + '</a>';
-      }
+    if (p.cta && p.cta.url) {
+      const isWhatsapp = p.cta.type === 'whatsapp';
+      const cls   = isWhatsapp ? 'ad-card__cta-primary' : 'ad-card__cta-secondary';
+      const icon  = isWhatsapp ? 'bi-whatsapp' : 'bi-box-arrow-up-right';
+      const label = p.cta.label || (isWhatsapp ? 'Message on WhatsApp' : 'Visit Website');
+      ctaHtml += '<a class="' + cls + '" href="' + xa(p.cta.url) + '" target="_blank" rel="noopener">'
+        + '<i class="bi ' + icon + '"></i> ' + xh(label) + '</a>';
     }
 
     const el = document.createElement('div');
@@ -287,9 +327,56 @@ const App = (() => {
       + '</div>'
       + (ctaHtml ? '<div class="ad-card__cta">' + ctaHtml + '</div>' : '');
 
-    el.addEventListener('click', function(e) { e.stopPropagation(); });
+    const bannerEl = el.querySelector('.ad-card__banner');
+    if (bannerEl && fullSrc) {
+      bannerEl.style.cursor = 'pointer';
+      bannerEl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        MediaLightbox.show(isVideo ? 'video' : 'image', fullSrc);
+      });
+    }
+
+    if (p.cta && p.cta.url) {
+      el.classList.add('ad-card--clickable');
+      el.addEventListener('click', function(e) {
+        if (e.target.closest('a')) return; // let the CTA link/banner anchor handle its own click
+        window.open(p.cta.url, '_blank', 'noopener');
+      });
+    }
 
     return el;
+  }
+
+  // ── Build quoted/original post box (for reposts) ─
+  function quoteBoxHtml(op) {
+    if (!op) return '';
+    const qAvatar   = (op.user && op.user.profile_picture && (op.user.profile_picture.thumb || op.user.profile_picture.url)) || '';
+    const qName     = (op.user && op.user.name) || 'BeeYarner';
+    const qUsername = (op.user && op.user.username) ? '@' + op.user.username : '';
+    const qTime     = ago(op.created_at);
+    const qFiles    = (op.post_media && op.post_media.files) ? op.post_media.files : [];
+    const qFirst    = qFiles[0] || null;
+
+    let qThumbHtml = '';
+    if (qFirst) {
+      const qSrc = qFirst.thumb || qFirst.url || '';
+      if (qSrc) {
+        qThumbHtml = '<div class="quote-thumb">'
+          + '<img src="' + xa(qSrc) + '" alt="" loading="lazy" onerror="this.parentElement.style.display=\'none\'" />'
+          + (qFirst.type === 'video' ? '<div class="card-thumb-play"><i class="bi bi-play-circle-fill"></i></div>' : '')
+          + '</div>';
+      }
+    }
+
+    return '<div class="quote-box__meta">'
+      +   '<img class="quote-box__avatar" src="' + xa(qAvatar) + '" alt="' + xa(qName) + '" onerror="this.style.visibility=\'hidden\'" />'
+      +   '<span class="quote-box__name">' + xh(qName) + '</span>'
+      +   (qUsername ? '<span class="quote-box__dot">·</span><span class="quote-box__handle">' + xh(qUsername) + '</span>' : '')
+      +   (qTime ? '<span class="quote-box__dot">·</span><span class="quote-box__time">' + qTime + '</span>' : '')
+      + '</div>'
+      + (op.title ? '<div class="quote-box__title">' + xh(op.title) + '</div>' : '')
+      + (op.body  ? '<div class="quote-box__text">'  + xh(op.body)  + '</div>' : '')
+      + qThumbHtml;
   }
 
   // ── Build card ──────────────────────────────────
@@ -317,6 +404,14 @@ const App = (() => {
       }
     }
 
+    const isRepost   = !!(p.is_repost && p.original_post);
+    const repostHtml = isRepost
+      ? '<div class="repost-badge"><i class="bi bi-repeat"></i> ' + xh(name) + ' reposted</div>'
+      : '';
+    const quoteHtml = isRepost
+      ? '<div class="quote-box">' + quoteBoxHtml(p.original_post) + '</div>'
+      : '';
+
     const el = document.createElement('div');
     el.className = 'card';
     el.innerHTML =
@@ -324,6 +419,7 @@ const App = (() => {
       +   '<img class="card-avatar" src="' + xa(avatar) + '" alt="' + xa(name) + '" onerror="this.style.visibility=\'hidden\'" />'
       + '</div>'
       + '<div class="card-body">'
+      +   repostHtml
       +   '<div class="card-meta">'
       +     '<span class="card-name">'   + xh(name)     + '</span>'
       +     '<span class="card-dot">·</span>'
@@ -335,12 +431,21 @@ const App = (() => {
       +   (p.title ? '<div class="card-title">' + xh(p.title) + '</div>' : '')
       +   (p.body  ? '<div class="card-excerpt">' + xh(p.body) + '</div>' : '')
       +   thumbHtml
+      +   quoteHtml
       +   '<div class="card-actions">'
       +     '<button class="card-stat card-action-btn" onclick="event.stopPropagation();AuthModal.show()"><i class="bi bi-heart"></i> ' + likes    + '</button>'
       +     '<button class="card-stat card-action-btn" onclick="event.stopPropagation();AuthModal.show()"><i class="bi bi-chat"></i> '  + comments + '</button>'
       +     '<span class="card-stat"><i class="bi bi-eye"></i> '   + views    + '</span>'
       +   '</div>'
       + '</div>';
+
+    if (isRepost && p.original_post.slug) {
+      const quoteEl = el.querySelector('.quote-box');
+      quoteEl.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navigate('/p/' + encodeURIComponent(p.original_post.slug));
+      });
+    }
 
     el.addEventListener('click', () => navigate('/p/' + encodeURIComponent(p.slug)));
     return el;
@@ -364,6 +469,7 @@ const App = (() => {
       }
 
       if (!p) throw new Error('Post not found.');
+      if (p.original_post && p.original_post.slug) cache[p.original_post.slug] = p.original_post;
 
       renderPost(p);
       setMetas(p);
@@ -383,6 +489,22 @@ const App = (() => {
     const name     = user.name     || 'BeeYarner';
     const username = user.username ? '@' + user.username : '';
     const verified = user.is_verified || false;
+
+    const isRepost     = !!(p.is_repost && p.original_post);
+    const repostBadge  = document.getElementById('post-repost-badge');
+    const quoteWrap     = document.getElementById('post-quote');
+    if (isRepost) {
+      document.getElementById('post-repost-name').textContent = name;
+      repostBadge.removeAttribute('hidden');
+      quoteWrap.innerHTML = quoteBoxHtml(p.original_post);
+      quoteWrap.onclick = p.original_post.slug
+        ? function() { navigate('/p/' + encodeURIComponent(p.original_post.slug)); }
+        : null;
+    } else {
+      repostBadge.setAttribute('hidden', '');
+      quoteWrap.innerHTML = '';
+      quoteWrap.onclick = null;
+    }
 
     var av = document.getElementById('post-avatar');
     av.src = avatar; av.alt = name;
@@ -427,26 +549,16 @@ const App = (() => {
       wrap.className = 'media-item';
 
       if (f.type === 'video') {
-        if (thumb) {
-          wrap.className += ' thumb-play';
-          wrap.innerHTML = '<img src="' + xa(thumb) + '" alt="video thumbnail" />'
-            + '<div class="thumb-play-icon"><i class="bi bi-play-circle-fill"></i></div>';
-          wrap.addEventListener('click', function() {
-            var v = document.createElement('video');
-            v.src = url; v.controls = true; v.autoplay = true; v.setAttribute('playsinline','');
-            wrap.className = 'media-item';
-            wrap.innerHTML = '';
-            wrap.appendChild(v);
-          });
-        } else {
-          var v = document.createElement('video');
-          v.src = url; v.controls = true; v.preload = 'metadata'; v.setAttribute('playsinline','');
-          wrap.appendChild(v);
-        }
+        wrap.className += ' thumb-play';
+        wrap.innerHTML = (thumb ? '<img src="' + xa(thumb) + '" alt="video thumbnail" />' : '<video src="' + xa(url) + '" preload="metadata"></video>')
+          + '<div class="thumb-play-icon"><i class="bi bi-play-circle-fill"></i></div>';
+        wrap.addEventListener('click', function() { MediaLightbox.show('video', url); });
       } else {
         var img = document.createElement('img');
         img.src = url; img.alt = 'image'; img.loading = 'lazy';
         wrap.appendChild(img);
+        wrap.style.cursor = 'pointer';
+        wrap.addEventListener('click', function() { MediaLightbox.show('image', url); });
       }
       mediaWrap.appendChild(wrap);
     });
@@ -466,6 +578,75 @@ const App = (() => {
     };
 
     show(postArticle);
+  }
+
+  // ── Profile detail ──────────────────────────────
+  async function loadProfile(username) {
+    show(profileLoading, true);
+    hide(profileError);
+    hide(profileArticle);
+
+    try {
+      let u = profileCache[username];
+
+      if (!u) {
+        const res = await fetch(`${API_BASE}/profile/${encodeURIComponent(username)}`);
+        if (!res.ok) throw new Error(res.status === 404 ? 'Profile not found.' : 'Server error: ' + res.status);
+        const json = await res.json();
+        u = json.data || json;
+        profileCache[username] = u;
+      }
+
+      if (!u) throw new Error('Profile not found.');
+
+      renderProfile(u, username);
+      setProfileMetas(u, username);
+    } catch (e) {
+      profileErrorMsg.textContent = e.message || 'Profile not found.';
+      show(profileError, true);
+    }
+
+    hide(profileLoading);
+  }
+
+  function renderProfile(u, username) {
+    const pic     = u.profile_picture || {};
+    const avatar  = u.avatar || pic.url || pic.thumb || '';
+    const name    = u.name || u.full_name || ('@' + username);
+    const handle  = '@' + (u.username || username);
+    const bio     = (u.bio || u.about || '').trim();
+
+    var av = document.getElementById('profile-avatar');
+    av.src = avatar; av.alt = name;
+    av.onerror = function() { av.style.visibility = 'hidden'; };
+
+    document.getElementById('profile-name').textContent     = name;
+    document.getElementById('profile-username').textContent = handle;
+
+    var verifiedEl = document.getElementById('profile-verified');
+    if (u.is_verified) verifiedEl.removeAttribute('hidden'); else verifiedEl.setAttribute('hidden', '');
+
+    var bioEl = document.getElementById('profile-bio');
+    bioEl.textContent = bio;
+    bioEl.style.display = bio ? 'block' : 'none';
+
+    show(profileArticle);
+  }
+
+  function setProfileMetas(u, username) {
+    var name  = u.name || u.full_name || ('@' + username);
+    var title = name + ' (@' + (u.username || username) + ') on BeeYarn';
+    var desc  = (u.bio || u.about || '').slice(0, 200) || ('Check out @' + (u.username || username) + '\'s profile on BeeYarn.');
+    var pic   = u.profile_picture || {};
+    var img   = u.avatar || pic.url || pic.thumb || '';
+    document.title = title;
+    setMeta('og:title', title);
+    setMeta('og:description', desc);
+    setMeta('og:url', location.href);
+    setMeta('description', desc);
+    if (img) { setMeta('og:image', img); setMeta('twitter:image', img); }
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', desc);
   }
 
   // ── OG meta ──────────────────────────────────────
@@ -557,6 +738,7 @@ const App = (() => {
   hide(feedError);
   hide(feedMore);
   hide(viewPost);
+  hide(viewProfile);
 
   route();
 

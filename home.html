@@ -330,6 +330,38 @@
     .cta-badges { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
     .cta-badges img { height: 36px; }
 
+    /* === PROFILE CARD === */
+    .profile-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      text-align: center;
+      padding: 28px 16px;
+    }
+
+    .profile-card__avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%; object-fit: cover;
+      background: var(--green-bg);
+      margin: 0 auto 14px;
+      display: block;
+    }
+
+    .profile-card__name {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-weight: 700; color: var(--text); font-size: 18px;
+    }
+
+    .profile-card__verified { color: #1d9bf0; font-size: 15px; }
+
+    .profile-card__handle { color: var(--sub); font-size: 14px; margin-top: 2px; }
+
+    .profile-card__bio {
+      font-size: 14px; color: var(--text); line-height: 1.6;
+      margin-top: 14px; white-space: pre-wrap; word-break: break-word;
+    }
+
     /* === SIDEBAR === */
     .sidebar { width: 312px; flex-shrink: 0; display: flex; flex-direction: column; gap: 14px; }
 
@@ -520,6 +552,65 @@
     .sign-in-comment p { font-size: 13px; color: var(--sub); display: flex; align-items: center; gap: 6px; }
     .sign-in-comment span { font-size: 12px; font-weight: 700; color: var(--green); flex-shrink: 0; }
 
+    /* === REPOST / QUOTE === */
+    .repost-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600; color: var(--sub);
+      padding: 6px 16px 0;
+    }
+    .repost-badge i { font-size: 13px; }
+    .card .repost-badge { padding: 0 0 6px; }
+
+    .quote-box {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: background 0.1s, border-color 0.15s;
+    }
+    .quote-box:empty { display: none; }
+    /* On the post detail page the quote box is a direct sibling of
+       .post-detail__body/.post-detail__media, which carry 16px side
+       padding — match it here since .quote-box itself has no side margin. */
+    #post-quote.quote-box { margin: 8px 16px 14px; }
+    .quote-box:hover { border-color: #9ca3af; background: var(--bg); }
+    .quote-box__meta { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; flex-wrap: wrap; }
+    .quote-box__avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; background: var(--green-bg); flex-shrink: 0; }
+    .quote-box__name { font-size: 12px; font-weight: 700; color: var(--text); }
+    .quote-box__handle, .quote-box__time { font-size: 12px; color: var(--sub); }
+    .quote-box__dot { color: var(--sub); font-size: 12px; }
+    .quote-box__title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .quote-box__text { font-size: 12px; color: var(--sub); line-height: 1.5; }
+    .quote-thumb { margin-top: 6px; border-radius: 6px; overflow: hidden; position: relative; background: #000; max-height: 200px; }
+    .quote-thumb img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+
+    /* === MEDIA LIGHTBOX === */
+    .media-lightbox {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,0.92);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+      animation: fadeInOverlay 0.15s ease;
+    }
+    .media-lightbox.hidden { display: none; }
+    .media-lightbox__close {
+      position: absolute; top: 16px; right: 18px;
+      background: rgba(255,255,255,0.12); border: none; cursor: pointer;
+      color: #fff; font-size: 18px; line-height: 1;
+      width: 38px; height: 38px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.1s;
+    }
+    .media-lightbox__close:hover { background: rgba(255,255,255,0.22); }
+    .media-lightbox__content { max-width: 100%; max-height: 100%; display: flex; }
+    .media-lightbox__content img,
+    .media-lightbox__content video {
+      max-width: 100%; max-height: 92vh;
+      width: auto; height: auto;
+      object-fit: contain; display: block; margin: auto;
+    }
+
     /* === AD CARD === */
     .ad-card {
       background: var(--white);
@@ -528,6 +619,8 @@
       margin-bottom: 10px;
       overflow: hidden;
     }
+    .ad-card--clickable { cursor: pointer; }
+    .ad-card--clickable:hover { border-color: #c4a73a; }
 
     /* Image banner */
     .ad-card__banner {
@@ -781,6 +874,7 @@
         </div>
 
         <div class="post-detail" id="post-article" style="display:none">
+          <div id="post-repost-badge" class="repost-badge" hidden><i class="bi bi-repeat"></i> <span id="post-repost-name"></span> reposted</div>
           <div class="post-detail__head">
             <div class="post-detail__meta">
               <img id="post-avatar" class="post-detail__avatar" src="" alt="" />
@@ -797,6 +891,7 @@
 
           <div id="post-body" class="post-detail__body"></div>
           <div id="post-media" class="post-detail__media"></div>
+          <div id="post-quote" class="quote-box"></div>
 
           <div class="post-detail__stats">
             <span><strong id="post-likes">0</strong> Likes</span>
@@ -829,6 +924,36 @@
               </span>
             </div>
           </div>
+        </div>
+
+        <!-- PROFILE VIEW -->
+        <div id="view-profile" style="display:none">
+
+          <button class="back-btn" id="btn-back-profile">
+            <i class="bi bi-arrow-left"></i> Back to Feed
+          </button>
+
+          <div id="profile-loading" class="state-box">
+            <div class="spinner"></div>
+            <span>Loading profile…</span>
+          </div>
+
+          <div id="profile-error" class="state-box" style="display:none">
+            <i class="bi bi-question-circle"></i>
+            <p id="profile-error-msg">Profile not found</p>
+            <button class="btn" onclick="history.back()">Go back</button>
+          </div>
+
+          <div class="profile-card" id="profile-article" style="display:none">
+            <img id="profile-avatar" class="profile-card__avatar" src="" alt="" />
+            <div class="profile-card__name">
+              <span id="profile-name"></span>
+              <span id="profile-verified" class="profile-card__verified" hidden><i class="bi bi-patch-check-fill"></i></span>
+            </div>
+            <div id="profile-username" class="profile-card__handle"></div>
+            <p id="profile-bio" class="profile-card__bio"></p>
+          </div>
+
         </div>
 
       </div>
@@ -884,6 +1009,11 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <div id="media-lightbox" class="media-lightbox hidden" onclick="if(event.target===this)MediaLightbox.hide()">
+    <button class="media-lightbox__close" onclick="MediaLightbox.hide()" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+    <div id="media-lightbox-content" class="media-lightbox__content"></div>
   </div>
 
   <script src="/app.js"></script>

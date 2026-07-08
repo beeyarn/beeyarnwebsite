@@ -7,6 +7,9 @@ RewriteRule ^p/([^/]+)/?$ /p.php?slug=$1 [L,QSA]
 # Invite landing page (/invite/{code})
 RewriteRule ^invite/([^/]+)/?$ /invite.php?code=$1 [L,QSA]
 
+# Profile share links (/profile/{username})
+RewriteRule ^profile/([^/]+)/?$ /profile.php?username=$1 [L,QSA]
+
 # Allow actual files and folders to load normally (css, js, images etc)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

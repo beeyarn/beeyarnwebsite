@@ -18,7 +18,7 @@
  * arbitrarily busting the cache.
  */
 
-define('PURGE_SECRET', getenv('BEEYARN_PURGE_SECRET') ?: 'change-me-to-a-long-random-secret');
+define('PURGE_SECRET', $_SERVER['BEEYARN_PURGE_SECRET'] ?? getenv('BEEYARN_PURGE_SECRET') ?: 'change-me-to-a-long-random-secret');
 define('CACHE_DIR',    sys_get_temp_dir() . '/beeyarn_og_cache');
 
 header('Content-Type: application/json');
