@@ -20,6 +20,24 @@ if (!preg_match('/^[a-zA-Z0-9_\-.]+$/', $username)) {
     $username = '';
 }
 
+// ── 1b. Real browsers go straight to the Flutter web app ─────────────────────
+//
+// Social/search crawlers never execute JavaScript, so they still need this
+// script to serve pre-rendered OG tags (below). Everyone else skips the API
+// fetch entirely and is sent straight to the Flutter app's profile route.
+$ua       = $_SERVER['HTTP_USER_AGENT'] ?? '';
+$is_crawler = (bool) preg_match(
+    '/facebookexternalhit|Facebot|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|' .
+    'Slackbot|Discordbot|SkypeUriPreview|Pinterest|redditbot|vkShare|' .
+    'Googlebot|bingbot|YandexBot|Applebot|ia_archiver/i',
+    $ua
+);
+
+if ($username && !$is_crawler) {
+    header('Location: https://www.beeyarn.com/home/profile/' . rawurlencode($username), true, 302);
+    exit;
+}
+
 // ── 2. Defaults (used when the API call fails or username is missing) ─────────
 
 $og_title   = 'BeeYarn — Be Seen, Be Heard';
