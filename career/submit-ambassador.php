@@ -17,7 +17,10 @@ $data = [
     'level'          => trim($_POST['level'] ?? ''),
     'socialPlatform' => trim($_POST['socialPlatform'] ?? ''),
     'whyAmbassador'  => trim($_POST['whyAmbassador'] ?? ''),
-    'status'         => 'Pending'
+    'status'         => 'Pending',
+    // Appended at the end (not inserted earlier) to stay compatible with the
+    // header row already written to the live CSV before this field existed.
+    'country'        => trim($_POST['country'] ?? ''),
 ];
 
 // Basic validation
@@ -37,7 +40,7 @@ if (!$handle) {
 
 // Write header row on first run
 if ($isNew) {
-    fputcsv($handle, ['Timestamp', 'Full Name', 'Email', 'Phone', 'Institution', 'Department', 'Level', 'Social Platform', 'Why They Want to Join', 'Status']);
+    fputcsv($handle, ['Timestamp', 'Full Name', 'Email', 'Phone', 'Country', 'Institution', 'Department', 'Level', 'Social Platform', 'Why They Want to Join', 'Status']);
 }
 
 fputcsv($handle, array_values($data));
