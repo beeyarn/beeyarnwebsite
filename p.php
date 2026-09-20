@@ -40,7 +40,7 @@ if ($slug && !$is_crawler) {
 
 // ── 2. Defaults (used when the API call fails or slug is missing) ─────────────
 
-$og_title = 'BeeYarn — Be Seen, Be Heard';
+$og_title = 'BeeYarn | Be Seen, Be Heard';
 $og_desc  = 'A social platform connecting people through real-time messaging, '
            . 'video calls, and discussion forums. Everyone gets paid.';
 $og_image = 'https://www.beeyarn.com/assets/img/homepage.jpg';
@@ -129,8 +129,8 @@ if ($slug) {
 
         // Title: prefer explicit post title; fall back to "@username on BeeYarn"
         if (!empty($post['title'])) {
-            $og_title   = $post['title'] . ' — BeeYarn';
-            $page_title = $post['title'] . ' — BeeYarn';
+            $og_title   = $post['title'] . ' | BeeYarn';
+            $page_title = $post['title'] . ' | BeeYarn';
         } elseif (!empty($post['user']['username'])) {
             $og_title   = '@' . $post['user']['username'] . ' on BeeYarn';
             $page_title = '@' . $post['user']['username'] . ' on BeeYarn';

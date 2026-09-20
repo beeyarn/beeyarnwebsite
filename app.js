@@ -651,7 +651,7 @@ const App = (() => {
 
   // ── OG meta ──────────────────────────────────────
   function setMetas(p) {
-    var title = (p.title || 'Post') + ' — BeeYarn';
+    var title = (p.title || 'Post') + ' | BeeYarn';
     var desc  = (p.body || '').slice(0, 200) || 'View on BeeYarn';
     var img   = '';
     if (p.post_media && p.post_media.files && p.post_media.files[0]) {

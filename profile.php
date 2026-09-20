@@ -40,7 +40,7 @@ if ($username && !$is_crawler) {
 
 // ── 2. Defaults (used when the API call fails or username is missing) ─────────
 
-$og_title   = 'BeeYarn — Be Seen, Be Heard';
+$og_title   = 'BeeYarn | Be Seen, Be Heard';
 $og_desc    = 'A social platform connecting people through real-time messaging, '
             . 'video calls, and discussion forums. Everyone gets paid.';
 $og_image   = 'https://www.beeyarn.com/assets/img/homepage.jpg';
@@ -142,7 +142,7 @@ if ($username) {
         if ($bio !== '') {
             $og_desc = mb_strlen($bio) > 200 ? mb_substr($bio, 0, 197) . '...' : $bio;
         } else {
-            $og_desc = 'Check out @' . $username . '\'s profile on BeeYarn — be seen, be heard.';
+            $og_desc = 'Check out @' . $username . '\'s profile on BeeYarn. Be seen, be heard.';
         }
 
         // Image: avatar / profile picture; else default logo

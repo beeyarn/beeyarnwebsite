@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw" async></script>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="e70f1af9-755b-42c1-b0a8-aead9291379b" data-blockingmode="auto" type="text/javascript"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17631423975"></script>
     <script>
@@ -16,9 +15,9 @@
     <meta name="description" content="Contact BeeYarn - Get in touch with our team for support, partnerships, press, or careers." />
     <meta name="author" content="BeeYarn" />
     <title>Contact Us | BeeYarn</title>
-    <link rel="icon" type="image/jpeg" href="assets/favicon.jpg" />
-    <link rel="apple-touch-icon" href="assets/favicon.jpg" />
-    <meta name="theme-color" content="#1C5B31" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2" />
+    <meta name="theme-color" content="#070a08" />
     <!-- Open Graph -->
     <meta property="og:title" content="Contact BeeYarn" />
     <meta property="og:description" content="Get in touch with the BeeYarn team for support, partnerships, press enquiries, or careers." />
@@ -40,120 +39,34 @@
     <link href="css/styles.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { color: #1C5B31; font-family: 'Mulish', sans-serif; }
-        .navbar-light .navbar-brand,
-        .navbar-light .navbar-nav .nav-link { color: #1C5B31; }
-        .btn-primary { background-color: #1C5B31; border-color: #1C5B31; }
-        .btn-primary:hover { background-color: #145022; border-color: #145022; }
-
-        #contact-section {
-            padding-top: 7rem;
-            padding-bottom: 5rem;
-        }
-        #contact-section h1 {
-            font-family: 'Newsreader', serif;
-            font-size: 2.4rem;
-            color: #1C5B31;
-            margin-bottom: 0.4rem;
-        }
-        #contact-section .subtitle {
-            font-size: 1.1rem;
-            color: #6B7280;
-            margin-bottom: 3rem;
-        }
-        .contact-card {
-            border: 1px solid #d1e7d8;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            transition: box-shadow 0.2s, border-color 0.2s;
-        }
-        .contact-card:hover {
-            box-shadow: 0 4px 16px rgba(28,91,49,0.1);
-            border-color: #1C5B31;
-        }
-        .contact-card .icon {
-            font-size: 1.8rem;
-            color: #1C5B31;
-            margin-bottom: 0.75rem;
-        }
-        .contact-card h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #1C5B31;
-            margin-bottom: 0.3rem;
-        }
-        .contact-card p {
-            font-size: 0.95rem;
-            color: #6B7280;
-            margin-bottom: 0.75rem;
-        }
-        .contact-card a {
-            color: #1C5B31;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        .contact-card a:hover { text-decoration: underline; }
-    </style>
+    <!-- BeeYarn brand layer (must stay last) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="css/brand.css?v=20260920m" rel="stylesheet" />
 </head>
 <body id="page-top">
     <div id="shared-header"></div>
-
-    <section id="contact-section">
-        <div class="container px-5">
-            <h1>Contact BeeYarn</h1>
-            <p class="subtitle">We'd love to hear from you. Reach the right team below.</p>
-
-            <div class="row gx-4">
-                <div class="col-md-6 col-lg-4">
-                    <div class="contact-card">
-                        <div class="icon"><i class="fas fa-headset"></i></div>
-                        <h3>General Support</h3>
-                        <p>Having trouble with the app or your account? Our support team is here to help.</p>
-                        <a href="mailto:support@beeyarn.com">support@beeyarn.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="contact-card">
-                        <div class="icon"><i class="fas fa-shield-alt"></i></div>
-                        <h3>Privacy &amp; Data</h3>
-                        <p>Questions about your personal data, privacy rights, or our data practices.</p>
-                        <a href="mailto:privacy@beeyarn.com">privacy@beeyarn.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="contact-card">
-                        <div class="icon"><i class="fas fa-briefcase"></i></div>
-                        <h3>Careers</h3>
-                        <p>Interested in joining the BeeYarn team? Send us your CV.</p>
-                        <a href="mailto:careers@beeyarn.com">careers@beeyarn.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="contact-card">
-                        <div class="icon"><i class="fas fa-newspaper"></i></div>
-                        <h3>Press &amp; Media</h3>
-                        <p>Media enquiries, interviews, or partnership opportunities.</p>
-                        <a href="mailto:info@beeyarn.com">info@beeyarn.com</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="contact-card">
-                        <div class="icon"><i class="fas fa-handshake"></i></div>
-                        <h3>Business &amp; Partnerships</h3>
-                        <p>Interested in advertising on BeeYarn or exploring a partnership?</p>
-                        <a href="mailto:info@beeyarn.com">info@beeyarn.com</a>
-                    </div>
-                </div>
+    <header class="by-page-head">
+        <div class="by-wrap">
+            <span class="by-eyebrow">Contact</span>
+            <h1>Reach the right team.</h1>
+            <p class="by-lede">We'd love to hear from you. Pick the team below and we'll get back to you.</p>
+        </div>
+    </header>
+    <section class="by-section" style="border-top:0">
+        <div class="by-wrap">
+            <div class="by-cards" style="--cols:3">
+                <div class="by-card" data-animate><span class="by-card-idx">01</span><h3>General support</h3><p>Having trouble with the app or your account? Our support team is here to help.</p><p style="margin-top:1.1rem"><a href="mailto:support@beeyarn.com">support@beeyarn.com</a></p></div>
+                <div class="by-card" data-animate><span class="by-card-idx">02</span><h3>Privacy &amp; data</h3><p>Questions about your personal data, privacy rights, or our data practices.</p><p style="margin-top:1.1rem"><a href="mailto:privacy@beeyarn.com">privacy@beeyarn.com</a></p></div>
+                <div class="by-card" data-animate><span class="by-card-idx">03</span><h3>Careers</h3><p>Interested in joining the BeeYarn team? Send us your CV.</p><p style="margin-top:1.1rem"><a href="mailto:careers@beeyarn.com">careers@beeyarn.com</a></p></div>
+                <div class="by-card" data-animate><span class="by-card-idx">04</span><h3>Press &amp; media</h3><p>Media enquiries, interviews, or partnership opportunities.</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
+                <div class="by-card" data-animate><span class="by-card-idx">05</span><h3>Business &amp; partnerships</h3><p>Interested in advertising on BeeYarn or exploring a partnership?</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
+                <div class="by-card" data-animate><span class="by-card-idx">06</span><h3>Investors</h3><p>Interested in backing what we are building? See our investor page.</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
             </div>
         </div>
     </section>
-
     <div id="shared-footer"></div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script src="js/shared-shell.js"></script>
+    <script src="js/shared-shell.js?v=20260920m"></script>
 </body>
 </html>

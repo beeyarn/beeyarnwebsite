@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://web.cmp.usercentrics.eu/modules/autoblocker.js"></script>
-    <script id="usercentrics-cmp" src="https://web.cmp.usercentrics.eu/ui/loader.js" data-settings-id="roz7umFKXvgacw" async></script>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="e70f1af9-755b-42c1-b0a8-aead9291379b" data-blockingmode="auto" type="text/javascript"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Apply to become a BeeYarn Campus Ambassador and represent Nigeria's fastest growing social platform at your institution." />
+    <meta name="description" content="Apply to become a BeeYarn Campus Ambassador and represent Africa's fastest growing social platform at your institution. Applications are always open." />
     <meta name="author" content="BeeYarn" />
     <!-- Open Graph -->
-    <meta property="og:title" content="BeeYarn Campus Ambassador" />
-    <meta property="og:description" content="Apply to become a BeeYarn Campus Ambassador and represent Nigeria's fastest growing social platform at your institution." />
+    <meta property="og:title" content="Become a BeeYarn Campus Ambassador" />
+    <meta property="og:description" content="Apply to become a BeeYarn Campus Ambassador and represent Africa's fastest growing social platform at your institution. Applications are always open." />
     <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
     <meta property="og:url" content="https://beeyarn.com/career/campus-ambassador.html" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="BeeYarn Campus Ambassador" />
-    <meta name="twitter:description" content="Apply to become a BeeYarn Campus Ambassador and represent Nigeria's fastest growing social platform at your institution." />
+    <meta name="twitter:title" content="Become a BeeYarn Campus Ambassador" />
+    <meta name="twitter:description" content="Apply to become a BeeYarn Campus Ambassador and represent Africa's fastest growing social platform at your institution. Applications are always open." />
     <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
-    <title>BeeYarn &mdash; Campus Ambassador</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.jpg" />
+    <title>BeeYarn | Become a Campus Ambassador</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png?v=2" />
+    <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png?v=2" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google fonts-->
@@ -31,230 +31,844 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        :root {
+            --green: #1C5B31;
+            --green-dk: #145022;
+            --green-lt: #e8f5ee;
+            --accent: #1C1C1C;
+            --accent-lt: #F2F2F2;
+            --accent-dk: #000000;
+            --gray: #333;
+            --gray-lt: #f9fafb;
+            --gray-mid: #6B7280;
+            --border: #d1e7d8;
+        }
+
         body {
-            color: #1C5B31;
+            color: var(--gray);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
         .navbar-light .navbar-brand,
-        .navbar-light .navbar-nav .nav-link { color: #1C5B31; }
-        .btn-primary { background-color: #1C5B31; border-color: #1C5B31; }
-        .btn-primary:hover { background-color: #145022; border-color: #145022; }
-
-        #ambassador-section {
-            flex: 1 0 auto;
-            padding-top: 6rem;
-            padding-bottom: 4rem;
-        }
+        .navbar-light .navbar-nav .nav-link { color: var(--green); }
+        .btn-primary { background-color: var(--green); border-color: var(--green); }
+        .btn-primary:hover { background-color: var(--green-dk); border-color: var(--green-dk); }
         #shared-footer footer { margin-top: 0 !important; }
+        a { color: var(--green); }
 
-        .back-link {
-            color: #1C5B31;
+        /* ============ HERO (full screen) ============ */
+        .amb-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 7rem 1.5rem 4rem;
+            color: #fff;
+            background: linear-gradient(135deg, var(--green) 0%, #2d8653 60%, #1C5B31 100%);
+            overflow: hidden;
+        }
+        .amb-hero::before,
+        .amb-hero::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.06);
+        }
+        .amb-hero::before { width: 520px; height: 520px; top: -180px; right: -160px; }
+        .amb-hero::after { width: 380px; height: 380px; bottom: -140px; left: -120px; }
+
+        .amb-back-link {
+            position: absolute;
+            top: 6.5rem;
+            left: 1.75rem;
+            color: rgba(255,255,255,0.85);
             font-size: 0.9rem;
             text-decoration: none;
-            display: inline-block;
-            margin-bottom: 1.5rem;
+            z-index: 2;
         }
-        .back-link:hover { color: #145022; }
+        .amb-back-link:hover { color: #fff; }
 
-        .jd-card {
-            background: #f7faf8;
-            border: 1px solid #d1e7d8;
-            border-radius: 10px;
-            padding: 2rem 2.25rem;
-            margin-bottom: 2.5rem;
-        }
-        .jd-card h1 {
-            font-size: 1.75rem;
-            color: #1C5B31;
-            margin-bottom: 0.25rem;
-        }
-        .jd-meta {
-            font-size: 0.95rem;
-            color: #6B7280;
+        .amb-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
             margin-bottom: 1.5rem;
+            backdrop-filter: blur(6px);
+            position: relative;
+            z-index: 2;
         }
-        .jd-card h2 {
-            font-size: 1.1rem;
-            color: #1C5B31;
-            margin-top: 1.5rem;
+        .amb-hero h1 {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+            position: relative;
+            z-index: 2;
+        }
+        .amb-hero-sub {
+            max-width: 620px;
+            margin: 0 auto 2.25rem;
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.88);
+            line-height: 1.7;
+            position: relative;
+            z-index: 2;
+        }
+        .amb-hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        .amb-btn {
+            padding: 0.85rem 2rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+        .amb-btn-light {
+            background: #fff;
+            color: var(--green);
+        }
+        .amb-btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 26px rgba(0,0,0,0.2);
+            color: var(--green-dk);
+        }
+        .amb-btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.6);
+        }
+        .amb-btn-outline:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        .amb-stats {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+        .amb-stat { text-align: center; }
+        .amb-stat-num {
+            display: block;
+            font-family: 'Newsreader', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-lt);
+        }
+        .amb-stat-label {
+            display: block;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.75);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-top: 0.25rem;
+        }
+
+        .amb-scroll-cue {
+            position: absolute;
+            bottom: 1.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.8);
+            font-size: 1.4rem;
+            animation: ambBounce 2s ease-in-out infinite;
+            z-index: 2;
+        }
+        @keyframes ambBounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 10px); }
+        }
+
+        /* ============ STICKY QUICK NAV ============ */
+        .amb-quicknav {
+            position: sticky;
+            top: 70px;
+            z-index: 90;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 0;
+        }
+        .amb-quicknav .nav-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .amb-quicknav a {
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 0.92rem;
+            padding: 7px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .amb-quicknav a:hover { background: var(--green-lt); color: var(--green); }
+        .amb-quicknav a.active { background: var(--green); color: #fff; }
+
+        /* ============ SHARED SECTION STYLES ============ */
+        .amb-section {
+            padding: 5rem 0;
+            scroll-margin-top: 140px;
+        }
+        .amb-section.alt { background: var(--gray-lt); }
+        .amb-container { max-width: 1040px; margin: 0 auto; padding: 0 1.5rem; }
+        .amb-container-narrow { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+
+        .amb-kicker {
+            display: inline-block;
+            color: var(--green);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             margin-bottom: 0.5rem;
         }
-        .jd-card p, .jd-card li {
-            font-size: 0.98rem;
-            color: #374151;
+        .amb-section h2 {
+            font-family: 'Newsreader', serif;
+            font-size: clamp(1.7rem, 3vw, 2.4rem);
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+        .amb-section-sub {
+            font-size: 1.05rem;
+            color: var(--gray-mid);
+            max-width: 640px;
+            margin-bottom: 2.5rem;
             line-height: 1.7;
         }
-        .jd-card ul {
-            padding-left: 1.25rem;
-            margin-bottom: 0;
+
+        /* ============ ABOUT ============ */
+        .amb-about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 3rem;
+            align-items: start;
         }
-        .jd-card ul li { margin-bottom: 0.35rem; }
-        .jd-tagline {
-            margin-top: 1.5rem;
-            font-style: italic;
-            color: #1C5B31;
-            font-weight: 600;
+        .amb-about-grid p {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 1.1rem;
         }
+        .amb-who-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 8px 24px rgba(28,91,49,0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .amb-who-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 34px rgba(28,91,49,0.12);
+        }
+        .amb-who-card h3 {
+            color: var(--green);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .amb-who-card ul { padding-left: 1.1rem; margin: 0; }
+        .amb-who-card li { font-size: 0.96rem; color: var(--gray); line-height: 1.7; margin-bottom: 0.4rem; }
+
+        /* ============ ROLE CARDS ============ */
+        .amb-role-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .amb-role-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .amb-role-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 36px rgba(28,91,49,0.14);
+            border-color: var(--green);
+        }
+        .amb-role-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--green-lt);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+        }
+        .amb-role-card:hover .amb-role-icon {
+            background: var(--green);
+            color: #fff;
+            transform: rotate(-8deg) scale(1.08);
+        }
+        .amb-role-card h3 { font-size: 1.05rem; color: var(--green); margin-bottom: 0.5rem; font-weight: 700; }
+        .amb-role-card p { font-size: 0.94rem; color: var(--gray-mid); line-height: 1.65; margin: 0; }
+
+        /* ============ PERKS ============ */
+        .amb-perk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .amb-perk-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .amb-perk-card:hover {
+            transform: translateY(-6px) scale(1.015);
+            box-shadow: 0 18px 36px rgba(28,91,49,0.14);
+        }
+        .amb-perk-card .amb-perk-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--green-lt);
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin: 0 auto 0.85rem;
+        }
+        .amb-perk-card h3 { font-size: 1.02rem; color: var(--green); margin-bottom: 0.5rem; font-weight: 700; }
+        .amb-perk-card p { font-size: 0.92rem; color: var(--gray-mid); line-height: 1.6; margin: 0; }
+
+        .amb-perk-highlight {
+            grid-column: span 3;
+            background: linear-gradient(135deg, var(--accent-lt) 0%, #fff 65%);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem 2.25rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            text-align: left;
+        }
+        .amb-perk-highlight .amb-perk-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--accent-lt);
+            color: var(--accent-dk);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .amb-perk-highlight-text { flex: 1 1 280px; }
+        .amb-perk-highlight-text h3 {
+            color: var(--accent-dk);
+            font-size: 1.2rem;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+        .amb-perk-highlight-text p { color: var(--gray); font-size: 0.98rem; line-height: 1.6; margin: 0; }
+
+        .amb-toggle {
+            display: inline-flex;
+            background: #fff;
+            border: 1.5px solid var(--accent);
+            border-radius: 30px;
+            padding: 4px;
+            flex: 0 0 auto;
+        }
+        .amb-toggle-btn {
+            border: none;
+            background: transparent;
+            padding: 8px 18px;
+            border-radius: 26px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--accent-dk);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .amb-toggle-btn.active { background: var(--accent); color: #fff; }
+        .amb-toggle-display {
+            text-align: center;
+            min-width: 150px;
+        }
+        .amb-toggle-num {
+            display: block;
+            font-family: 'Newsreader', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-dk);
+            line-height: 1.1;
+        }
+        .amb-toggle-unit {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        /* ============ FAQ ============ */
+        .amb-faq-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 0.9rem;
+            overflow: hidden;
+        }
+        .amb-faq-q {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 1.15rem 1.5rem;
+            font-weight: 700;
+            color: var(--green);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .amb-faq-q .fa-chevron-down { transition: transform 0.25s ease; color: var(--gray-mid); }
+        .amb-faq-q[aria-expanded="true"] .fa-chevron-down { transform: rotate(180deg); }
+        .amb-faq-a {
+            padding: 0 1.5rem 1.25rem;
+            font-size: 0.96rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ============ APPLY ============ */
+        .amb-apply-grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .amb-apply-recap {
+            position: sticky;
+            top: 150px;
+            background: linear-gradient(135deg, var(--green) 0%, #2d8653 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2.25rem;
+        }
+        .amb-apply-recap h3 {
+            font-family: 'Newsreader', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .amb-apply-recap ul { padding-left: 1.1rem; margin-bottom: 1.5rem; }
+        .amb-apply-recap li { font-size: 0.95rem; line-height: 1.75; color: rgba(255,255,255,0.92); }
+        .amb-apply-recap .amb-contact {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+            border-top: 1px solid rgba(255,255,255,0.25);
+            padding-top: 1rem;
+        }
+        .amb-apply-recap .amb-contact a { color: var(--accent-lt); font-weight: 600; }
 
         .form-card {
             background: #fff;
-            border: 1px solid #d1e7d8;
-            border-radius: 10px;
-            padding: 2rem 2.25rem;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.25rem;
+            box-shadow: 0 12px 32px rgba(28,91,49,0.08);
         }
         .form-card h2 {
-            font-size: 1.3rem;
-            color: #1C5B31;
+            font-size: 1.35rem;
+            color: var(--green);
             margin-bottom: 1.5rem;
+            font-family: 'Newsreader', serif;
         }
-        .form-label {
-            font-weight: 600;
-            color: #1C5B31;
-            font-size: 0.9rem;
-        }
+        .form-label { font-weight: 600; color: var(--green); font-size: 0.9rem; }
         .form-control, .form-select {
             border-color: #c4d9cb;
             color: #1a1a1a;
             font-size: 0.95rem;
         }
         .form-control:focus, .form-select:focus {
-            border-color: #1C5B31;
+            border-color: var(--green);
             box-shadow: 0 0 0 0.2rem rgba(28, 91, 49, 0.2);
         }
         .btn-submit {
-            background-color: #1C5B31;
-            border-color: #1C5B31;
+            background-color: var(--green);
+            border-color: var(--green);
             color: #fff;
             width: 100%;
-            padding: 0.75rem;
+            padding: 0.85rem;
             font-size: 1rem;
             font-weight: 700;
-            border-radius: 6px;
-            transition: background-color 0.2s;
+            border-radius: 8px;
+            transition: background-color 0.2s, transform 0.2s;
         }
         .btn-submit:hover {
-            background-color: #145022;
-            border-color: #145022;
+            background-color: var(--green-dk);
+            border-color: var(--green-dk);
             color: #fff;
+            transform: translateY(-2px);
         }
 
-        /* Success state */
         #success-message {
             display: none;
             text-align: center;
             padding: 2.5rem 1rem;
         }
-        #success-message .success-icon {
-            font-size: 3rem;
-            color: #1C5B31;
-            margin-bottom: 1rem;
+        #success-message .success-icon { font-size: 3rem; color: var(--green); margin-bottom: 1rem; }
+        #success-message h3 { color: var(--green); }
+        #success-message p { color: var(--gray); }
+
+        .back-link {
+            color: var(--green);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
         }
-        #success-message h3 { color: #1C5B31; }
-        #success-message p { color: #374151; }
+        .back-link:hover { color: var(--green-dk); }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 900px) {
+            .amb-about-grid, .amb-apply-grid { grid-template-columns: 1fr; }
+            .amb-apply-recap { position: static; }
+            .amb-role-grid { grid-template-columns: repeat(2, 1fr); }
+            .amb-perk-grid { grid-template-columns: repeat(2, 1fr); }
+            .amb-perk-highlight { grid-column: span 2; }
+        }
+        @media (max-width: 576px) {
+            .amb-role-grid, .amb-perk-grid { grid-template-columns: 1fr; }
+            .amb-perk-highlight { grid-column: span 1; flex-direction: column; text-align: center; }
+            .amb-hero { padding-top: 6.5rem; }
+            .amb-back-link { top: 5.25rem; left: 1rem; }
+            .amb-stats { gap: 1.5rem; }
+            .amb-section { padding: 3.5rem 0; }
+            .amb-quicknav { top: 60px; }
+        }
     </style>
+    <!-- BeeYarn brand layer (must stay last) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="../css/brand.css?v=20260920m" rel="stylesheet" />
 </head>
 <body id="page-top">
     <div id="shared-header"></div>
 
-    <section id="ambassador-section">
-        <div class="container px-5" style="max-width: 780px;">
+    <!-- HERO -->
+    <header class="amb-hero">
+        <a href="index.html" class="amb-back-link"><i class="fa fa-arrow-left me-1"></i> Back to Careers</a>
 
-            <a href="index.html" class="back-link"><i class="fa fa-arrow-left me-1"></i> Back to Careers</a>
+        <span class="amb-badge">Applications Always Open &middot; Open Across Africa</span>
+        <h1>Become a BeeYarn<br>Campus Ambassador</h1>
+        <p class="amb-hero-sub">Represent BeeYarn, a fast-growing social platform, at your institution. Earn, get certified, and build real growth-marketing experience, from anywhere on the continent.</p>
 
-            <!-- Job Description -->
-            <div class="jd-card">
-                <h1>BeeYarn Campus Ambassador</h1>
-                <div class="jd-meta">Open to all students &middot; Any Nigerian higher institution &middot; <strong>Closing: 19 August 2026</strong></div>
-                <div class="jd-meta" style="margin-top: -1rem;">
-                    <i class="fa fa-location-dot me-1"></i> Fully Remote, Nigeria &nbsp;&middot;&nbsp;
-                    <i class="fa fa-clock me-1"></i> Flexible hours &nbsp;&middot;&nbsp;
-                    <i class="fa fa-coins me-1"></i> Performance-based earnings
+        <div class="amb-hero-cta">
+            <a href="#apply" class="amb-btn amb-btn-light">Apply Now <i class="fa fa-arrow-right"></i></a>
+            <a href="#perks" class="amb-btn amb-btn-outline">See the Perks</a>
+        </div>
+
+        <div class="amb-stats">
+            <div class="amb-stat"><span class="amb-stat-num" data-count-to="54">0</span><span class="amb-stat-label">African Countries</span></div>
+            <div class="amb-stat"><span class="amb-stat-num" data-count-to="2">0</span><span class="amb-stat-label">Posts / Day Target</span></div>
+            <div class="amb-stat"><span class="amb-stat-num" data-count-static="&infin;">0</span><span class="amb-stat-label">Earning Potential</span></div>
+        </div>
+
+        <a href="#about" class="amb-scroll-cue" aria-label="Scroll down"><i class="fa fa-chevron-down"></i></a>
+    </header>
+
+    <!-- STICKY QUICK NAV -->
+    <div class="amb-quicknav">
+        <div class="nav-links">
+            <a href="#about">Overview</a>
+            <a href="#role">What You'll Do</a>
+            <a href="#perks">Perks</a>
+            <a href="#faq">FAQ</a>
+            <a href="#apply">Apply</a>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about" class="amb-section">
+        <div class="amb-container">
+            <div class="amb-about-grid">
+                <div data-animate>
+                    <span class="amb-kicker">About the role</span>
+                    <h2>Be the face of BeeYarn on your campus</h2>
+                    <p>BeeYarn is a social platform built for people who want to be seen, be heard, and be rewarded. Post yarns, join communities, go live, and earn Yarn Points for every contribution you make, whether you're a creator, a reader, or just someone with something to say.</p>
+                    <p>We're building something different: a platform that puts value back into the hands of its users. Proudly African-built, growing fast, and coming to every campus on the continent.</p>
+                    <p class="fw-bold" style="color: var(--green);">BeeYarn is proudly African-built. Let's take it to every campus on the continent, starting with yours.</p>
+                </div>
+                <div class="amb-who-card" data-animate data-animate-delay="1">
+                    <h3><i class="fa fa-circle-check"></i> Who can apply</h3>
+                    <ul>
+                        <li>Any current student at a university, polytechnic, or college anywhere in Africa</li>
+                        <li>Anyone living close to a higher institution or secondary school</li>
+                        <li>No experience needed</li>
+                        <li>No follower count required</li>
+                        <li>Applications are always open, every submission is reviewed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT YOU'LL DO -->
+    <section id="role" class="amb-section alt">
+        <div class="amb-container">
+            <span class="amb-kicker">The role</span>
+            <h2>What you'll do</h2>
+            <p class="amb-section-sub">Six ways you'll grow BeeYarn on your campus, and grow yourself in the process.</p>
+
+            <div class="amb-role-grid">
+                <div class="amb-role-card" data-animate data-animate-delay="1">
+                    <div class="amb-role-icon"><i class="fa fa-bullhorn"></i></div>
+                    <h3>Represent BeeYarn</h3>
+                    <p>Be the official student voice of BeeYarn at your institution.</p>
+                </div>
+                <div class="amb-role-card" data-animate data-animate-delay="2">
+                    <div class="amb-role-icon"><i class="fa fa-share-nodes"></i></div>
+                    <h3>Promote everywhere</h3>
+                    <p>Social media, WhatsApp groups, campus events, and word of mouth.</p>
+                </div>
+                <div class="amb-role-card" data-animate data-animate-delay="3">
+                    <div class="amb-role-icon"><i class="fa fa-link"></i></div>
+                    <h3>Drive sign-ups</h3>
+                    <p>Grow your campus using your unique BeeYarn referral link.</p>
+                </div>
+                <div class="amb-role-card" data-animate data-animate-delay="4">
+                    <div class="amb-role-icon"><i class="fa fa-pen-fancy"></i></div>
+                    <h3>Create &amp; engage</h3>
+                    <p>Post and engage on BeeYarn to grow your presence and earn Yarn Points.</p>
+                </div>
+                <div class="amb-role-card" data-animate>
+                    <div class="amb-role-icon"><i class="fa fa-lightbulb"></i></div>
+                    <h3>Get creative</h3>
+                    <p>Flyers, memes, campus shoutouts, association partnerships, you know your campus best.</p>
+                </div>
+                <div class="amb-role-card" data-animate data-animate-delay="1">
+                    <div class="amb-role-icon"><i class="fa fa-comments"></i></div>
+                    <h3>Share feedback</h3>
+                    <p>Feed insights from your campus community back to the BeeYarn team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERKS -->
+    <section id="perks" class="amb-section">
+        <div class="amb-container">
+            <span class="amb-kicker">What's in it for you</span>
+            <h2>Perks &amp; benefits</h2>
+            <p class="amb-section-sub">Beyond the experience, ambassadors earn real, tangible rewards.</p>
+
+            <div class="amb-perk-grid">
+                <div class="amb-perk-highlight" data-animate>
+                    <div class="amb-perk-icon"><i class="fa fa-gift"></i></div>
+                    <div class="amb-perk-highlight-text">
+                        <h3>Free subscription for consistent posting</h3>
+                        <p>Hit the posting target and get a <strong>free 1-month BeeYarn subscription</strong>: on top of every other perk on this page.</p>
+                    </div>
+                    <div class="amb-toggle" role="group" aria-label="View posting target">
+                        <button type="button" class="amb-toggle-btn active" data-view="day">Daily</button>
+                        <button type="button" class="amb-toggle-btn" data-view="month">Monthly</button>
+                    </div>
+                    <div class="amb-toggle-display">
+                        <span class="amb-toggle-num" id="perk-toggle-num">2</span>
+                        <span class="amb-toggle-unit" id="perk-toggle-unit">posts per day</span>
+                    </div>
                 </div>
 
-                <p><strong>About BeeYarn</strong><br />
-                BeeYarn is a social platform built for people who want to be seen, be heard, and be rewarded. Post yarns, join communities, go live, and earn Yarn Points for every contribution you make &mdash; whether you're a creator, a reader, or just someone with something to say. We're building something different: a platform that puts value back into the hands of its users. Proudly Nigerian-built, growing fast, and coming to every campus in the country.</p>
-
-                <h2>Who can apply</h2>
-                <p>Any current student of a Nigerian university, polytechnic, or college of education &mdash; or anyone living in close proximity to a higher institution or secondary school in Nigeria. No experience needed. No follower count required. All applications are welcome and reviewed.</p>
-
-                <h2>What you'll do</h2>
-                <ul>
-                    <li>Represent BeeYarn as the official student voice at your institution.</li>
-                    <li>Promote BeeYarn across campus &mdash; social media, WhatsApp groups, campus events, and word of mouth.</li>
-                    <li>Drive sign-ups at your institution using your unique BeeYarn referral link.</li>
-                    <li>Create and engage with content on BeeYarn to grow your presence and earn Yarn Points.</li>
-                    <li>Be creative &mdash; flyers, memes, campus shoutouts, association partnerships &mdash; you know your campus best.</li>
-                    <li>Feed insights and feedback from your campus community back to the BeeYarn team.</li>
-                </ul>
-
-                <h2>What's in it for you</h2>
-                <ul>
-                    <li><strong>Earn from your hustle</strong> &mdash; referrals and platform activity earn you Yarn Points, which can be converted to Naira once you meet monetisation requirements.</li>
-                    <li><strong>Official Ambassador Certificate</strong> &mdash; a verified BeeYarn certificate to strengthen your CV.</li>
-                    <li><strong>PDF recommendation letter</strong> &mdash; a written reference from the BeeYarn team, available on request.</li>
-                    <li><strong>Real startup experience</strong> &mdash; hands-on growth marketing experience at a live, scaling Nigerian tech product.</li>
-                    <li><strong>National Ambassador network</strong> &mdash; connect with fellow ambassadors from institutions across Nigeria.</li>
-                </ul>
-
-                <p class="jd-tagline">BeeYarn is proudly Nigerian-built. Let's take it to every campus in the country &mdash; starting with yours.</p>
+                <div class="amb-perk-card" data-animate data-animate-delay="1">
+                    <div class="amb-perk-icon"><i class="fa fa-coins"></i></div>
+                    <h3>Earn from your hustle</h3>
+                    <p>Referrals and platform activity earn Yarn Points, convertible to cash once you meet monetisation requirements.</p>
+                </div>
+                <div class="amb-perk-card" data-animate data-animate-delay="2">
+                    <div class="amb-perk-icon"><i class="fa fa-award"></i></div>
+                    <h3>Ambassador Certificate</h3>
+                    <p>An official, verified BeeYarn certificate to strengthen your CV.</p>
+                </div>
+                <div class="amb-perk-card" data-animate data-animate-delay="3">
+                    <div class="amb-perk-icon"><i class="fa fa-envelope-open-text"></i></div>
+                    <h3>Recommendation letter</h3>
+                    <p>A written PDF reference from the BeeYarn team, available on request.</p>
+                </div>
+                <div class="amb-perk-card" data-animate data-animate-delay="1">
+                    <div class="amb-perk-icon"><i class="fa fa-rocket"></i></div>
+                    <h3>Real startup experience</h3>
+                    <p>Hands-on growth marketing experience at a live, scaling African tech product.</p>
+                </div>
+                <div class="amb-perk-card" data-animate data-animate-delay="2">
+                    <div class="amb-perk-icon"><i class="fa fa-earth-africa"></i></div>
+                    <h3>Continental network</h3>
+                    <p>Connect with fellow ambassadors from institutions across Africa.</p>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Application Form -->
-            <div class="form-card">
-                <h2>Apply Now</h2>
+    <!-- FAQ -->
+    <section id="faq" class="amb-section alt">
+        <div class="amb-container-narrow">
+            <span class="amb-kicker">Questions</span>
+            <h2>Frequently asked questions</h2>
 
-                <div id="success-message">
-                    <div class="success-icon"><i class="fa fa-circle-check"></i></div>
-                    <p style="font-size: 1.1rem; color: #1C5B31; font-weight: 600; margin-bottom: 0.5rem;">Thank you for applying! We'll be in touch via email soon.</p>
-                    <a href="index.html" class="back-link mt-3"><i class="fa fa-arrow-left me-1"></i> Back to Careers</a>
+            <div class="amb-faq-item" data-animate>
+                <button class="amb-faq-q" aria-expanded="true" data-faq-toggle>
+                    Do I need a big following to apply?
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="amb-faq-a">No follower count is required. We review every application on its own merit, enthusiasm and consistency matter more than numbers.</div>
+            </div>
+            <div class="amb-faq-item" data-animate>
+                <button class="amb-faq-q" aria-expanded="false" data-faq-toggle>
+                    I'm not in Nigeria, can I still apply?
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="amb-faq-a" style="display:none;">Yes. The programme is open to students at any higher institution across Africa, not just Nigeria.</div>
+            </div>
+            <div class="amb-faq-item" data-animate>
+                <button class="amb-faq-q" aria-expanded="false" data-faq-toggle>
+                    How does the free subscription perk work?
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="amb-faq-a" style="display:none;">Ambassadors who average 2 posts a day (or 60 posts in a month) get a free 1-month BeeYarn subscription, in addition to every other perk.</div>
+            </div>
+            <div class="amb-faq-item" data-animate>
+                <button class="amb-faq-q" aria-expanded="false" data-faq-toggle>
+                    Is there a deadline to apply?
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="amb-faq-a" style="display:none;">No, applications are always open. You can apply any time and we review every submission.</div>
+            </div>
+            <div class="amb-faq-item" data-animate>
+                <button class="amb-faq-q" aria-expanded="false" data-faq-toggle>
+                    Does it cost anything to join?
+                    <i class="fa fa-chevron-down"></i>
+                </button>
+                <div class="amb-faq-a" style="display:none;">Nothing at all. Joining the Campus Ambassador programme is completely free.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPLY -->
+    <section id="apply" class="amb-section">
+        <div class="amb-container">
+            <span class="amb-kicker">Last step</span>
+            <h2>Apply now</h2>
+            <p class="amb-section-sub">Takes about two minutes. We'll be in touch by email.</p>
+
+            <div class="amb-apply-grid">
+                <div class="amb-apply-recap" data-animate>
+                    <h3>Why join?</h3>
+                    <ul>
+                        <li>Applications are always open, no deadline pressure</li>
+                        <li>Open to every student across Africa</li>
+                        <li>Earn Yarn Points, certificates, and a free subscription for consistent posting</li>
+                        <li>Real growth-marketing experience for your CV</li>
+                    </ul>
+                    <div class="amb-contact">
+                        Questions? Email us at <a href="mailto:careers@beeyarn.com">careers@beeyarn.com</a>
+                    </div>
                 </div>
 
-                <form id="ambassador-form">
-                    <div class="mb-3">
-                        <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="fullName" name="fullName" placeholder="e.g. Amara Okafor" required />
+                <div class="form-card" data-animate data-animate-delay="1">
+                    <h2>Application Form</h2>
+
+                    <div id="success-message">
+                        <div class="success-icon"><i class="fa fa-circle-check"></i></div>
+                        <p style="font-size: 1.1rem; color: var(--green); font-weight: 600; margin-bottom: 0.5rem;">Thank you for applying! We'll be in touch via email soon.</p>
+                        <a href="index.html" class="back-link mt-3"><i class="fa fa-arrow-left me-1"></i> Back to Careers</a>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required />
-                    </div>
+                    <form id="ambassador-form">
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="fullName" name="fullName" placeholder="e.g. Amara Okafor" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="+234 800 000 0000" required />
-                    </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="institution" class="form-label">Institution Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="institution" name="institution" placeholder="e.g. University of Lagos" required />
-                    </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="e.g. +234 800 000 0000" required />
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="socialPlatform" class="form-label">Most Active Social Media Platform <span class="text-danger">*</span></label>
-                        <select class="form-select" id="socialPlatform" name="socialPlatform" required>
-                            <option value="" disabled selected>Select a platform</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="X/Twitter">X/Twitter</option>
-                            <option value="TikTok">TikTok</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="WhatsApp">WhatsApp</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Country <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="e.g. Nigeria, Kenya, Ghana, South Africa..." required />
+                        </div>
 
-                    <div class="mb-4">
-                        <label for="whyAmbassador" class="form-label">Why do you want to be a BeeYarn Campus Ambassador? <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="whyAmbassador" name="whyAmbassador" rows="5"
-                            placeholder="Tell us in 2–3 sentences why you'd be a great fit..." required></textarea>
-                    </div>
+                        <div class="mb-3">
+                            <label for="institution" class="form-label">Institution Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="institution" name="institution" placeholder="e.g. University of Lagos" required />
+                        </div>
 
-                    <button type="submit" class="btn btn-submit" id="submit-btn">Submit Application</button>
-                </form>
+                        <div class="mb-3">
+                            <label for="socialPlatform" class="form-label">Most Active Social Media Platform <span class="text-danger">*</span></label>
+                            <select class="form-select" id="socialPlatform" name="socialPlatform" required>
+                                <option value="" disabled selected>Select a platform</option>
+                                <option value="Instagram">Instagram</option>
+                                <option value="X/Twitter">X/Twitter</option>
+                                <option value="TikTok">TikTok</option>
+                                <option value="Facebook">Facebook</option>
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="whyAmbassador" class="form-label">Why do you want to be a BeeYarn Campus Ambassador? <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="whyAmbassador" name="whyAmbassador" rows="5"
+                                placeholder="Tell us in 2–3 sentences why you'd be a great fit..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit" id="submit-btn">Submit Application</button>
+                    </form>
+                </div>
             </div>
-
         </div>
     </section>
 
@@ -262,8 +876,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script src="../js/shared-shell.js"></script>
+    <script src="../js/shared-shell.js?v=20260920m"></script>
     <script>
+        // ---- Application form submission ----
         const form = document.getElementById('ambassador-form');
         const successMsg = document.getElementById('success-message');
         const submitBtn = document.getElementById('submit-btn');
@@ -290,6 +905,99 @@
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Submit Application';
             }
+        });
+
+        // ---- Smooth scroll for in-page anchor links ----
+        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ---- Active quick-nav link on scroll ----
+        var ambSections = document.querySelectorAll('#about, #role, #perks, #faq, #apply');
+        var ambNavLinks = document.querySelectorAll('.amb-quicknav a');
+        window.addEventListener('scroll', function () {
+            var current = '';
+            ambSections.forEach(function (section) {
+                var top = section.offsetTop - 160;
+                if (window.scrollY >= top) current = section.getAttribute('id');
+            });
+            ambNavLinks.forEach(function (link) {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+        }, { passive: true });
+
+        // ---- Hero stat count-up ----
+        (function () {
+            var nums = document.querySelectorAll('.amb-stat-num[data-count-to]');
+            if (!nums.length) return;
+            var animated = false;
+            function run() {
+                if (animated) return;
+                animated = true;
+                nums.forEach(function (el) {
+                    var target = parseInt(el.getAttribute('data-count-to'), 10);
+                    var start = 0;
+                    var duration = 900;
+                    var startTime = null;
+                    function step(ts) {
+                        if (!startTime) startTime = ts;
+                        var progress = Math.min((ts - startTime) / duration, 1);
+                        el.textContent = Math.floor(progress * (target - start) + start);
+                        if (progress < 1) requestAnimationFrame(step);
+                        else el.textContent = target;
+                    }
+                    requestAnimationFrame(step);
+                });
+            }
+            document.querySelectorAll('.amb-stat-num[data-count-static]').forEach(function (el) {
+                el.textContent = el.getAttribute('data-count-static');
+            });
+            if ('IntersectionObserver' in window) {
+                var obs = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) { run(); obs.disconnect(); }
+                    });
+                }, { threshold: 0.4 });
+                obs.observe(document.querySelector('.amb-stats'));
+            } else {
+                run();
+            }
+        })();
+
+        // ---- Perk toggle (daily / monthly) ----
+        (function () {
+            var buttons = document.querySelectorAll('.amb-toggle-btn');
+            var numEl = document.getElementById('perk-toggle-num');
+            var unitEl = document.getElementById('perk-toggle-unit');
+            buttons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    buttons.forEach(function (b) { b.classList.remove('active'); });
+                    btn.classList.add('active');
+                    if (btn.getAttribute('data-view') === 'day') {
+                        numEl.textContent = '2';
+                        unitEl.textContent = 'posts per day';
+                    } else {
+                        numEl.textContent = '60';
+                        unitEl.textContent = 'posts per month';
+                    }
+                });
+            });
+        })();
+
+        // ---- FAQ accordion ----
+        document.querySelectorAll('[data-faq-toggle]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var answer = btn.nextElementSibling;
+                var expanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', String(!expanded));
+                answer.style.display = expanded ? 'none' : 'block';
+            });
         });
     </script>
 </body>
