@@ -5,12 +5,14 @@
         : '';
 
     // ---- LOGO: change ONLY this block to update the logo in the nav and footer ----
+    // Transparent wordmarks so the logo blends into the page: green for light surfaces, white for the dark footer.
     const LOGO = {
-        src: `${rootPrefix}assets/logo.png`,    // path or URL of the logo image
+        src: `${rootPrefix}assets/logo-green.png`,      // used on the white nav
+        srcDark: `${rootPrefix}assets/logo-white.png`,  // used on the black footer
         alt: 'BeeYarn',
-        showName: false,                     // set true to print the name next to the image
+        showName: false,                                // set true to print the name next to the image
     };
-    const logoHtml = (cls) => `<img class="by-logo-img" src="${LOGO.src}" alt="${LOGO.alt}" width="52" height="52">${LOGO.showName ? `<span class="by-logo-name">BeeYarn</span>` : ''}`;
+    const logoHtml = (dark) => `<img class="by-logo-img" src="${dark ? LOGO.srcDark : LOGO.src}" alt="${LOGO.alt}" width="460" height="147">${LOGO.showName ? `<span class="by-logo-name">BeeYarn</span>` : ''}`;
 
     const pageLinks = [
         { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
@@ -67,7 +69,7 @@
         return `
 <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand by-logo" href="${rootPrefix}index.html" aria-label="BeeYarn home">${logoHtml()}</a>
+        <a class="navbar-brand by-logo" href="${rootPrefix}index.html" aria-label="BeeYarn home">${logoHtml(false)}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="bi-list"></i>
@@ -105,7 +107,7 @@
     <div class="container px-4 px-lg-5">
         <div class="site-footer-grid">
             <div class="site-footer-brand">
-                <a href="${rootPrefix}index.html" class="site-footer-logo by-logo" aria-label="BeeYarn home">${logoHtml()}</a>
+                <a href="${rootPrefix}index.html" class="site-footer-logo by-logo" aria-label="BeeYarn home">${logoHtml(true)}</a>
                 <p class="site-footer-tagline">Creator economy for the Global South. Fair rewards, privacy first.</p>
                 <div class="site-footer-social">${socialHtml}</div>
             </div>
@@ -160,7 +162,7 @@
         if (!document.querySelector('link[data-beeyarn="animations"]')) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = rootPrefix + 'css/animations.css?v=20260920m';
+            link.href = rootPrefix + 'css/animations.css?v=20260920n';
             link.setAttribute('data-beeyarn', 'animations');
             document.head.appendChild(link);
         }
