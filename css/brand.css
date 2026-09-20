@@ -242,15 +242,6 @@ strong, b { color: var(--by-text); font-weight: 600; }
 .by-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
 .by-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-/* ---------- Stats strip ---------- */
-.by-stats-bar { border-top: 1px solid var(--by-line); border-bottom: 1px solid var(--by-line); background: var(--by-bg); }
-.by-stats { display: grid; grid-template-columns: repeat(4, 1fr); }
-.by-stat { padding: 2rem 1.75rem; border-left: 1px solid var(--by-line); }
-.by-stat:first-child { border-left: 0; padding-left: 0; }
-.by-stat-num { font-size: clamp(1.8rem, 3.2vw, 2.6rem); font-weight: 700; letter-spacing: -0.04em; color: var(--by-text); line-height: 1.1; }
-.by-stat-num span { color: var(--by-green-hi); }
-.by-stat-label { font-family: var(--by-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--by-text-3); margin-top: 0.5rem; }
-
 /* ---------- Section head ---------- */
 .by-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
 .by-head p { max-width: 46ch; margin: 0; color: var(--by-text-2); }
@@ -547,9 +538,6 @@ table, .points-table, .currency-table { color: var(--by-text-2) !important; }
     .by-wrap { padding: 0 1.5rem; }
     .by-hero-grid, .by-split { grid-template-columns: 1fr; gap: 3rem; }
     .by-cards { --cols: 2 !important; }
-    .by-stats { grid-template-columns: repeat(2, 1fr); }
-    .by-stat:nth-child(3) { border-left: 0; }
-    .by-stat:nth-child(n+3) { border-top: 1px solid var(--by-line); }
     .by-section { padding: 5rem 0; }
     .by-hero { padding-top: 7.5rem; }
 }
