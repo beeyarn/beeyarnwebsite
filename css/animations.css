@@ -139,6 +139,26 @@
 .site-footer-bottom a { color: var(--by-text-3, #6e7a72); text-decoration: none; }
 .site-footer-bottom a:hover { color: #26a654; }
 
+/* --- Status pill (footer badge + status page) ----- */
+.by-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    text-decoration: none;
+    color: inherit;
+}
+.by-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--by-text-3, #6e7a72);
+    flex-shrink: 0;
+}
+.by-status-pill[data-status="operational"] .by-status-dot { background: #26a654; }
+.by-status-pill[data-status="degraded"] .by-status-dot { background: #ea580c; }
+.by-status-pill[data-status="outage"] .by-status-dot { background: #dc2626; }
+.by-status-pill[data-status="progress"] .by-status-dot { background: #2563eb; }
+
 @media (max-width: 900px) {
     .site-footer-grid { grid-template-columns: 1fr 1fr; }
     .site-footer-brand { grid-column: span 2; }

@@ -16,8 +16,9 @@
 
     const pageLinks = [
         { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
-        { label: 'Creator Levels', href: `${rootPrefix}beeyarn-creator-level-system.html` },
+        { label: 'News', href: `${rootPrefix}news` },
         { label: 'Careers', href: `${rootPrefix}career/index.html` },
+        { label: 'Investors', href: `${rootPrefix}investors` },
         { label: 'FAQ', href: `${rootPrefix}faqs` },
     ];
 
@@ -26,6 +27,7 @@
             title: 'Company',
             links: [
                 { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
+                { label: 'News', href: `${rootPrefix}news` },
                 { label: 'Careers', href: `${rootPrefix}career/index.html` },
                 { label: 'Become a Campus Ambassador', href: `${rootPrefix}career/campus-ambassador.html` },
                 { label: 'Investors', href: `${rootPrefix}investors` },
@@ -115,6 +117,7 @@
         </div>
         <div class="site-footer-bottom">
             <span>&copy; ${year} BeeYarn. All rights reserved.</span>
+            <a href="${rootPrefix}status">Is BeeYarn down? Click here to check</a>
             <a href="#" onclick="event.preventDefault(); try { window.Cookiebot && Cookiebot.renew(); } catch (e) {}">Cookie Settings</a>
         </div>
     </div>
@@ -156,13 +159,14 @@
 
         activateCurrentLink();
         injectAnimations();
+        injectStatusWidget();
     }
 
     function injectAnimations() {
         if (!document.querySelector('link[data-beeyarn="animations"]')) {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
-            link.href = rootPrefix + 'css/animations.css?v=20260920n';
+            link.href = rootPrefix + 'css/animations.css?v=20260922d';
             link.setAttribute('data-beeyarn', 'animations');
             document.head.appendChild(link);
         }
@@ -170,6 +174,16 @@
             const script = document.createElement('script');
             script.src = rootPrefix + 'js/animations.js';
             script.setAttribute('data-beeyarn', 'animations');
+            document.body.appendChild(script);
+        }
+    }
+
+    function injectStatusWidget() {
+        if (!document.getElementById('by-status-page')) return;
+        if (!document.querySelector('script[data-beeyarn="status"]')) {
+            const script = document.createElement('script');
+            script.src = rootPrefix + 'js/status.js?v=20260922f';
+            script.setAttribute('data-beeyarn', 'status');
             document.body.appendChild(script);
         }
     }

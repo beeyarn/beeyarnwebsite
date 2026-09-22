@@ -12,21 +12,21 @@
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Contact BeeYarn - Get in touch with our team for support, partnerships, press, or careers." />
+    <meta name="description" content="News from BeeYarn: product launches, funding announcements, and partnerships." />
     <meta name="author" content="BeeYarn" />
-    <title>Contact Us | BeeYarn</title>
+    <title>News | BeeYarn</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2" />
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2" />
     <meta name="theme-color" content="#070a08" />
     <!-- Open Graph -->
-    <meta property="og:title" content="Contact BeeYarn" />
-    <meta property="og:description" content="Get in touch with the BeeYarn team for support, partnerships, press enquiries, or careers." />
+    <meta property="og:title" content="News | BeeYarn" />
+    <meta property="og:description" content="News from BeeYarn: product launches, funding announcements, and partnerships." />
     <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
-    <meta property="og:url" content="https://beeyarn.com/contact" />
+    <meta property="og:url" content="https://beeyarn.com/news" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Contact BeeYarn" />
-    <meta name="twitter:description" content="Get in touch with the BeeYarn team for support, partnerships, press enquiries, or careers." />
+    <meta name="twitter:title" content="News | BeeYarn" />
+    <meta name="twitter:description" content="News from BeeYarn: product launches, funding announcements, and partnerships." />
     <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
     <!-- Bootstrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
@@ -47,21 +47,20 @@
     <div id="shared-header"></div>
     <header class="by-page-head">
         <div class="by-wrap">
-            <span class="by-eyebrow">Contact</span>
-            <h1>Reach the right team.</h1>
-            <p class="by-lede">We'd love to hear from you. Pick the team below and we'll get back to you.</p>
+            <span class="by-eyebrow">News</span>
+            <h1>News &amp; updates.</h1>
+            <p class="by-lede">Product launches, funding announcements, and partnerships from the BeeYarn team.</p>
         </div>
     </header>
     <section class="by-section" style="border-top:0">
         <div class="by-wrap">
-            <div class="by-cards" style="--cols:3">
-                <div class="by-card" data-animate><span class="by-card-idx">01</span><h3>General support</h3><p>Having trouble with the app or your account? Our support team is here to help.</p><p style="margin-top:1.1rem"><a href="mailto:support@beeyarn.com">support@beeyarn.com</a></p></div>
-                <div class="by-card" data-animate><span class="by-card-idx">02</span><h3>Privacy &amp; data</h3><p>Questions about your personal data, privacy rights, or our data practices.</p><p style="margin-top:1.1rem"><a href="mailto:privacy@beeyarn.com">privacy@beeyarn.com</a></p></div>
-                <div class="by-card" data-animate><span class="by-card-idx">03</span><h3>Careers</h3><p>Interested in joining the BeeYarn team? Send us your CV.</p><p style="margin-top:1.1rem"><a href="mailto:careers@beeyarn.com">careers@beeyarn.com</a></p></div>
-                <div class="by-card" data-animate><span class="by-card-idx">04</span><h3>Press &amp; media</h3><p>Media enquiries, interviews, or partnership opportunities.</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
-                <div class="by-card" data-animate><span class="by-card-idx">05</span><h3>Business &amp; partnerships</h3><p>Interested in advertising on BeeYarn or exploring a partnership?</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
-                <div class="by-card" data-animate><span class="by-card-idx">06</span><h3>Investors</h3><p>Interested in backing what we are building? See our investor page.</p><p style="margin-top:1.1rem"><a href="mailto:info@beeyarn.com">info@beeyarn.com</a></p></div>
-            </div>
+            <a href="whybeeyarn.html" class="by-row">
+                <div>
+                    <div class="by-row-title">BeeYarn Launches: The Social Platform That Finally Pays Everyone</div>
+                    <div class="by-row-meta"><span class="by-tag">Launch</span>BeeYarn rewards everyone who contributes &mdash; creators, readers, and community members alike.</div>
+                </div>
+                <span class="by-arrow" aria-hidden="true">&rarr;</span>
+            </a>
         </div>
     </section>
     <div id="shared-footer"></div>
