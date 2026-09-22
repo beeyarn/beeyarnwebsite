@@ -111,6 +111,19 @@
   </script>
 </head>
 <body>
+  <script>
+    // Capture Google's OAuth id_token from the URL fragment BEFORE Flutter's
+    // router starts and rewrites/clears the hash. Stores it on window so Dart
+    // can read it after startup, then cleans the URL so the router only sees
+    // the base path.
+    (function () {
+      var h = window.location.hash || '';
+      if (h.indexOf('id_token=') !== -1) {
+        window.__beeyarnOAuthFragment = h.substring(1);
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    })();
+  </script>
   <script src="flutter_bootstrap.js" async=""></script>
 
 
