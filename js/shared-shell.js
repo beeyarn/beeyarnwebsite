@@ -29,7 +29,6 @@
                 { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
                 { label: 'News', href: `${rootPrefix}news` },
                 { label: 'Careers', href: `${rootPrefix}career/index.html` },
-                { label: 'Become a Campus Ambassador', href: `${rootPrefix}career/campus-ambassador.html` },
                 { label: 'Investors', href: `${rootPrefix}investors` },
                 { label: 'Contact', href: `${rootPrefix}contact` },
             ],
@@ -117,7 +116,7 @@
         </div>
         <div class="site-footer-bottom">
             <span>&copy; ${year} BeeYarn. All rights reserved.</span>
-            <a href="${rootPrefix}status">Is BeeYarn down? Click here to check</a>
+            <a href="${rootPrefix}status">System Status</a>
             <a href="#" onclick="event.preventDefault(); try { window.Cookiebot && Cookiebot.renew(); } catch (e) {}">Cookie Settings</a>
         </div>
     </div>
