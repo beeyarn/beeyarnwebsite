@@ -34,7 +34,28 @@ $is_crawler = (bool) preg_match(
 );
 
 if ($slug && !$is_crawler) {
-    header('Location: https://www.beeyarn.com/home/p/' . rawurlencode($slug), true, 302);
+    $target = 'https://www.beeyarn.com/home/p/' . rawurlencode($slug);
+    $code   = isset($_GET['s']) && is_string($_GET['s']) ? $_GET['s'] : '';
+
+    if (!preg_match('/^[0-9a-z]{1,13}-[0-9a-f]{12}$/', $code)) {
+        header('Location: ' . $target, true, 302);
+        exit;
+    }
+
+    // A shared link names its sharer. Report the click from JavaScript before moving
+    // on, because only a real browser runs this, so unlisted bots can't earn the sharer pay.
+    $js_target = json_encode($target, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_SLASHES);
+    $js_body   = json_encode(json_encode(['slug' => $slug, 's' => $code]), JSON_HEX_TAG | JSON_HEX_AMP);
+    $noscript  = htmlspecialchars($target, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    header('Content-Type: text/html; charset=UTF-8');
+    header('Cache-Control: no-store');
+    echo '<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="robots" content="noindex"><title>BeeYarn</title>'
+       . '<noscript><meta http-equiv="refresh" content="0;url=' . $noscript . '"></noscript></head><body><script>'
+       . 'var go=function(){location.replace(' . $js_target . ')};setTimeout(go,1500);'
+       . 'fetch("https://api.beeyarn.com/api/share-click",{method:"POST",keepalive:true,'
+       . 'headers:{"Content-Type":"application/json"},body:' . $js_body . '}).then(go,go);'
+       . '</script></body></html>';
     exit;
 }
 
