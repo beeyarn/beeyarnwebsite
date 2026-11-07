@@ -18,6 +18,7 @@
         { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
         { label: 'News', href: `${rootPrefix}news` },
         { label: 'Careers', href: `${rootPrefix}career/index.html` },
+        { label: 'Advertise', href: `${rootPrefix}advertise` },
         { label: 'Investors', href: `${rootPrefix}investors` },
         { label: 'FAQ', href: `${rootPrefix}faqs` },
     ];
@@ -29,6 +30,7 @@
                 { label: 'Why BeeYarn', href: `${rootPrefix}whybeeyarn.html` },
                 { label: 'News', href: `${rootPrefix}news` },
                 { label: 'Careers', href: `${rootPrefix}career/index.html` },
+                { label: 'Advertise', href: `${rootPrefix}advertise` },
                 { label: 'Investors', href: `${rootPrefix}investors` },
                 { label: 'Contact', href: `${rootPrefix}contact` },
             ],

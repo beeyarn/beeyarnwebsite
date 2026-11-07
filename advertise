@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="e70f1af9-755b-42c1-b0a8-aead9291379b" data-blockingmode="auto" type="text/javascript"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17631423975"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'AW-17631423975');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Advertise on BeeYarn. Put your business in front of people in the countries you choose, from ₦2,625 a week. Set up in minutes and follow your results day by day." />
+    <meta name="author" content="BeeYarn" />
+    <title>Advertise on BeeYarn | BeeYarn Ads</title>
+    <link rel="canonical" href="https://www.beeyarn.com/advertise" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png?v=2" />
+    <meta name="theme-color" content="#070a08" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Advertise on BeeYarn" />
+    <meta property="og:description" content="Reach people in the countries you choose, from ₦2,625 a week. Set up in minutes, follow your results day by day." />
+    <meta property="og:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <meta property="og:url" content="https://www.beeyarn.com/advertise" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Advertise on BeeYarn" />
+    <meta name="twitter:description" content="Reach people in the countries you choose, from ₦2,625 a week. Set up in minutes, follow your results day by day." />
+    <meta name="twitter:image" content="https://beeyarn.com/assets/img/homepage.jpg" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <!-- Core theme CSS -->
+    <link href="css/styles.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- BeeYarn brand layer (must stay last) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="css/brand.css?v=20260920n" rel="stylesheet" />
+    <style>
+        .by-price { display: flex; align-items: baseline; gap: 0.4rem; margin: 0.9rem 0 0.2rem; }
+        .by-price strong { font-size: 2rem; letter-spacing: -0.03em; line-height: 1; }
+        .by-price span { color: var(--by-text-2, #434b46); font-size: 0.9rem; }
+        .by-price-list { list-style: none; padding: 0; margin: 1rem 0 0; font-size: 0.92rem; }
+        .by-price-list li { display: flex; justify-content: space-between; padding: 0.45rem 0; border-top: 1px solid var(--by-line, rgba(0,0,0,.09)); }
+        .by-price-list li span:last-child { font-weight: 600; font-variant-numeric: tabular-nums; }
+                .by-fineprint { margin-top: 1.5rem; font-size: 0.85rem; color: var(--by-text-2, #434b46); }
+    </style>
+</head>
+<body id="page-top">
+    <div id="shared-header"></div>
+
+    <header class="by-page-head">
+        <div class="by-wrap">
+            <span class="by-eyebrow">BeeYarn Ads</span>
+            <h1>Put your business in front of people who are paying attention.</h1>
+            <p class="by-lede">Advertise on BeeYarn in the countries you choose. Set up an ad in minutes, pay a fixed price with no bidding, and watch your results come in day by day.</p>
+            <div class="by-hero-cta">
+                <a class="by-btn" href="https://ads.beeyarn.com/register">Create your first ad <span aria-hidden="true">&rarr;</span></a>
+                <a class="by-btn by-btn--ghost" href="#pricing">See prices</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="by-section">
+        <div class="by-wrap"><div class="by-split">
+            <div data-animate>
+                <span class="by-eyebrow">01 / Why BeeYarn</span>
+                <h2 class="by-h2">An ad that people actually see.</h2>
+                <p class="by-lede">On BeeYarn, people earn for taking part, so they scroll, read and comment. Your ad sits in their home feed next to the posts they came for.</p>
+            </div>
+            <div class="by-spec" data-animate data-animate-delay="1">
+                <div class="by-spec-row"><div class="by-spec-k">Placement</div><div class="by-spec-v">In the home feed<small>Your ad appears between posts, marked as sponsored, with your picture or video, your words and a button.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Engagement</div><div class="by-spec-v">People can like and comment<small>Your ad is a real post people can react to, so you hear what they think, not just how many saw it.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Action</div><div class="by-spec-v">Send them to your site or WhatsApp<small>Add a link to your website or shop, or a WhatsApp button so customers can message you straight away.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Pricing</div><div class="by-spec-v">Fixed, up front<small>Pick how many days to run. You pay that price once, with no bidding and no surprise charges.</small></div></div>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="by-section by-dark">
+        <div class="by-wrap">
+            <div class="by-head"><div><span class="by-eyebrow">02 / How it works</span><h2 class="by-h2">Live in four steps.</h2></div><p>No agency and no minimum spend.</p></div>
+            <div class="by-cards" style="--cols:4">
+                <div class="by-card" data-animate><span class="by-card-idx">1</span><h3>Create an account</h3><p>Sign up at ads.beeyarn.com with your email. If you already use BeeYarn, log in with the same email and we'll send you a code.</p></div>
+                <div class="by-card" data-animate data-animate-delay="1"><span class="by-card-idx">2</span><h3>Make your ad</h3><p>Add a picture or video, a headline and a few lines of text. Choose your goal, countries, age group and how long it runs.</p></div>
+                <div class="by-card" data-animate data-animate-delay="2"><span class="by-card-idx">3</span><h3>Pay and we review</h3><p>Pay by card. Our team checks every ad, usually within 24 hours, and emails you when it's approved.</p></div>
+                <div class="by-card" data-animate data-animate-delay="3"><span class="by-card-idx">4</span><h3>Watch the results</h3><p>See views, people reached, clicks, likes and comments every day. Pause and resume whenever you like.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="by-section" id="pricing">
+        <div class="by-wrap">
+            <div class="by-head"><div><span class="by-eyebrow">03 / Pricing</span><h2 class="by-h2">One price for the whole run.</h2></div><p>The price depends on where your audience is. An ad aimed at several regions pays the rate of the dearest one.</p></div>
+            <div class="by-cards" style="--cols:3">
+                <div class="by-card" data-animate>
+                    <span class="by-card-idx">A</span><h3>Africa</h3>
+                    <p>Any of the 54 African countries, or all of Africa at once.</p>
+                    <div class="by-price"><strong>₦2,625</strong><span>for 7 days</span></div>
+                    <ul class="by-price-list">
+                        <li><span>14 days</span><span>₦4,500</span></li>
+                        <li><span>30 days</span><span>₦7,500</span></li>
+                        <li><span>90 days</span><span>₦18,750</span></li>
+                    </ul>
+                </div>
+                <div class="by-card" data-animate data-animate-delay="1">
+                    <span class="by-card-idx">B</span><h3>Rest of the world</h3>
+                    <p>Asia, the Middle East, Latin America, the Caribbean and the rest of Europe.</p>
+                    <div class="by-price"><strong>$10</strong><span>for 7 days</span></div>
+                    <ul class="by-price-list">
+                        <li><span>14 days</span><span>$18</span></li>
+                        <li><span>30 days</span><span>$30</span></li>
+                        <li><span>90 days</span><span>$75</span></li>
+                    </ul>
+                </div>
+                <div class="by-card" data-animate data-animate-delay="2">
+                    <span class="by-card-idx">C</span><h3>UK, US, EU, Canada &amp; Australia</h3>
+                    <p>Plus New Zealand, Norway, Switzerland and Iceland.</p>
+                    <div class="by-price"><strong>$25</strong><span>for 7 days</span></div>
+                    <ul class="by-price-list">
+                        <li><span>14 days</span><span>$45</span></li>
+                        <li><span>30 days</span><span>$75</span></li>
+                        <li><span>90 days</span><span>$190</span></li>
+                    </ul>
+                </div>
+            </div>
+            <p class="by-fineprint">Dollar prices are charged in naira at the day's exchange rate, and you'll see the exact amount before you pay. If we can't approve your ad, we refund you as set out in our <a href="refundpolicy">refund policy</a>.</p>
+        </div>
+    </section>
+
+    <section class="by-section by-section--panel">
+        <div class="by-wrap"><div class="by-split">
+            <div data-animate>
+                <span class="by-eyebrow">04 / Targeting &amp; results</span>
+                <h2 class="by-h2">Reach the right people, then see what worked.</h2>
+            </div>
+            <div class="by-spec" data-animate data-animate-delay="1">
+                <div class="by-spec-row"><div class="by-spec-k">Countries</div><div class="by-spec-v">Only where you choose<small>Your ad shows only to people in the countries you pick.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">People</div><div class="by-spec-v">Age and gender<small>Narrow your audience to the age range and gender that fit your product.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Goal</div><div class="by-spec-v">Get customers, attention or reach<small>Tell us what you want and we'll set the ad up to match.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Results</div><div class="by-spec-v">Day by day<small>Views, people reached, clicks, WhatsApp taps, likes, comments and cost per 1,000 views, with an email summary when your ad ends.</small></div></div>
+                <div class="by-spec-row"><div class="by-spec-k">Control</div><div class="by-spec-v">Pause, resume, edit<small>Pause any time and keep the days you paid for. Edit an ad before it starts, or fix one that wasn't approved and send it back.</small></div></div>
+            </div>
+        </div></div>
+    </section>
+
+    <section class="by-section by-section--tight">
+        <div class="by-wrap"><div class="by-cta" data-animate>
+            <div><span class="by-eyebrow">Get started</span><h3 style="margin-top:1rem">Your first ad can be live tomorrow.</h3><p>Create an account, make your ad and pay. We'll review it and email you when it goes live. Questions? <a href="mailto:support@beeyarn.com?subject=Advertising%20enquiry">support@beeyarn.com</a></p></div>
+            <a href="https://ads.beeyarn.com/register" class="by-btn">Start advertising <span aria-hidden="true">&rarr;</span></a>
+        </div></div>
+    </section>
+
+    <div id="shared-footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/shared-shell.js?v=20260922l"></script>
+</body>
+</html>
